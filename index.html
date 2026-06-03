@@ -6,6 +6,16 @@
 <title data-i18n="meta.title">ㅈㄹ막걸리 × DOOTA 팝업</title>
 <meta name="description" data-i18n="meta.desc" content="ㅈㄹ막걸리 × DOOTA 팝업 — 가볍게, 위트있게 한 잔!" />
 
+<!-- 링크 공유 미리보기 (카톡/인스타/트위터) — 도메인 확정 후 OG_URL만 맞추면 됨 -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ZR Makgeolli" />
+<meta property="og:title" content="ㅈㄹ막걸리 × DOOTA 팝업" />
+<meta property="og:description" content="가볍게, 위트있게 한 잔! 두타 B2F 팝업" />
+<meta property="og:image" content="https://zr-makgeolli.vercel.app/assets/og.jpg" />
+<meta property="og:url" content="https://zr-makgeolli.vercel.app/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://zr-makgeolli.vercel.app/assets/og.jpg" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -179,11 +189,18 @@
   /* ===========================================================
      제품 갤러리 (이미지 반영)
   =========================================================== */
-  .gallery-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:24px; }
-  .ph{ position:relative; aspect-ratio:3/4; border:2px solid var(--black); background:var(--pink); overflow:hidden; }
-  .ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-  .ph figcaption{ position:absolute; left:10px; bottom:10px; z-index:2; font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; background:var(--black); color:var(--white); padding:4px 9px; }
-  @media (max-width:700px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); } }
+  /* 카루셀 */
+  .carousel{ position:relative; margin-top:24px; border:2px solid var(--black); overflow:hidden; aspect-ratio:4/3; background:var(--black); }
+  .carousel-track{ display:flex; height:100%; transition:transform .5s ease; }
+  .slide{ position:relative; flex:0 0 100%; height:100%; }
+  .slide img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .slide figcaption{ position:absolute; left:14px; bottom:14px; z-index:2; font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; background:var(--black); color:var(--white); padding:5px 10px; }
+  .car-btn{ position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:46px; height:46px; border:2px solid var(--black); background:var(--pink); color:var(--black); font-size:20px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .car-btn.prev{ left:12px; } .car-btn.next{ right:12px; }
+  .car-dots{ position:absolute; bottom:14px; right:14px; z-index:3; display:flex; gap:6px; }
+  .car-dots button{ width:9px; height:9px; border:1.5px solid var(--white); background:transparent; padding:0; cursor:pointer; border-radius:0; }
+  .car-dots button[aria-pressed="true"]{ background:var(--pink); border-color:var(--pink); }
+  @media (max-width:700px){ .carousel{ aspect-ratio:3/4; } .car-btn{ width:38px; height:38px; } }
 
   /* ===========================================================
      VERTICAL SERVICE LIST (블랙)
@@ -213,32 +230,34 @@
   .svc--static:hover .svc-title{ transform:none; }
   /* 막꾸: 호버 시 스타일링 이미지 카드 (이동 없음) */
   .svc--card{ cursor:default; }
-  .svc-card{ position:absolute; right:64px; top:50%; transform:translateY(-50%) scale(.82) rotate(-3deg);
+  .svc-card{ position:absolute; right:64px; top:50%; transform:translateY(-50%) scale(.82);
     width:clamp(140px,20vw,210px); aspect-ratio:3/4; object-fit:cover; border:3px solid var(--pink);
     opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:7; }
   .svc--card{ cursor:pointer; }
-  .svc--card:hover .svc-card, .svc--card.open .svc-card{ opacity:1; transform:translateY(-50%) scale(1) rotate(-3deg); pointer-events:auto; }
+  .svc--card:hover .svc-card, .svc--card.open .svc-card{ opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto; }
   @media (max-width:700px){ .svc-card{ right:10px; width:42vw; max-width:170px; } }
 
   /* ===========================================================
      초성 생성기 (블랙 박스)
   =========================================================== */
-  .gen{ background:var(--black); color:var(--white); border:2px solid var(--black); padding:clamp(28px,5vw,56px); }
-  .gen .kicker{ color:var(--pink); }
-  .gen .kicker::before{ background:var(--pink); }
-  .gen h2{ font-family:var(--display); text-transform:uppercase; color:var(--white); letter-spacing:-.04em; font-size:clamp(30px,5vw,68px); line-height:.9; }
-  .gen p{ font-family:var(--mono); font-size:13px; color:var(--white); opacity:.8; margin:18px 0 24px; text-transform:uppercase; }
-  .gen .row{ display:flex; gap:10px; max-width:560px; }
-  .gen input{
-    flex:1; border:2px solid var(--white); background:transparent; color:var(--white);
-    padding:14px 16px; font-family:var(--mono); font-size:15px;
-  }
-  .gen input::placeholder{ color:rgba(255,255,255,.5); }
-  .gen input:focus{ outline:none; border-color:var(--pink); }
-  .gen .result{ display:none; margin-top:26px; border-top:2px solid rgba(255,255,255,.25); padding-top:24px; }
-  .gen .result.show{ display:block; }
-  .gen .result .label{ font-family:var(--mono); font-size:12px; text-transform:uppercase; color:var(--pink); }
-  .gen .result .out{ font-family:var(--display); color:var(--pink); font-size:clamp(48px,9vw,120px); letter-spacing:.1em; line-height:1; margin-top:8px; }
+  /* 초성 생성기 — 전체 띠배너 */
+  .genband{ background:var(--black); color:var(--white); padding:clamp(60px,9vw,120px) 20px; }
+  .genband-inner{ max-width:760px; margin:0 auto; text-align:center; }
+  .genband .kicker{ justify-content:center; color:var(--pink); margin-bottom:22px; }
+  .genband .kicker::before{ background:var(--pink); }
+  .genband h2{ font-family:var(--display); font-weight:900; text-transform:uppercase; color:var(--white); letter-spacing:-.04em; line-height:1.05; font-size:clamp(32px,6vw,76px); }
+  .genband p{ font-family:var(--mono); font-size:13px; color:rgba(255,255,255,.85); text-transform:uppercase; margin:18px auto 30px; max-width:600px; line-height:1.8; white-space:pre-line; }
+  .gen-form{ display:flex; gap:10px; max-width:520px; margin:0 auto; }
+  .gen-form input{ flex:1; border:2px solid var(--white); background:transparent; color:var(--white); padding:16px; font-family:var(--mono); font-size:15px; }
+  .gen-form input::placeholder{ color:rgba(255,255,255,.5); }
+  .gen-form input:focus{ outline:none; border-color:var(--pink); }
+
+  /* 스토리 카드 모달 */
+  .card-modal{ max-width:340px; width:100%; text-align:center; }
+  #story-canvas{ width:min(66vw,300px); height:auto; display:block; margin:0 auto; border:3px solid var(--white); box-shadow:0 20px 60px rgba(0,0,0,.45); }
+  .card-actions{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+  .card-actions .btn{ font-size:13px; padding:13px 18px; }
+  .card-hint{ font-family:var(--mono); font-size:11px; color:#fff; text-transform:uppercase; opacity:.85; margin-top:12px; }
 
   /* ===========================================================
      방문 안내
@@ -324,7 +343,7 @@
     <div class="pill">
       <a href="#about">ABOUT</a>
       <a href="#taste">TASTE</a>
-      <a href="#work">MENU</a>
+      <a href="#work">PROGRAM</a>
       <a href="#visit">VISIT</a>
     </div>
     <div class="nav-right">
@@ -414,11 +433,18 @@
 <section class="block" id="gallery">
   <div class="wrap">
     <div class="kicker"><span>GALLERY</span></div>
-    <div class="gallery-grid">
-      <figure class="ph"><img src="/assets/pour.png" alt="ㅈㄹ막걸리 따르는 모습" onerror="this.style.display='none'"><figcaption>THE POUR</figcaption></figure>
-      <figure class="ph"><img src="/assets/bottle-pink.png" alt="ㅈㄹ막걸리 핑크 보틀" onerror="this.style.display='none'"><figcaption>PINK BOTTLE</figcaption></figure>
-      <figure class="ph"><img src="/assets/bottle-trio.png" alt="ㅈㄹ막걸리 3종" onerror="this.style.display='none'"><figcaption>TRIO</figcaption></figure>
-      <figure class="ph"><img src="/assets/bottle-black.png" alt="ㅈㄹ막걸리 블랙 650ml" onerror="this.style.display='none'"><figcaption>BLACK · 650ML</figcaption></figure>
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="car-track">
+        <figure class="slide"><img src="/assets/g1.jpg" alt="ㅈㄹ막걸리 핑크 플랫레이"><figcaption>PINK MOOD</figcaption></figure>
+        <figure class="slide"><img src="/assets/g2.jpg" alt="ㅈㄹ막걸리 건배"><figcaption>CHEERS</figcaption></figure>
+        <figure class="slide"><img src="/assets/g3.jpg" alt="ㅈㄹ막걸리 핑크 보틀"><figcaption>PINK BOTTLE</figcaption></figure>
+        <figure class="slide"><img src="/assets/g4.jpg" alt="ㅈㄹ막걸리 블랙 보틀"><figcaption>BLACK · 650ML</figcaption></figure>
+        <figure class="slide"><img src="/assets/g5.jpg" alt="ㅈㄹ막걸리 3종"><figcaption>TRIO</figcaption></figure>
+        <figure class="slide"><img src="/assets/g6.jpg" alt="ㅈㄹ막걸리 무드컷"><figcaption>RICE & 막걸리</figcaption></figure>
+      </div>
+      <button class="car-btn prev" id="car-prev" aria-label="이전">‹</button>
+      <button class="car-btn next" id="car-next" aria-label="다음">›</button>
+      <div class="car-dots" id="car-dots"></div>
     </div>
   </div>
 </section>
@@ -465,21 +491,15 @@
   </div>
 </section>
 
-<!-- ================= 초성 생성기 ================= -->
-<section class="block" id="gen">
-  <div class="wrap">
-    <div class="gen">
-      <div class="kicker"><span>NAME GENERATOR</span></div>
-      <h2 data-i18n="gen.h">내 이름, ㅈㄹ로 만들기</h2>
-      <p data-i18n="gen.desc">이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문·로마자·병음 모두 OK!</p>
-      <div class="row">
-        <input id="gen-input" type="text" data-i18n-ph="gen.ph" placeholder="이름 입력 (예: 김민지 / John Kim)" />
-        <button class="btn btn--orange" id="gen-btn" data-i18n="gen.btn">만들기</button>
-      </div>
-      <div class="result" id="gen-result">
-        <div class="label" data-i18n="gen.resultLabel">당신의 ㅈㄹ 이름</div>
-        <div class="out" id="gen-out">ㅈㄹ</div>
-      </div>
+<!-- ================= 초성 생성기 (띠배너) ================= -->
+<section class="genband" id="gen">
+  <div class="genband-inner">
+    <div class="kicker"><span>KOREAN NAME GENERATOR</span></div>
+    <h2 data-i18n="gen.h">내 이름, ㅈㄹ로 만들기</h2>
+    <p data-i18n="gen.desc">이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK! 예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ</p>
+    <div class="gen-form">
+      <input id="gen-input" type="text" data-i18n-ph="gen.ph" placeholder="이름 입력 (예: 김민지 / John Kim)" />
+      <button class="btn btn--orange" id="gen-btn" data-i18n="gen.btn">만들기</button>
     </div>
   </div>
 </section>
@@ -562,6 +582,19 @@
   </div>
 </footer>
 
+<!-- ================= 초성 결과 스토리 카드 ================= -->
+<div class="overlay" id="card-overlay">
+  <div class="card-modal">
+    <canvas id="story-canvas" width="1080" height="1920"></canvas>
+    <div class="card-actions">
+      <button class="btn btn--orange" id="card-share" data-i18n="gen.share">인스타 공유</button>
+      <button class="btn btn--invert" id="card-save" data-i18n="gen.save">이미지 저장</button>
+      <button class="btn" id="card-close" data-i18n="gen.close2">닫기</button>
+    </div>
+    <p class="card-hint" data-i18n="gen.hint">캡처해서 인스타 스토리에 올려보세요!</p>
+  </div>
+</div>
+
 <!-- ================= 성공 오버레이 ================= -->
 <div class="overlay" id="overlay">
   <div class="modal">
@@ -612,8 +645,8 @@ const I18N = {
     "program.c2t":"시음","program.c2d":"현장에서 즐기는 ㅈㄹ막걸리 한 잔",
     "program.c3t":"막꾸","program.c3d":"내 막걸리 꾸미기 + 파우치 키링",
     "program.c4t":"초성 네임","program.c4d":"내 이름을 ㅈㄹ로 바꿔보기",
-    "gen.h":"내 이름, ㅈㄹ로 만들기","gen.desc":"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문·로마자·병음 모두 OK!",
-    "gen.ph":"이름 입력 (예: 김민지 / John Kim)","gen.btn":"만들기","gen.resultLabel":"당신의 ㅈㄹ 이름",
+    "gen.h":"내 이름, ㅈㄹ로 만들기","gen.desc":"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"이름 입력 (예: 김민지 / John Kim)","gen.btn":"만들기","gen.resultLabel":"나의 이름","gen.share":"인스타 공유","gen.save":"이미지 저장","gen.close2":"닫기","gen.hint":"캡처해서 인스타 스토리에 올려보세요!","gen.sharefallback":"이미지를 저장했어요. 인스타 스토리에 올려보세요!",
     "visit.eyebrow":"VISIT","visit.h":"방문 안내",
     "visit.dateL":"기간","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
@@ -649,8 +682,8 @@ const I18N = {
     "program.c2t":"Tasting","program.c2d":"Enjoy a glass of ZR Makgeolli on-site",
     "program.c3t":"Bottle Deco","program.c3d":"Decorate your bottle + pouch keyring",
     "program.c4t":"Initial Name","program.c4d":"Turn your name into ㅈㄹ initials",
-    "gen.h":"Make Your Name ㅈㄹ","gen.desc":"Type your name and we'll turn it into Korean initials. Korean, English, romaji, pinyin — all OK!",
-    "gen.ph":"Enter your name (e.g. John Kim)","gen.btn":"Generate","gen.resultLabel":"Your ㅈㄹ name",
+    "gen.h":"Make Your Name ㅈㄹ","gen.desc":"Type your name → Korean initials. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"Enter your name (e.g. John Kim)","gen.btn":"Generate","gen.resultLabel":"MY NAME","gen.share":"Share","gen.save":"Save image","gen.close2":"Close","gen.hint":"Post it to your IG story!","gen.sharefallback":"Saved! Post it to your Instagram story.",
     "visit.eyebrow":"VISIT","visit.h":"Visit Info",
     "visit.dateL":"Dates","visit.dateV":"Jun 8 – Jul 8, 2026",
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
@@ -686,8 +719,8 @@ const I18N = {
     "program.c2t":"試飲","program.c2d":"会場で楽しむ ㅈㄹマッコリ一杯",
     "program.c3t":"ボトルデコ","program.c3d":"マイボトルデコ + ポーチキーリング",
     "program.c4t":"頭文字ネーム","program.c4d":"自分の名前を ㅈㄹ に変換",
-    "gen.h":"あなたの名前を ㅈㄹ に","gen.desc":"名前を入力するとハングルの頭文字に変換します。ハングル・英語・ローマ字・ピンイン、すべてOK！",
-    "gen.ph":"名前を入力（例：John Kim）","gen.btn":"作成","gen.resultLabel":"あなたの ㅈㄹ ネーム",
+    "gen.h":"あなたの名前を ㅈㄹ に","gen.desc":"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"ローマ字で入力（例：Tomiyasu）","gen.btn":"作成","gen.resultLabel":"私の名前","gen.share":"インスタで共有","gen.save":"画像を保存","gen.close2":"閉じる","gen.hint":"ストーリーに載せてね！","gen.sharefallback":"画像を保存しました。ストーリーに載せてね！",
     "visit.eyebrow":"VISIT","visit.h":"来場案内",
     "visit.dateL":"期間","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
@@ -723,8 +756,8 @@ const I18N = {
     "program.c2t":"试饮","program.c2d":"现场畅饮一杯 ㅈㄹ马格利酒",
     "program.c3t":"瓶身DIY","program.c3d":"装饰我的酒瓶 + 小袋钥匙扣",
     "program.c4t":"首字母名","program.c4d":"把你的名字变成 ㅈㄹ 首字母",
-    "gen.h":"把你的名字变成 ㅈㄹ","gen.desc":"输入名字即可转换为韩文首字母。韩文、英文、罗马音、拼音都可以！",
-    "gen.ph":"输入名字（例：John Kim）","gen.btn":"生成","gen.resultLabel":"你的 ㅈㄹ 名字",
+    "gen.h":"把你的名字变成 ㅈㄹ","gen.desc":"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"用拼音或英文输入（例：Wang Wei）","gen.btn":"生成","gen.resultLabel":"我的名字","gen.share":"分享到IG","gen.save":"保存图片","gen.close2":"关闭","gen.hint":"发到你的IG快拍吧！","gen.sharefallback":"已保存图片，发到IG快拍吧！",
     "visit.eyebrow":"VISIT","visit.h":"到场指南",
     "visit.dateL":"日期","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
@@ -980,17 +1013,70 @@ document.querySelectorAll('.svc--card').forEach(el=>{
 =========================================================== */
 const genInput = document.getElementById('gen-input');
 const genBtn   = document.getElementById('gen-btn');
-const genResult= document.getElementById('gen-result');
-const genOut   = document.getElementById('gen-out');
+const cardOverlay = document.getElementById('card-overlay');
+const storyCanvas = document.getElementById('story-canvas');
 
-function runGen(){
-  const v = genInput.value.trim();
-  if(!v) return;
-  genOut.textContent = toChosung(v);
-  genResult.classList.add('show');
+const bottleImg = new Image(); bottleImg.src = '/assets/bottle-cut.png';
+function fitFont(ctx, text, weight, maxSize, maxW){
+  let s = maxSize; ctx.font = `${weight} ${s}px Paperlogy`;
+  while(ctx.measureText(text).width > maxW && s > 24){ s -= 8; ctx.font = `${weight} ${s}px Paperlogy`; }
+  return s;
 }
-genBtn.addEventListener('click', runGen);
-genInput.addEventListener('keydown', e=>{ if(e.key==='Enter') runGen(); });
+
+// 인스타 스토리 비율(1080×1920) 카드 그리기
+async function drawStoryCard(name, chosung){
+  const dict = I18N[LANG], x = storyCanvas.getContext('2d'), W = 1080, H = 1920;
+  try{ await Promise.all([ document.fonts.load('900 200px Paperlogy'), document.fonts.load('700 40px Paperlogy') ]); await document.fonts.ready; }catch(e){}
+  if(!bottleImg.complete){ await new Promise(r=>{ bottleImg.onload=r; bottleImg.onerror=r; }); }
+  x.fillStyle = '#F0A0BC'; x.fillRect(0,0,W,H);
+  x.strokeStyle = '#000'; x.lineWidth = 14; x.strokeRect(40,40,W-80,H-80);
+  x.textAlign = 'center'; x.fillStyle = '#000'; x.textBaseline = 'alphabetic';
+  x.font = '700 36px Paperlogy'; x.fillText('ZR MAKGEOLLI · ㅈㄹ막걸리', W/2, 150);
+  x.font = '700 23px Paperlogy'; x.fillText('× DOOTA POP-UP', W/2, 192);
+  x.font = '700 24px Paperlogy'; x.fillText('KOREAN ALPHABET VER.', W/2, 372);
+  x.font = '700 44px Paperlogy'; x.fillText(dict['gen.resultLabel'] || '나의 이름', W/2, 442);
+  fitFont(x, name, 700, 52, W-300); x.fillText(name, W/2, 540);
+  fitFont(x, chosung, 900, 230, W-220); x.fillText(chosung, W/2, 820);
+  if(bottleImg.naturalWidth){ const bh = 600, bw = bottleImg.naturalWidth / bottleImg.naturalHeight * bh; x.drawImage(bottleImg, W/2 - bw/2, 900, bw, bh); }
+  x.font = '700 38px Paperlogy'; x.fillText(dict['hero.slogan'] || '가볍게, 위트있게 한 잔!', W/2, 1645);
+  x.font = '700 30px Paperlogy'; x.fillText('@zr.makgeolli', W/2, 1718);
+  x.font = '400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 7.8', W/2, 1760);
+}
+
+async function openCard(){
+  const v = genInput.value.trim(); if(!v) return;
+  await drawStoryCard(v, toChosung(v));
+  cardOverlay.classList.add('show');
+}
+genBtn.addEventListener('click', openCard);
+genInput.addEventListener('keydown', e=>{ if(e.key==='Enter') openCard(); });
+document.getElementById('card-close').addEventListener('click', ()=> cardOverlay.classList.remove('show'));
+
+function canvasBlob(){ return new Promise(res=> storyCanvas.toBlob(res, 'image/png')); }
+function downloadCanvas(){ return canvasBlob().then(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-name.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); }); }
+document.getElementById('card-save').addEventListener('click', downloadCanvas);
+document.getElementById('card-share').addEventListener('click', async ()=>{
+  const b = await canvasBlob(); const f = new File([b], 'zr-name.png', {type:'image/png'});
+  if(navigator.canShare && navigator.canShare({files:[f]})){
+    try{ await navigator.share({ files:[f], text:'내 ㅈㄹ 이름 🍶 @zr.makgeolli' }); }catch(e){}
+  } else {
+    await downloadCanvas();
+    alert((I18N[LANG] && I18N[LANG]['gen.sharefallback']) || '이미지를 저장했어요. 인스타 스토리에 올려보세요!');
+  }
+});
+
+/* 갤러리 카루셀 */
+(function(){
+  const track = document.getElementById('car-track'); if(!track) return;
+  const n = track.children.length, dotsBox = document.getElementById('car-dots');
+  let i = 0, timer;
+  for(let d=0; d<n; d++){ const b=document.createElement('button'); b.addEventListener('click', ()=>go(d)); dotsBox.appendChild(b); }
+  function render(){ track.style.transform = `translateX(${-i*100}%)`; [...dotsBox.children].forEach((b,d)=> b.setAttribute('aria-pressed', String(d===i))); }
+  function go(x){ i = (x+n)%n; render(); clearInterval(timer); timer = setInterval(()=>go(i+1), 4000); }
+  document.getElementById('car-prev').addEventListener('click', ()=> go(i-1));
+  document.getElementById('car-next').addEventListener('click', ()=> go(i+1));
+  go(0);
+})();
 
 /* ===========================================================
    6) 개인정보 모달

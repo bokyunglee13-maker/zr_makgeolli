@@ -4,6 +4,7 @@
     { "source": "/en", "destination": "/index.html" },
     { "source": "/ja", "destination": "/index.html" },
     { "source": "/zh", "destination": "/index.html" },
-    { "source": "/survey", "destination": "/survey.html" }
+    { "source": "/survey", "destination": "/survey.html" },
+    { "source": "/name", "destination": "/name.html" }
   ]
 }

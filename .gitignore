@@ -10,3 +10,6 @@ node_modules/
 
 # 로컬 미리보기 설정
 .claude/
+
+# 고화질 원본(대용량) — 배포/깃 제외, 로컬 보관용
+_originals/

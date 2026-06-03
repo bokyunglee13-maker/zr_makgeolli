@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="meta-title">내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+<meta property="og:title" content="내 이름, ㅈㄹ로 만들기" />
+<meta property="og:description" content="이름을 한글 초성으로! ㅈㄹ막걸리 × DOOTA 팝업" />
+<meta property="og:image" content="https://zr-makgeolli.vercel.app/assets/og.jpg" />
+<style>
+  @font-face{ font-family:'Paperlogy'; font-weight:400; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff2') format('woff2'); }
+  @font-face{ font-family:'Paperlogy'; font-weight:700; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2'); }
+  @font-face{ font-family:'Paperlogy'; font-weight:900; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.woff2') format('woff2'); }
+  :root{ --pink:#F0A0BC; --black:#000; --white:#fff;
+    --display:'Archivo Black','Paperlogy',sans-serif; --mono:'Space Mono','Paperlogy',monospace; --body:'Inter','Paperlogy',sans-serif; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:var(--body); background:var(--black); color:var(--white); min-height:100vh; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:var(--pink); color:var(--black); }
+  a{ color:inherit; text-decoration:none; }
+
+  .bar{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:2px solid rgba(255,255,255,.15); }
+  .logo{ font-family:var(--display); font-weight:900; font-size:20px; letter-spacing:-.04em; }
+  .lang{ display:flex; gap:2px; }
+  .lang button{ border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:11px; font-weight:700; padding:6px; color:#fff; opacity:.5; }
+  .lang button[aria-pressed="true"]{ opacity:1; color:var(--pink); text-decoration:underline; text-underline-offset:3px; }
+
+  main{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:48px 22px; }
+  .kicker{ font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; color:var(--pink); letter-spacing:.05em; }
+  .kicker{ margin-bottom:6px; }
+  h1{ font-family:var(--display); font-weight:900; text-transform:uppercase; letter-spacing:-.04em; line-height:1.05; font-size:clamp(34px,8vw,76px); margin:22px 0 16px; }
+  .desc{ font-family:var(--mono); font-size:13px; color:rgba(255,255,255,.85); text-transform:uppercase; max-width:600px; line-height:1.8; margin-bottom:30px; white-space:pre-line; }
+  .gen-form{ display:flex; gap:10px; width:100%; max-width:520px; }
+  .gen-form input{ flex:1; border:2px solid var(--white); background:transparent; color:var(--white); padding:16px; font-family:var(--mono); font-size:15px; }
+  .gen-form input::placeholder{ color:rgba(255,255,255,.5); }
+  .gen-form input:focus{ outline:none; border-color:var(--pink); }
+  .btn{ border:2px solid var(--black); background:var(--pink); color:var(--black); font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:14px; padding:16px 24px; cursor:pointer; border-radius:999px; transition:transform .2s; }
+  .btn:hover{ transform:scale(1.05); }
+  .btn--invert{ background:var(--white); }
+  .btn--dark{ background:var(--black); color:var(--white); border-color:var(--white); }
+
+  footer{ text-align:center; padding:24px; font-family:var(--mono); font-size:12px; text-transform:uppercase; border-top:2px solid rgba(255,255,255,.15); }
+  footer a:hover{ color:var(--pink); }
+
+  .overlay{ position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; padding:20px; z-index:50; }
+  .overlay.show{ display:flex; }
+  .card-modal{ max-width:340px; width:100%; text-align:center; }
+  #story-canvas{ width:min(70vw,300px); height:auto; display:block; margin:0 auto; border:3px solid var(--white); box-shadow:0 20px 60px rgba(0,0,0,.5); }
+  .card-actions{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+  .card-actions .btn{ font-size:13px; padding:13px 18px; }
+  .card-hint{ font-family:var(--mono); font-size:11px; color:#fff; opacity:.85; text-transform:uppercase; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="logo" href="/">ㅈㄹ막걸리</a>
+  <div class="lang" role="group" aria-label="language">
+    <button data-lang="ko" aria-pressed="true">KO</button>
+    <button data-lang="en" aria-pressed="false">EN</button>
+    <button data-lang="ja" aria-pressed="false">JA</button>
+    <button data-lang="zh" aria-pressed="false">ZH</button>
+  </div>
+</div>
+
+<main>
+  <div class="kicker">KOREAN NAME GENERATOR</div>
+  <h1 data-k="h">내 이름, ㅈㄹ로 만들기</h1>
+  <p class="desc" data-k="desc">이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK! 예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ</p>
+  <div class="gen-form">
+    <input id="gen-input" type="text" placeholder="이름 입력 (예: 김민지 / John Kim)" />
+    <button class="btn" id="gen-btn" data-k="btn">만들기</button>
+  </div>
+</main>
+
+<footer>
+  <a href="https://www.instagram.com/zr.makgeolli/" target="_blank" rel="noopener">@zr.makgeolli</a> · <a href="/">ㅈㄹ막걸리 × DOOTA 팝업 →</a>
+</footer>
+
+<div class="overlay" id="card-overlay">
+  <div class="card-modal">
+    <canvas id="story-canvas" width="1080" height="1920"></canvas>
+    <div class="card-actions">
+      <button class="btn" id="card-share" data-k="share">인스타 공유</button>
+      <button class="btn btn--invert" id="card-save" data-k="save">이미지 저장</button>
+      <button class="btn btn--dark" id="card-close" data-k="close">닫기</button>
+    </div>
+    <p class="card-hint" data-k="hint">캡처해서 인스타 스토리에 올려보세요!</p>
+  </div>
+</div>
+
+<script>
+/* ===== 초성 변환 (index.html과 동일 로직) ===== */
+const CHO = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const LATIN = {b:'ㅂ',c:'ㅋ',d:'ㄷ',f:'ㅍ',g:'ㄱ',h:'ㅎ',j:'ㅈ',k:'ㅋ',l:'ㄹ',m:'ㅁ',n:'ㄴ',p:'ㅍ',q:'ㅋ',r:'ㄹ',s:'ㅅ',t:'ㅌ',v:'ㅂ',w:'ㅇ',x:'ㅅ',y:'ㅇ',z:'ㅈ'};
+const DIGRAPHS = {zh:'ㅈ',sh:'ㅅ',ch:'ㅊ',th:'ㅅ',ph:'ㅍ',wh:'ㅇ',ck:'ㅋ',ng:'ㅇ',qu:'ㅋ',ts:'ㅊ'};
+const VOWELS = 'aeiou';
+const NAME_MAP = {
+  jason:'ㅈㅇㅅ',james:'ㅈㅇㅅ',jake:'ㅈㅇㅋ',jane:'ㅈㅇ',jay:'ㅈㅇ',mike:'ㅁㅇㅋ',michael:'ㅁㅇㅋ',david:'ㄷㅇㅂㄷ',kate:'ㅋㅇㅌ',nate:'ㄴㅇㅌ',
+  grace:'ㄱㄹㅇㅅ',chris:'ㅋㄹㅅ',chloe:'ㅋㄹㅇ',ryan:'ㄹㅇㅇ',brian:'ㅂㄹㅇㅇ',ethan:'ㅇㄷ',nathan:'ㄴㅇㅅ',emily:'ㅇㅁㄹ',emma:'ㅇㅁ',olivia:'ㅇㄹㅂㅇ',
+  sophia:'ㅅㅍㅇ',william:'ㅇㄹㅇ',daniel:'ㄷㄴㅇ',kevin:'ㅋㅂ',joseph:'ㅈㅅㅍ',thomas:'ㅌㅁㅅ',peter:'ㅍㅌ',robert:'ㄹㅂㅌ',charles:'ㅊㅅ',george:'ㅈㅈ',
+  henry:'ㅎㄹ',jack:'ㅈ',luke:'ㄹㅋ',noah:'ㄴㅇ',leo:'ㄹㅇ',max:'ㅁㅅ',sam:'ㅅ',ben:'ㅂ',tom:'ㅌ',amy:'ㅇㅁ',anna:'ㅇㄴ',sarah:'ㅅㄹ',sara:'ㅅㄹ',
+  rachel:'ㄹㅇㅊ',jessica:'ㅈㅅㅋ',jennifer:'ㅈㄴㅍ',ashley:'ㅇㅅㄹ',laura:'ㄹㄹ',maria:'ㅁㄹㅇ',hannah:'ㅎㄴ',lucas:'ㄹㅋㅅ',oscar:'ㅇㅅㅋ',oliver:'ㅇㄹㅂ',
+  mia:'ㅁㅇ',ava:'ㅇㅂ',ella:'ㅇㄹ',lily:'ㄹㄹ',nina:'ㄴㄴ',tina:'ㅌㄴ',lee:'ㄹ',
+  sato:'ㅅㅌ',satou:'ㅅㅌ',suzuki:'ㅅㅈㅋ',takahashi:'ㄷㅋㅎㅅ',tanaka:'ㄷㄴㅋ',watanabe:'ㅇㅌㄴㅂ',ito:'ㅇㅌ',itou:'ㅇㅌ',yamamoto:'ㅇㅁㅁㅌ',nakamura:'ㄴㅋㅁㄹ',
+  kobayashi:'ㄱㅂㅇㅅ',kato:'ㄱㅌ',katou:'ㄱㅌ',yoshida:'ㅇㅅㄷ',yamada:'ㅇㅁㄷ',sasaki:'ㅅㅅㅋ',yamaguchi:'ㅇㅁㄱㅊ',matsumoto:'ㅁㅊㅁㅌ',inoue:'ㅇㄴㅇㅇ',kimura:'ㄱㅁㄹ',
+  hayashi:'ㅎㅇㅅ',shimizu:'ㅅㅁㅈ',yamashita:'ㅇㅁㅅㅌ',mori:'ㅁㄹ',ikeda:'ㅇㅋㄷ',hashimoto:'ㅎㅅㅁㅌ',ishikawa:'ㅇㅅㅋㅇ',ogawa:'ㅇㄱㅇ',goto:'ㄱㅌ',gotou:'ㄱㅌ',
+  okamoto:'ㅇㅋㅁㅌ',nakajima:'ㄴㅋㅈㅁ',maeda:'ㅁㅇㄷ',fujita:'ㅎㅈㅌ',fujii:'ㅎㅈ',fujiwara:'ㅎㅈㅇㄹ',murakami:'ㅁㄹㄱㅁ',kondo:'ㄱㄷ',kondou:'ㄱㄷ',ishii:'ㅇㅅ',
+  saito:'ㅅㅇㅌ',saitou:'ㅅㅇㅌ',matsuda:'ㅁㅊㄷ',hara:'ㅎㄹ',takeda:'ㄷㅋㄷ',nakano:'ㄴㅋㄴ',ono:'ㅇㄴ',tamura:'ㄷㅁㄹ',
+  yuki:'ㅇㅋ',haruki:'ㅎㄹㅋ',akira:'ㅇㅋㄹ',ren:'ㄹ',sora:'ㅅㄹ',riku:'ㄹㅋ',haru:'ㅎㄹ',hinata:'ㅎㄴㅌ',tsubasa:'ㅊㅂㅅ',daiki:'ㄷㅇㅋ',kaito:'ㄱㅇㅌ',
+  yuna:'ㅇㄴ',mei:'ㅁㅇ',aoi:'ㅇㅇㅇ',rin:'ㄹ',sho:'ㅅ',ryo:'ㄹ',yuto:'ㅇㅌ',sota:'ㅅㅌ',ryota:'ㄹㅌ',hana:'ㅎㄴ',sakura:'ㅅㅋㄹ',yui:'ㅇㅇ',kenta:'ㄱㅌ',
+  shota:'ㅅㅌ',naoki:'ㄴㅇㅋ',takeshi:'ㄷㅋㅅ',kenji:'ㄱㅈ',daisuke:'ㄷㅇㅅㅋ',
+  wang:'ㅇ',li:'ㄹ',zhang:'ㅈ',liu:'ㄹ',chen:'ㅊ',yang:'ㅇ',huang:'ㅎ',zhao:'ㅈㅇ',wu:'ㅇ',zhou:'ㅈㅇ',xu:'ㅅ',sun:'ㅅ',ma:'ㅁ',zhu:'ㅈ',hu:'ㅎ',guo:'ㄱ',he:'ㅎ',
+  gao:'ㄱㅇ',lin:'ㄹ',luo:'ㄹ',zheng:'ㅈ',liang:'ㄹ',xie:'ㅅ',tang:'ㅌ',han:'ㅎ',feng:'ㅍ',deng:'ㄷ',cao:'ㅊㅇ',peng:'ㅍ',zeng:'ㅈ',xiao:'ㅅㅇ',tian:'ㅌ',dong:'ㄷ',
+  pan:'ㅍ',yuan:'ㅇㅇ',cai:'ㅊㅇ',jiang:'ㅈ',du:'ㄷ',ye:'ㅇ',cheng:'ㅊ',wei:'ㅇㅇ',su:'ㅅ',lu:'ㄹ',ding:'ㄷ',shen:'ㅅ',yao:'ㅇㅇ',fan:'ㅍ',jin:'ㅈ',qin:'ㅊ',
+  qiu:'ㅊ',meng:'ㅁ',jia:'ㅈ',fang:'ㅍ',wen:'ㅇ',song:'ㅅ',tao:'ㅌㅇ',kang:'ㅋ',yu:'ㅇ',mao:'ㅁㅇ',lei:'ㄹㅇ',long:'ㄹ',bai:'ㅂㅇ',cui:'ㅊㅇ',qian:'ㅊ',hou:'ㅎㅇ',
+  shi:'ㅅ',hao:'ㅎㅇ',ming:'ㅁ',hong:'ㅎ',hua:'ㅎ',jing:'ㅈ',jun:'ㅈ',na:'ㄴ',xin:'ㅅ',ying:'ㅇ',yan:'ㅇ',ling:'ㄹ',juan:'ㅈ',ping:'ㅍ',bo:'ㅂ',bin:'ㅂ',
+  fei:'ㅍㅇ',kai:'ㅋㅇ',xiang:'ㅅ',chao:'ㅊㅇ',yong:'ㅇ',gang:'ㄱ',jie:'ㅈ',dan:'ㄷ',lan:'ㄹ',yun:'ㅇ',qing:'ㅊ',xue:'ㅅ',rui:'ㄹㅇ',yi:'ㅇ',hui:'ㅎㅇ',min:'ㅁ',
+  qi:'ㅊ',xia:'ㅅ',fen:'ㅍ',xiaoming:'ㅅㅇㅁ',xiaohong:'ㅅㅇㅎ',jiahao:'ㅈㅎㅇ',haoran:'ㅎㅇㄹ',yifan:'ㅇㅍ',ziyi:'ㅈㅇ',yutong:'ㅇㅌ'
+};
+function romanChosung(word){
+  word = word.toLowerCase().replace(/[^a-z]/g,''); if(!word) return '';
+  const tk=[];
+  for(let i=0;i<word.length;){
+    const two=word.slice(i,i+2);
+    if(DIGRAPHS[two]){ tk.push({c:true,cho:DIGRAPHS[two]}); i+=2; continue; }
+    const ch=word[i];
+    if(VOWELS.includes(ch)){ tk.push({c:false,v:ch}); i++; continue; }
+    if(ch==='y'){ const nx=word[i+1]; tk.push(nx&&VOWELS.includes(nx)?{c:true,cho:'ㅇ'}:{c:false,v:'y'}); i++; continue; }
+    tk.push({c:true,cho:LATIN[ch]||'ㅇ'}); i++;
+  }
+  let out='';
+  for(let i=0;i<tk.length;i++){
+    const cur=tk[i],prev=tk[i-1],prevV=prev&&!prev.c;
+    if(cur.c){ const nextV=tk[i+1]&&!tk[i+1].c; let va=false; for(let j=i+1;j<tk.length;j++){ if(!tk[j].c){va=true;break;} } if(nextV||(!prevV&&va)) out+=cur.cho; }
+    else { if(i===0||(prevV&&prev.v!==cur.v)) out+='ㅇ'; }
+  }
+  return out;
+}
+function toChosung(name){
+  const words=(name||'').trim().split(/\s+/).filter(Boolean); const out=[];
+  for(const w of words){
+    let part='';
+    if(/[가-힣ㄱ-ㅎ]/.test(w)){ for(const ch of w){ const c=ch.charCodeAt(0); if(c>=0xAC00&&c<=0xD7A3) part+=CHO[Math.floor((c-0xAC00)/588)]; else if(c>=0x3131&&c<=0x314E) part+=ch; } }
+    else { const key=w.toLowerCase().replace(/[^a-z]/g,''); part=NAME_MAP[key]||romanChosung(w); }
+    if(part) out.push(part);
+  }
+  return out.join(' ')||'ㅈㄹ';
+}
+
+/* ===== 다국어 (생성기 전용) ===== */
+const I18N = {
+  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: 김민지 / John Kim)",btn:"만들기",label:"나의 이름",slogan:"가볍게, 위트있게 한 잔!",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"캡처해서 인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!"},
+  en:{title:"Make Your Name ㅈㄹ | ZR Makgeolli",h:"Make Your Name ㅈㄹ",desc:"Type your name → Korean initials. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"Enter your name (e.g. John Kim)",btn:"Generate",label:"MY NAME",slogan:"A light, witty drink!",share:"Share",save:"Save image",close:"Close",hint:"Post it to your IG story!",fb:"Saved! Post it to your Instagram story."},
+  ja:{title:"あなたの名前を ㅈㄹ に | ㅈㄹマッコリ",h:"あなたの名前を ㅈㄹ に",desc:"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"ローマ字で入力（例：Tomiyasu）",btn:"作成",label:"私の名前",slogan:"軽く、ウィットに一杯！",share:"インスタで共有",save:"画像を保存",close:"閉じる",hint:"ストーリーに載せてね！",fb:"画像を保存しました。ストーリーに載せてね！"},
+  zh:{title:"把你的名字变成 ㅈㄹ | ㅈㄹ马格利酒",h:"把你的名字变成 ㅈㄹ",desc:"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"用拼音或英文输入（例：Wang Wei）",btn:"生成",label:"我的名字",slogan:"轻松、有趣来一杯！",share:"分享到IG",save:"保存图片",close:"关闭",hint:"发到你的IG快拍吧！",fb:"已保存图片，发到IG快拍吧！"}
+};
+function detectLang(){ const S=['ko','en','ja','zh']; const m=location.pathname.toLowerCase().match(/\/(ko|en|ja|zh)(?:\/|$)/); if(m)return m[1]; const q=new URLSearchParams(location.search).get('lang'); if(S.includes(q))return q; return localStorage.getItem('zr_lang')||'ko'; }
+let LANG=detectLang();
+function applyLang(l){
+  LANG=l; localStorage.setItem('zr_lang',l); document.documentElement.lang=l;
+  const d=I18N[l];
+  document.getElementById('meta-title').textContent=d.title; document.title=d.title;
+  document.querySelectorAll('[data-k]').forEach(el=>{ const k=el.getAttribute('data-k'); if(d[k]!=null) el.textContent=d[k]; });
+  document.getElementById('gen-input').placeholder=d.ph;
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
+
+/* ===== 스토리 카드 ===== */
+const genInput=document.getElementById('gen-input'), genBtn=document.getElementById('gen-btn');
+const cardOverlay=document.getElementById('card-overlay'), storyCanvas=document.getElementById('story-canvas');
+const bottleImg=new Image(); bottleImg.src='/assets/bottle-cut.png';
+function fit(ctx,t,w,max,maxW){ let s=max; ctx.font=`${w} ${s}px Paperlogy`; while(ctx.measureText(t).width>maxW&&s>24){ s-=8; ctx.font=`${w} ${s}px Paperlogy`; } }
+async function draw(name,cho){
+  const d=I18N[LANG],x=storyCanvas.getContext('2d'),W=1080,H=1920;
+  try{ await Promise.all([document.fonts.load('900 200px Paperlogy'),document.fonts.load('700 40px Paperlogy')]); await document.fonts.ready; }catch(e){}
+  if(!bottleImg.complete){ await new Promise(r=>{ bottleImg.onload=r; bottleImg.onerror=r; }); }
+  x.fillStyle='#F0A0BC'; x.fillRect(0,0,W,H); x.strokeStyle='#000'; x.lineWidth=14; x.strokeRect(40,40,W-80,H-80);
+  x.textAlign='center'; x.fillStyle='#000';
+  x.font='700 36px Paperlogy'; x.fillText('ZR MAKGEOLLI · ㅈㄹ막걸리',W/2,150);
+  x.font='700 23px Paperlogy'; x.fillText('× DOOTA POP-UP',W/2,192);
+  x.font='700 24px Paperlogy'; x.fillText('KOREAN ALPHABET VER.',W/2,372);
+  x.font='700 44px Paperlogy'; x.fillText(d.label,W/2,442);
+  fit(x,name,'700',52,W-300); x.fillText(name,W/2,540);
+  fit(x,cho,'900',230,W-220); x.fillText(cho,W/2,820);
+  if(bottleImg.naturalWidth){ const bh=600,bw=bottleImg.naturalWidth/bottleImg.naturalHeight*bh; x.drawImage(bottleImg,W/2-bw/2,900,bw,bh); }
+  x.font='700 38px Paperlogy'; x.fillText(d.slogan,W/2,1645);
+  x.font='700 30px Paperlogy'; x.fillText('@zr.makgeolli',W/2,1718);
+  x.font='400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 7.8',W/2,1760);
+}
+async function open(){ const v=genInput.value.trim(); if(!v)return; await draw(v,toChosung(v)); cardOverlay.classList.add('show'); }
+genBtn.addEventListener('click',open);
+genInput.addEventListener('keydown',e=>{ if(e.key==='Enter') open(); });
+document.getElementById('card-close').addEventListener('click',()=>cardOverlay.classList.remove('show'));
+function blob(){ return new Promise(r=>storyCanvas.toBlob(r,'image/png')); }
+function dl(){ return blob().then(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-name.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); }); }
+document.getElementById('card-save').addEventListener('click',dl);
+document.getElementById('card-share').addEventListener('click',async()=>{
+  const b=await blob(); const f=new File([b],'zr-name.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){ try{ await navigator.share({files:[f],text:'내 ㅈㄹ 이름 🍶 @zr.makgeolli'});}catch(e){} }
+  else { await dl(); alert(I18N[LANG].fb); }
+});
+applyLang(LANG);
+</script>
+</body>
+</html>
