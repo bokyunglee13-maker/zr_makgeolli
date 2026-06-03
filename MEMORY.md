@@ -54,6 +54,7 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 라벨링: `초성/Korean Initial` → 영문은 `Korean Alphabet (Name)` 으로 통일(한국어는 '초성' 유지).
 - 설문: 한국어 단일 → **외국인 대상 4개 언어 + 언어별 URL**, 문항 축소(국적·성별/맛 전체/디자인·가격/재구매/의견).
 - 폴더명 공백 이슈로 `zr makgeolli` → `zr_makgeolli` (내용 이사, 옛 폴더 삭제 예정).
+- 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNG KOOK·Rihanna, 각 줄바꿈)로 분리.
 
 ## 8. 배포 절차
 1. **Apps Script**: 구글시트 → Apps Script에 `Code.gs` 붙여넣기 → 웹앱 배포(실행:나 / 액세스:모든 사용자) → URL 획득.
