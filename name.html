@@ -70,7 +70,7 @@
   <h1 data-k="h">내 이름, ㅈㄹ로 만들기</h1>
   <p class="desc" data-k="desc">이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK! 예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ</p>
   <div class="gen-form">
-    <input id="gen-input" type="text" placeholder="이름 입력 (예: 김민지 / John Kim)" />
+    <input id="gen-input" type="text" placeholder="이름 입력 (예: JUNG KOOK → ㅈㄱ)" />
     <button class="btn" id="gen-btn" data-k="btn">만들기</button>
   </div>
 </main>
@@ -103,7 +103,7 @@ const NAME_MAP = {
   sophia:'ㅅㅍㅇ',william:'ㅇㄹㅇ',daniel:'ㄷㄴㅇ',kevin:'ㅋㅂ',joseph:'ㅈㅅㅍ',thomas:'ㅌㅁㅅ',peter:'ㅍㅌ',robert:'ㄹㅂㅌ',charles:'ㅊㅅ',george:'ㅈㅈ',
   henry:'ㅎㄹ',jack:'ㅈ',luke:'ㄹㅋ',noah:'ㄴㅇ',leo:'ㄹㅇ',max:'ㅁㅅ',sam:'ㅅ',ben:'ㅂ',tom:'ㅌ',amy:'ㅇㅁ',anna:'ㅇㄴ',sarah:'ㅅㄹ',sara:'ㅅㄹ',
   rachel:'ㄹㅇㅊ',jessica:'ㅈㅅㅋ',jennifer:'ㅈㄴㅍ',ashley:'ㅇㅅㄹ',laura:'ㄹㄹ',maria:'ㅁㄹㅇ',hannah:'ㅎㄴ',lucas:'ㄹㅋㅅ',oscar:'ㅇㅅㅋ',oliver:'ㅇㄹㅂ',
-  mia:'ㅁㅇ',ava:'ㅇㅂ',ella:'ㅇㄹ',lily:'ㄹㄹ',nina:'ㄴㄴ',tina:'ㅌㄴ',lee:'ㄹ',
+  mia:'ㅁㅇ',ava:'ㅇㅂ',ella:'ㅇㄹ',lily:'ㄹㄹ',nina:'ㄴㄴ',tina:'ㅌㄴ',lee:'ㄹ',jungkook:'ㅈㄱ',jung:'ㅈ',kook:'ㄱ',
   sato:'ㅅㅌ',satou:'ㅅㅌ',suzuki:'ㅅㅈㅋ',takahashi:'ㄷㅋㅎㅅ',tanaka:'ㄷㄴㅋ',watanabe:'ㅇㅌㄴㅂ',ito:'ㅇㅌ',itou:'ㅇㅌ',yamamoto:'ㅇㅁㅁㅌ',nakamura:'ㄴㅋㅁㄹ',
   kobayashi:'ㄱㅂㅇㅅ',kato:'ㄱㅌ',katou:'ㄱㅌ',yoshida:'ㅇㅅㄷ',yamada:'ㅇㅁㄷ',sasaki:'ㅅㅅㅋ',yamaguchi:'ㅇㅁㄱㅊ',matsumoto:'ㅁㅊㅁㅌ',inoue:'ㅇㄴㅇㅇ',kimura:'ㄱㅁㄹ',
   hayashi:'ㅎㅇㅅ',shimizu:'ㅅㅁㅈ',yamashita:'ㅇㅁㅅㅌ',mori:'ㅁㄹ',ikeda:'ㅇㅋㄷ',hashimoto:'ㅎㅅㅁㅌ',ishikawa:'ㅇㅅㅋㅇ',ogawa:'ㅇㄱㅇ',goto:'ㄱㅌ',gotou:'ㄱㅌ',
@@ -152,10 +152,10 @@ function toChosung(name){
 
 /* ===== 다국어 (생성기 전용) ===== */
 const I18N = {
-  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: 김민지 / John Kim)",btn:"만들기",label:"나의 이름",slogan:"가볍게, 위트있게 한 잔!",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"캡처해서 인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!"},
-  en:{title:"Make Your Name ㅈㄹ | ZR Makgeolli",h:"Make Your Name ㅈㄹ",desc:"Type your name → Korean initials. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"Enter your name (e.g. John Kim)",btn:"Generate",label:"MY NAME",slogan:"A light, witty drink!",share:"Share",save:"Save image",close:"Close",hint:"Post it to your IG story!",fb:"Saved! Post it to your Instagram story."},
-  ja:{title:"あなたの名前を ㅈㄹ に | ㅈㄹマッコリ",h:"あなたの名前を ㅈㄹ に",desc:"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"ローマ字で入力（例：Tomiyasu）",btn:"作成",label:"私の名前",slogan:"軽く、ウィットに一杯！",share:"インスタで共有",save:"画像を保存",close:"閉じる",hint:"ストーリーに載せてね！",fb:"画像を保存しました。ストーリーに載せてね！"},
-  zh:{title:"把你的名字变成 ㅈㄹ | ㅈㄹ马格利酒",h:"把你的名字变成 ㅈㄹ",desc:"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",ph:"用拼音或英文输入（例：Wang Wei）",btn:"生成",label:"我的名字",slogan:"轻松、有趣来一杯！",share:"分享到IG",save:"保存图片",close:"关闭",hint:"发到你的IG快拍吧！",fb:"已保存图片，发到IG快拍吧！"}
+  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: JUNG KOOK → ㅈㄱ)",btn:"만들기",label:"나의 이름",slogan:"DRINK HAPPY NOT HEAVY",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"캡처해서 인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!"},
+  en:{title:"Make Your Name ㅈㄹ | ZR Makgeolli",h:"Make Your Name ㅈㄹ",desc:"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",ph:"Enter your name (e.g. JUNG KOOK → ㅈㄱ)",btn:"Generate",label:"MY NAME",slogan:"DRINK HAPPY NOT HEAVY",share:"Share",save:"Save image",close:"Close",hint:"Post it to your IG story!",fb:"Saved! Post it to your Instagram story."},
+  ja:{title:"あなたの名前を ㅈㄹ に | ㅈㄹマッコリ",h:"あなたの名前を ㅈㄹ に",desc:"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",ph:"ローマ字で入力（例：JUNG KOOK → ㅈㄱ）",btn:"作成",label:"私の名前",slogan:"DRINK HAPPY NOT HEAVY",share:"インスタで共有",save:"画像を保存",close:"閉じる",hint:"ストーリーに載せてね！",fb:"画像を保存しました。ストーリーに載せてね！"},
+  zh:{title:"把你的名字变成 ㅈㄹ | ㅈㄹ马格利酒",h:"把你的名字变成 ㅈㄹ",desc:"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",ph:"用拼音或英文输入（例：JUNG KOOK → ㅈㄱ）",btn:"生成",label:"我的名字",slogan:"DRINK HAPPY NOT HEAVY",share:"分享到IG",save:"保存图片",close:"关闭",hint:"发到你的IG快拍吧！",fb:"已保存图片，发到IG快拍吧！"}
 };
 function detectLang(){ const S=['ko','en','ja','zh']; const m=location.pathname.toLowerCase().match(/\/(ko|en|ja|zh)(?:\/|$)/); if(m)return m[1]; const q=new URLSearchParams(location.search).get('lang'); if(S.includes(q))return q; return localStorage.getItem('zr_lang')||'ko'; }
 let LANG=detectLang();

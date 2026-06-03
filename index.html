@@ -128,7 +128,7 @@
   .hero-top{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; }
   .hero-badge{ display:inline-block; border:2px solid var(--black); border-radius:999px; padding:6px 16px; margin-bottom:28px; }
   .hero h1{ font-family:var(--display); text-transform:uppercase; letter-spacing:-.04em; line-height:.85; font-size:clamp(48px,11vw,200px); }
-  .hero .slogan{ font-family:var(--mono); font-weight:700; margin-top:24px; font-size:clamp(13px,1.6vw,18px); text-transform:uppercase; }
+  .hero .slogan{ font-family:var(--mono); font-weight:700; margin-top:24px; font-size:clamp(13px,1.6vw,18px); text-transform:uppercase; white-space:pre-line; line-height:1.5; }
 
   .hero-meta{ border-top:2px solid var(--black); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:20px; padding:24px; }
   .hero-meta .left{ font-family:var(--mono); font-size:12px; text-transform:uppercase; }
@@ -178,7 +178,7 @@
   .steps{ margin-top:24px; display:flex; flex-direction:column; gap:14px; }
   .step{ display:grid; grid-template-columns:50px 1fr; gap:16px; align-items:start; border:2px solid var(--black); padding:18px; background:#fff; }
   .step-n{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; background:var(--black); color:var(--pink); font-family:var(--display); font-weight:900; font-size:17px; }
-  .step-t{ font-family:var(--display); font-weight:900; font-size:clamp(16px,2.6vw,22px); letter-spacing:-.02em; line-height:1.15; }
+  .step-t{ font-family:var(--body); font-weight:700; font-size:clamp(16px,2.4vw,20px); letter-spacing:-.01em; line-height:1.2; }
   .step-d{ font-family:var(--body); font-size:14px; color:#2a2a2a; margin-top:6px; line-height:1.5; }
   .btn--sm{ display:inline-block; margin-top:12px; padding:9px 16px; font-size:12px; }
 
@@ -189,6 +189,7 @@
   @keyframes giftpop{ 50%{ transform:scale(1.15) rotate(-5deg); } }
   .gift-modal .gift-win{ font-family:var(--mono); font-size:13px; text-transform:uppercase; margin-top:8px; }
   .gift-modal .gift-name{ font-family:var(--display); font-weight:900; font-size:28px; letter-spacing:-.02em; margin-top:4px; }
+  .coupon-badge{ display:inline-block; border:3px dashed var(--black); background:var(--white); color:var(--black); font-family:var(--display); font-weight:900; font-size:34px; letter-spacing:.06em; padding:8px 20px; }
 
   /* ===========================================================
      키네틱 워드 섹션 (ㅈㄹ / WTF 떠다니기)
@@ -259,7 +260,7 @@
     width:clamp(140px,20vw,210px); aspect-ratio:3/4; object-fit:cover; border:3px solid var(--pink);
     opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:7; }
   .svc--card{ cursor:pointer; }
-  .svc--card:hover .svc-card, .svc--card.open .svc-card{ opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto; }
+  .svc--card.open .svc-card{ opacity:1; transform:translateY(-50%) scale(1); pointer-events:auto; }
   @media (max-width:700px){ .svc-card{ right:10px; width:42vw; max-width:170px; } }
 
   /* ===========================================================
@@ -298,19 +299,19 @@
   =========================================================== */
   form{ background:var(--white); border:2px solid var(--black); padding:clamp(24px,4vw,44px); margin-top:28px; }
   .field{ margin-bottom:22px; }
-  .field label{ display:block; font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:8px; }
+  .field label{ display:block; font-family:var(--body); font-size:14px; font-weight:700; margin-bottom:8px; }
   .field .req{ color:var(--pink); }
   .field input, .field select{
     width:100%; border:2px solid var(--black); background:var(--white); color:var(--black);
     padding:13px 14px; font-family:var(--body); font-size:15px; border-radius:0;
   }
   .field input:focus, .field select:focus{ outline:none; box-shadow:inset 0 0 0 2px var(--pink); border-color:var(--pink); }
-  .consent{ display:flex; gap:10px; align-items:flex-start; font-family:var(--mono); font-size:12px; text-transform:uppercase; }
+  .consent{ display:flex; gap:10px; align-items:flex-start; font-family:var(--body); font-size:13px; }
   .consent input{ width:auto; margin-top:2px; accent-color:var(--pink); }
   .consent a{ color:var(--pink); text-decoration:underline; cursor:pointer; }
   .err{ color:#c00; font-family:var(--mono); font-size:11px; text-transform:uppercase; margin-top:6px; display:none; }
   .err.show{ display:block; }
-  .form-note{ font-family:var(--mono); font-size:11px; text-transform:uppercase; opacity:.6; margin-top:12px; text-align:center; }
+  .form-note{ font-family:var(--body); font-size:12px; opacity:.6; margin-top:12px; text-align:center; }
 
   /* ===========================================================
      GIANT CTA
@@ -390,7 +391,7 @@
   <div class="hero-top">
     <span class="hero-badge eyebrow" data-i18n="hero.badge">DOOTA POP-UP</span>
     <h1 data-i18n="hero.title">ㅈㄹ막걸리 × DOOTA 팝업</h1>
-    <p class="slogan" data-i18n="hero.slogan">가볍게, 위트있게 한 잔!</p>
+    <p class="slogan" data-i18n="hero.slogan">DRINK HAPPY NOT HEAVY</p>
   </div>
   <div class="wrap">
     <div class="hero-meta">
@@ -517,7 +518,7 @@
         <div class="svc-title" data-i18n="program.c3t">막꾸</div>
         <div class="svc-tags"><span class="tag" data-i18n="program.c3d">내 막걸리 꾸미기 + 파우치 키링</span></div>
       </div>
-      <img class="svc-card" src="/assets/styling.jpg" alt="막꾸 스타일링" onerror="this.style.display='none'">
+      <img class="svc-card" src="/assets/makku.jpg" alt="막꾸 스타일링" onerror="this.src='/assets/styling.jpg'">
       <span></span>
     </div>
     <a class="svc" href="#gen">
@@ -538,7 +539,7 @@
     <h2 data-i18n="gen.h">내 이름, ㅈㄹ로 만들기</h2>
     <p data-i18n="gen.desc">이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK! 예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ</p>
     <div class="gen-form">
-      <input id="gen-input" type="text" data-i18n-ph="gen.ph" placeholder="이름 입력 (예: 김민지 / John Kim)" />
+      <input id="gen-input" type="text" data-i18n-ph="gen.ph" placeholder="이름 입력 (예: JUNG KOOK → ㅈㄱ)" />
       <button class="btn btn--orange" id="gen-btn" data-i18n="gen.btn">만들기</button>
     </div>
   </div>
@@ -552,7 +553,7 @@
     <ul class="info-list">
       <li><b data-i18n="visit.dateL">기간</b><span data-i18n="visit.dateV">2026.6.8 – 7.8</span></li>
       <li><b data-i18n="visit.placeL">장소</b><span data-i18n="visit.placeV">두타몰 B2F · 서울 중구 장충단로 275</span></li>
-      <li><b data-i18n="visit.hoursL">운영시간</b><span data-i18n="visit.hoursV">10:30 – 18:00</span></li>
+      <li><b data-i18n="visit.hoursL">운영시간</b><span data-i18n="visit.hoursV">10:30 – 18:00 (MON–SUN)</span></li>
       <li><b data-i18n="visit.priceL">입장</b><span data-i18n="visit.priceV">무료 입장</span></li>
     </ul>
     <div class="coupon-banner" data-i18n="visit.coupon">🎁 SNS 인증하고 스페셜 기프트(키링·거울·할인쿠폰)를 받아가세요!</div>
@@ -563,7 +564,8 @@
 <section class="block" id="apply">
   <div class="wrap">
     <div class="kicker"><span>SPECIAL GIFT</span></div>
-    <h2 data-i18n="gift.h">SNS 인증하고 스페셜 기프트 받기</h2>
+    <h2 data-i18n="gift.h" style="white-space:pre-line">SNS 인증하고
+스페셜 기프트 받기</h2>
 
     <div class="steps">
       <div class="step">
@@ -578,7 +580,7 @@
         <span class="step-n">02</span>
         <div>
           <div class="step-t" data-i18n="gift.s2t">스토리 인증</div>
-          <div class="step-d" data-i18n="gift.s2d">구매한 막걸리+키링 사진을 스토리에 올리고 @zr.makgeolli를 멘션하세요.</div>
+          <div class="step-d" data-i18n="gift.s2d">팝업스토어 또는 구매한 막걸리+키링 사진을 스토리에 올리고 @zr.makgeolli를 멘션하세요.</div>
         </div>
       </div>
       <div class="step">
@@ -607,30 +609,12 @@
   </div>
 </section>
 
-<!-- ================= FOLLOW & SHOP CTA ================= -->
-<section class="cta">
-  <div class="wrap">
-    <h2 data-i18n="cta.h">더 보러 가기</h2>
-    <div class="cta-actions">
-      <a id="cta-insta" class="btn btn--orange" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        <span data-i18n="footer.insta">Instagram @zr.makgeolli</span>
-      </a>
-      <a id="cta-store" class="btn btn--invert" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-        <span data-i18n="footer.store">스토어 구매</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ================= FOOTER ================= -->
 <footer>
   <div class="wrap foot">
-    <div class="rights" data-i18n="footer.rights">ⓒ ZR Makgeolli. 가볍게, 위트있게 한 잔.</div>
+    <div class="rights" data-i18n="footer.rights">ⓒ ZR Makgeolli. DRINK HAPPY NOT HEAVY.</div>
     <div class="links">
-      <a id="footer-insta" href="#" target="_blank" rel="noopener" data-i18n="footer.insta">Instagram @zr.makgeolli</a>
-      <a id="footer-store" href="#" target="_blank" rel="noopener" data-i18n="footer.store">스토어 구매</a>
+      <a id="footer-insta" href="#" target="_blank" rel="noopener" style="text-transform:none;font-family:var(--body)" data-i18n="footer.insta">Instagram @zr.makgeolli</a>
       <a id="privacy-link2" data-i18n="footer.privacy">개인정보처리방침</a>
     </div>
   </div>
@@ -705,17 +689,17 @@ const I18N = {
   ko:{
     "meta.title":"ㅈㄹ막걸리 × DOOTA 팝업","meta.desc":"ㅈㄹ막걸리 × DOOTA 팝업 — 가볍게, 위트있게 한 잔!",
     "nav.apply":"신청하기",
-    "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ막걸리 × DOOTA 팝업","hero.slogan":"가볍게, 위트있게 한 잔!",
+    "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ막걸리 × DOOTA 팝업","hero.slogan":"DRINK HAPPY NOT HEAVY",
     "hero.date":"2026.6.8 – 7.8","hero.place":"두타몰 B2F · 서울 중구 장충단로 275","hero.cta":"응모하고 쿠폰 받기","cta.h":"더 보러 가기",
-    "gift.h":"SNS 인증하고 스페셜 기프트 받기",
+    "gift.h":"SNS 인증하고\n스페셜 기프트 받기",
     "gift.s1t":"@zr.makgeolli 팔로우","gift.s1d":"인스타에서 ㅈㄹ막걸리를 팔로우하세요.","gift.followBtn":"팔로우하러 가기 →",
-    "gift.s2t":"스토리 인증","gift.s2d":"구매한 막걸리+키링 사진을 스토리에 올리고 @zr.makgeolli를 멘션하세요.",
+    "gift.s2t":"스토리 인증","gift.s2d":"팝업스토어 또는 구매한 막걸리+키링 사진을 스토리에 올리고 @zr.makgeolli를 멘션하세요.",
     "gift.s3t":"기프트 뽑기","gift.s3d":"아래에서 인증하고 랜덤 스페셜 기프트를 뽑으세요!",
     "gift.handleL":"인스타그램 아이디","gift.handlePh":"@yourname","gift.handleErr":"인스타그램 아이디를 입력해 주세요.",
     "gift.chk1":"@zr.makgeolli 팔로우했어요","gift.chk2":"스토리에 사진 + @zr.makgeolli 멘션 인증했어요","gift.chkErr":"두 가지 인증을 모두 체크해 주세요.",
     "gift.btn":"🎁 기프트 뽑기","gift.note":"인증은 현장 스태프가 확인 후 기프트를 드립니다. 인스타 1계정당 1회.",
     "gift.win":"축하해요!","gift.codeL":"기프트 코드","gift.show":"현장 스태프에게 이 화면을 보여주세요.",
-    "gift.keyring":"막꾸 키링","gift.mirror":"거울 굿즈","gift.discount":"디스카운트 쿠폰",
+    "gift.keyring":"막꾸 키링","gift.mirror":"거울 굿즈","gift.discount":"현장 할인 쿠폰",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ막걸리","mean.h":"ㅈㄹ, 무슨 뜻이게요?",
     "intro.body":"위트있게 만나는 MZ 막걸리. 무겁게 들이켜는 전통주가 아니라, 친구와 깔깔대며 가볍게 기울이는 한 잔. 한글 초성 'ㅈㄹ'을 큼직하게 박은 라벨처럼, 재밌지만 맛은 진지함으로 채웠습니다.",
     "taste.eyebrow":"TASTE","taste.h":"맛 설명",
@@ -728,16 +712,16 @@ const I18N = {
     "feat4t":"잘 익은 참외와 멜론의 풍미","feat4d":"인위적 단맛이 아닌, 깔끔하고 풍부한 참외의 단맛.",
     "feat5t":"가장 부드러운 질감","feat5d":"벨벳 같은 질감을 위해 수작업으로 직접 여과합니다.",
     "program.eyebrow":"PROGRAM","program.h":"팝업에서 즐기는 것들",
-    "program.c1t":"콜라보존","program.c1d":"두타 한정 ㅈㄹ × DOOTA 포토존",
+    "program.c1t":"DOOTA 한정판 막걸리","program.c1d":"두타몰에서만 만나는 ㅈㄹ × DOOTA 한정 에디션",
     "program.c2t":"시음","program.c2d":"현장에서 즐기는 ㅈㄹ막걸리 한 잔",
-    "program.c3t":"막꾸","program.c3d":"내 막걸리 꾸미기 + 파우치 키링",
+    "program.c3t":"막꾸","program.c3d":"내 막걸리 꾸미기 + 한국 전통 키링 + 이름 스티커",
     "program.c4t":"초성 네임","program.c4d":"내 이름을 ㅈㄹ로 바꿔보기",
-    "gen.h":"내 이름, ㅈㄹ로 만들기","gen.desc":"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"이름 입력 (예: 김민지 / John Kim)","gen.btn":"만들기","gen.resultLabel":"나의 이름","gen.share":"인스타 공유","gen.save":"이미지 저장","gen.close2":"닫기","gen.hint":"캡처해서 인스타 스토리에 올려보세요!","gen.sharefallback":"이미지를 저장했어요. 인스타 스토리에 올려보세요!",
+    "gen.h":"내 이름, ㅈㄹ로 만들기","gen.desc":"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"이름 입력 (예: JUNG KOOK → ㅈㄱ)","gen.btn":"만들기","gen.resultLabel":"나의 이름","gen.share":"인스타 공유","gen.save":"이미지 저장","gen.close2":"닫기","gen.hint":"캡처해서 인스타 스토리에 올려보세요!","gen.sharefallback":"이미지를 저장했어요. 인스타 스토리에 올려보세요!",
     "visit.eyebrow":"VISIT","visit.h":"방문 안내",
     "visit.dateL":"기간","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
-    "visit.hoursL":"운영시간","visit.hoursV":"10:30 – 18:00",
+    "visit.hoursL":"운영시간","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
     "visit.priceL":"입장","visit.priceV":"무료 입장",
     "visit.coupon":"🎁 SNS 인증하고 스페셜 기프트(키링·거울·할인쿠폰)를 받아가세요!",
     "form.eyebrow":"APPLY","form.h":"응모하고 쿠폰 받기",
@@ -749,7 +733,7 @@ const I18N = {
     "success.h":"응모 완료!","success.body":"오늘부터 당신의 이름은","success.couponLabel":"성수 팝업 2,000원 할인쿠폰",
     "success.couponNote":"스크린샷 후 성수 팝업 현장에서 제시하세요.","success.insta":"인스타 팔로우","success.close":"닫기",
     "footer.insta":"Instagram @zr.makgeolli","footer.store":"스토어 구매","footer.addr":"두타몰 B2F · 서울 중구 장충단로 275",
-    "footer.privacy":"개인정보처리방침","footer.rights":"ⓒ ZR Makgeolli. 가볍게, 위트있게 한 잔.",
+    "footer.privacy":"개인정보처리방침","footer.rights":"ⓒ ZR Makgeolli. DRINK HAPPY NOT HEAVY.",
     "privacy.h":"개인정보 수집·이용 동의","privacy.close":"확인",
     "privacy.body":"▪ 수집 항목: 이름, 연락처\n▪ 수집 목적: 이벤트 응모 및 쿠폰 발급·안내\n▪ 보유 기간: 이벤트 종료 후 6개월 이내 파기\n▪ 동의를 거부할 권리가 있으며, 거부 시 응모가 제한됩니다.",
     "source.opts":["인스타그램","지인 추천","두타 현장","검색","기타"]
@@ -757,11 +741,11 @@ const I18N = {
   en:{
     "meta.title":"ZR Makgeolli × DOOTA Pop-up","meta.desc":"ZR Makgeolli × DOOTA Pop-up — A light, witty drink!",
     "nav.apply":"Apply",
-    "hero.badge":"DOOTA POP-UP","hero.title":"ZR Makgeolli × DOOTA Pop-up","hero.slogan":"A light, witty drink!",
+    "hero.badge":"DOOTA POP-UP","hero.title":"ZR Makgeolli × DOOTA Pop-up","hero.slogan":"DRINK HAPPY NOT HEAVY",
     "hero.date":"Jun 8 – Jul 8, 2026","hero.place":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul","hero.cta":"Enter & Get a Coupon","cta.h":"Come Find Us",
-    "gift.h":"Verify on SNS, Get a Special Gift",
+    "gift.h":"Verify on SNS,\nGet a Special Gift",
     "gift.s1t":"Follow @zr.makgeolli","gift.s1d":"Follow ZR Makgeolli on Instagram.","gift.followBtn":"Go Follow →",
-    "gift.s2t":"Story Verification","gift.s2d":"Post your makgeolli + keyring photo to your story and mention @zr.makgeolli.",
+    "gift.s2t":"Story Verification","gift.s2d":"Post a photo of the pop-up store (or your makgeolli + keyring) to your story and mention @zr.makgeolli.",
     "gift.s3t":"Draw a Gift","gift.s3d":"Verify below and draw your random special gift!",
     "gift.handleL":"Instagram Handle","gift.handlePh":"@yourname","gift.handleErr":"Please enter your Instagram handle.",
     "gift.chk1":"I followed @zr.makgeolli","gift.chk2":"I posted a story with a photo + @zr.makgeolli mention","gift.chkErr":"Please check both verifications.",
@@ -769,7 +753,7 @@ const I18N = {
     "gift.win":"Congrats!","gift.codeL":"Gift Code","gift.show":"Show this screen to on-site staff.",
     "gift.keyring":"Makgeolli Keyring","gift.mirror":"Mirror Goods","gift.discount":"Discount Coupon",
     "intro.eyebrow":"ABOUT","intro.h":"ZR Makgeolli","mean.h":"What does WTF mean?",
-    "intro.body":"A witty MZ-generation makgeolli. Not a heavy traditional liquor, but a light glass to share and laugh over with friends. Just like its label stamped with the bold Korean initials 'ㅈㄹ' — playful on the outside, but dead serious about taste.",
+    "intro.body":"A witty MZ-generation makgeolli. Not a heavy traditional liquor, but a light glass to share and laugh over with friends. Just like its label stamped with the bold Korean alphabet 'ㅈㄹ' — playful on the outside, but dead serious about taste.",
     "taste.eyebrow":"TASTE","taste.h":"Taste",
     "taste.body":"Brewed with 100% same-day milled Chuncheon rice, Gangwon water and nuruk, then cold-aged for 50 days. Zero artificial sweeteners or additives. A rich sweetness like ripe Korean melon, with a velvety texture finished by hand filtering. A light sparkle and low ABV make it easy for anyone to enjoy.",
     "taste.spec1":"100% Chuncheon Rice","taste.spec2":"Zero Artificial Sweeteners",
@@ -780,16 +764,16 @@ const I18N = {
     "feat4t":"Ripe Melon Aromatics","feat4d":"Not artificial sweetness, but a clean, full melon-like sweetness.",
     "feat5t":"The Smoothest Texture","feat5d":"Hand-filtered for a velvety-smooth finish.",
     "program.eyebrow":"PROGRAM","program.h":"What to Enjoy",
-    "program.c1t":"Collab Zone","program.c1d":"DOOTA-exclusive ZR × DOOTA photo zone",
+    "program.c1t":"DOOTA Limited Edition","program.c1d":"ZR × DOOTA limited edition, only at DOOTA Mall",
     "program.c2t":"Tasting","program.c2d":"Enjoy a glass of ZR Makgeolli on-site",
-    "program.c3t":"Bottle Deco","program.c3d":"Decorate your bottle + pouch keyring",
-    "program.c4t":"Initial Name","program.c4d":"Turn your name into ㅈㄹ initials",
-    "gen.h":"Make Your Name ㅈㄹ","gen.desc":"Type your name → Korean initials. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"Enter your name (e.g. John Kim)","gen.btn":"Generate","gen.resultLabel":"MY NAME","gen.share":"Share","gen.save":"Save image","gen.close2":"Close","gen.hint":"Post it to your IG story!","gen.sharefallback":"Saved! Post it to your Instagram story.",
+    "program.c3t":"Bottle Deco","program.c3d":"Decorate your bottle + Korean traditional keyring + name sticker",
+    "program.c4t":"Korean Alphabet Name","program.c4d":"Turn your name into the Korean alphabet",
+    "gen.h":"Make Your Name ㅈㄹ","gen.desc":"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"Enter your name (e.g. JUNG KOOK → ㅈㄱ)","gen.btn":"Generate","gen.resultLabel":"MY NAME","gen.share":"Share","gen.save":"Save image","gen.close2":"Close","gen.hint":"Post it to your IG story!","gen.sharefallback":"Saved! Post it to your Instagram story.",
     "visit.eyebrow":"VISIT","visit.h":"Visit Info",
     "visit.dateL":"Dates","visit.dateV":"Jun 8 – Jul 8, 2026",
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
-    "visit.hoursL":"Hours","visit.hoursV":"10:30 – 18:00",
+    "visit.hoursL":"Hours","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
     "visit.priceL":"Entry","visit.priceV":"Free entry",
     "visit.coupon":"🎁 Verify on SNS and grab a special gift — keyring, mirror or discount coupon!",
     "form.eyebrow":"APPLY","form.h":"Enter & Get a Coupon",
@@ -801,7 +785,7 @@ const I18N = {
     "success.h":"Entry Complete!","success.body":"From today, your name is","success.couponLabel":"Seongsu Pop-up 2,000 KRW Coupon",
     "success.couponNote":"Screenshot this and show it at the Seongsu pop-up.","success.insta":"Follow on Instagram","success.close":"Close",
     "footer.insta":"Instagram @zr.makgeolli","footer.store":"Buy at Store","footer.addr":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
-    "footer.privacy":"Privacy Policy","footer.rights":"ⓒ ZR Makgeolli. A light, witty drink.",
+    "footer.privacy":"Privacy Policy","footer.rights":"ⓒ ZR Makgeolli. DRINK HAPPY NOT HEAVY.",
     "privacy.h":"Personal Information Consent","privacy.close":"OK",
     "privacy.body":"▪ Items collected: name, phone\n▪ Purpose: event entry and coupon issuance/notice\n▪ Retention: destroyed within 6 months after the event\n▪ You may refuse consent; refusal limits entry.",
     "source.opts":["Instagram","Friend's recommendation","At DOOTA","Search","Other"]
@@ -809,11 +793,11 @@ const I18N = {
   ja:{
     "meta.title":"ㅈㄹマッコリ × DOOTA ポップアップ","meta.desc":"ㅈㄹマッコリ × DOOTA ポップアップ — 軽く、ウィットに一杯！",
     "nav.apply":"応募する",
-    "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹマッコリ × DOOTA ポップアップ","hero.slogan":"軽く、ウィットに一杯！",
+    "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹマッコリ × DOOTA ポップアップ","hero.slogan":"DRINK HAPPY NOT HEAVY",
     "hero.date":"2026.6.8 – 7.8","hero.place":"DOOTAモール B2F · ソウル中区奨忠壇路275","hero.cta":"応募してクーポンGET","cta.h":"もっと見る",
-    "gift.h":"SNS認証してスペシャルギフトをGET",
+    "gift.h":"SNS認証して\nスペシャルギフトをGET",
     "gift.s1t":"@zr.makgeolli をフォロー","gift.s1d":"インスタでㅈㄹマッコリをフォローしてください。","gift.followBtn":"フォローする →",
-    "gift.s2t":"ストーリー認証","gift.s2d":"購入したマッコリ+キーリングの写真をストーリーに載せ、@zr.makgeolli をメンションしてください。",
+    "gift.s2t":"ストーリー認証","gift.s2d":"ポップアップストア、または購入したマッコリ+キーリングの写真をストーリーに載せ、@zr.makgeolli をメンションしてください。",
     "gift.s3t":"ギフトを引く","gift.s3d":"下で認証して、ランダムなスペシャルギフトを引こう！",
     "gift.handleL":"インスタグラムID","gift.handlePh":"@yourname","gift.handleErr":"インスタグラムIDを入力してください。",
     "gift.chk1":"@zr.makgeolli をフォローしました","gift.chk2":"ストーリーに写真+@zr.makgeolli メンションで認証しました","gift.chkErr":"2つの認証を両方チェックしてください。",
@@ -832,16 +816,16 @@ const I18N = {
     "feat4t":"よく熟したウリとメロンの風味","feat4d":"人工的な甘さではなく、すっきり豊かなウリの甘み。",
     "feat5t":"最もなめらかな口当たり","feat5d":"ベルベットのような口当たりのため手作業でろ過します。",
     "program.eyebrow":"PROGRAM","program.h":"ポップアップの楽しみ方",
-    "program.c1t":"コラボゾーン","program.c1d":"DOOTA限定 ㅈㄹ × DOOTA フォトゾーン",
+    "program.c1t":"DOOTA限定マッコリ","program.c1d":"DOOTAモールだけの ㅈㄹ × DOOTA 限定エディション",
     "program.c2t":"試飲","program.c2d":"会場で楽しむ ㅈㄹマッコリ一杯",
-    "program.c3t":"ボトルデコ","program.c3d":"マイボトルデコ + ポーチキーリング",
+    "program.c3t":"ボトルデコ","program.c3d":"マイボトルデコ + 韓国伝統キーリング + ネームステッカー",
     "program.c4t":"頭文字ネーム","program.c4d":"自分の名前を ㅈㄹ に変換",
-    "gen.h":"あなたの名前を ㅈㄹ に","gen.desc":"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"ローマ字で入力（例：Tomiyasu）","gen.btn":"作成","gen.resultLabel":"私の名前","gen.share":"インスタで共有","gen.save":"画像を保存","gen.close2":"閉じる","gen.hint":"ストーリーに載せてね！","gen.sharefallback":"画像を保存しました。ストーリーに載せてね！",
+    "gen.h":"あなたの名前を ㅈㄹ に","gen.desc":"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"ローマ字で入力（例：JUNG KOOK → ㅈㄱ）","gen.btn":"作成","gen.resultLabel":"私の名前","gen.share":"インスタで共有","gen.save":"画像を保存","gen.close2":"閉じる","gen.hint":"ストーリーに載せてね！","gen.sharefallback":"画像を保存しました。ストーリーに載せてね！",
     "visit.eyebrow":"VISIT","visit.h":"来場案内",
     "visit.dateL":"期間","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
-    "visit.hoursL":"営業時間","visit.hoursV":"10:30 – 18:00",
+    "visit.hoursL":"営業時間","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
     "visit.priceL":"入場","visit.priceV":"入場無料",
     "visit.coupon":"🎁 SNS認証してスペシャルギフト（キーリング・ミラー・割引券）をGET！",
     "form.eyebrow":"APPLY","form.h":"応募してクーポンGET",
@@ -853,7 +837,7 @@ const I18N = {
     "success.h":"応募完了！","success.body":"今日からあなたの名前は","success.couponLabel":"聖水ポップアップ 2,000ウォン割引クーポン",
     "success.couponNote":"スクリーンショットを撮り、聖水ポップアップ会場でご提示ください。","success.insta":"インスタをフォロー","success.close":"閉じる",
     "footer.insta":"Instagram @zr.makgeolli","footer.store":"ストアで購入","footer.addr":"DOOTAモール B2F · ソウル中区奨忠壇路275",
-    "footer.privacy":"個人情報処理方針","footer.rights":"ⓒ ZR Makgeolli. 軽く、ウィットに一杯。",
+    "footer.privacy":"個人情報処理方針","footer.rights":"ⓒ ZR Makgeolli. DRINK HAPPY NOT HEAVY.",
     "privacy.h":"個人情報の収集・利用への同意","privacy.close":"確認",
     "privacy.body":"▪ 収集項目：名前、連絡先\n▪ 収集目的：イベント応募およびクーポン発行・案内\n▪ 保有期間：イベント終了後6ヶ月以内に破棄\n▪ 同意を拒否する権利があり、拒否の場合は応募が制限されます。",
     "source.opts":["Instagram","知人の紹介","DOOTA現地","検索","その他"]
@@ -861,11 +845,11 @@ const I18N = {
   zh:{
     "meta.title":"ㅈㄹ马格利酒 × DOOTA 快闪","meta.desc":"ㅈㄹ马格利酒 × DOOTA 快闪 — 轻松、有趣来一杯！",
     "nav.apply":"报名",
-    "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ马格利酒 × DOOTA 快闪","hero.slogan":"轻松、有趣来一杯！",
+    "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ马格利酒 × DOOTA 快闪","hero.slogan":"DRINK HAPPY NOT HEAVY",
     "hero.date":"2026.6.8 – 7.8","hero.place":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275","hero.cta":"报名领优惠券","cta.h":"了解更多",
-    "gift.h":"SNS认证领取专属礼物",
+    "gift.h":"SNS认证\n领取专属礼物",
     "gift.s1t":"关注 @zr.makgeolli","gift.s1d":"在Instagram关注ㅈㄹ马格利。","gift.followBtn":"去关注 →",
-    "gift.s2t":"快拍认证","gift.s2d":"将购买的马格利+钥匙扣照片发到快拍，并@zr.makgeolli。",
+    "gift.s2t":"快拍认证","gift.s2d":"将快闪店或购买的马格利+钥匙扣照片发到快拍，并@zr.makgeolli。",
     "gift.s3t":"抽取礼物","gift.s3d":"在下方认证并抽取随机专属礼物！",
     "gift.handleL":"Instagram 账号","gift.handlePh":"@yourname","gift.handleErr":"请输入Instagram账号。",
     "gift.chk1":"我已关注 @zr.makgeolli","gift.chk2":"我已在快拍发照片并@zr.makgeolli","gift.chkErr":"请勾选两项认证。",
@@ -884,16 +868,16 @@ const I18N = {
     "feat4t":"熟透甜瓜与蜜瓜风味","feat4d":"并非人工甜味，而是清爽丰盈的甜瓜甜味。",
     "feat5t":"最顺滑的口感","feat5d":"为天鹅绒般口感，手工亲自过滤。",
     "program.eyebrow":"PROGRAM","program.h":"快闪现场玩法",
-    "program.c1t":"联名专区","program.c1d":"DOOTA限定 ㅈㄹ × DOOTA 拍照区",
+    "program.c1t":"DOOTA限定马格利","program.c1d":"仅在DOOTA购物中心的 ㅈㄹ × DOOTA 限定版",
     "program.c2t":"试饮","program.c2d":"现场畅饮一杯 ㅈㄹ马格利酒",
-    "program.c3t":"瓶身DIY","program.c3d":"装饰我的酒瓶 + 小袋钥匙扣",
+    "program.c3t":"瓶身DIY","program.c3d":"装饰我的酒瓶 + 韩国传统钥匙扣 + 姓名贴纸",
     "program.c4t":"首字母名","program.c4d":"把你的名字变成 ㅈㄹ 首字母",
-    "gen.h":"把你的名字变成 ㅈㄹ","gen.desc":"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ, Rihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"用拼音或英文输入（例：Wang Wei）","gen.btn":"生成","gen.resultLabel":"我的名字","gen.share":"分享到IG","gen.save":"保存图片","gen.close2":"关闭","gen.hint":"发到你的IG快拍吧！","gen.sharefallback":"已保存图片，发到IG快拍吧！",
+    "gen.h":"把你的名字变成 ㅈㄹ","gen.desc":"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nRihanna → ㄹ ㅎ ㄴ",
+    "gen.ph":"用拼音或英文输入（例：JUNG KOOK → ㅈㄱ）","gen.btn":"生成","gen.resultLabel":"我的名字","gen.share":"分享到IG","gen.save":"保存图片","gen.close2":"关闭","gen.hint":"发到你的IG快拍吧！","gen.sharefallback":"已保存图片，发到IG快拍吧！",
     "visit.eyebrow":"VISIT","visit.h":"到场指南",
     "visit.dateL":"日期","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
-    "visit.hoursL":"营业时间","visit.hoursV":"10:30 – 18:00",
+    "visit.hoursL":"营业时间","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
     "visit.priceL":"入场","visit.priceV":"免费入场",
     "visit.coupon":"🎁 SNS认证领取专属礼物（钥匙扣·镜子·折扣券）！",
     "form.eyebrow":"APPLY","form.h":"报名领优惠券",
@@ -905,7 +889,7 @@ const I18N = {
     "success.h":"报名完成！","success.body":"从今天起，你的名字是","success.couponLabel":"圣水快闪 2,000韩元优惠券",
     "success.couponNote":"请截图并在圣水快闪现场出示。","success.insta":"关注 Instagram","success.close":"关闭",
     "footer.insta":"Instagram @zr.makgeolli","footer.store":"前往商店购买","footer.addr":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
-    "footer.privacy":"隐私政策","footer.rights":"ⓒ ZR Makgeolli. 轻松、有趣来一杯。",
+    "footer.privacy":"隐私政策","footer.rights":"ⓒ ZR Makgeolli. DRINK HAPPY NOT HEAVY.",
     "privacy.h":"个人信息收集与使用同意","privacy.close":"确认",
     "privacy.body":"▪ 收集项目：姓名、联系方式\n▪ 收集目的：活动报名及优惠券发放与通知\n▪ 保留期限：活动结束后6个月内销毁\n▪ 您有权拒绝同意，拒绝将限制报名。",
     "source.opts":["Instagram","熟人推荐","DOOTA现场","搜索","其他"]
@@ -937,6 +921,7 @@ const NAME_MAP = {
   rachel:'ㄹㅇㅊ', jessica:'ㅈㅅㅋ', jennifer:'ㅈㄴㅍ', ashley:'ㅇㅅㄹ', laura:'ㄹㄹ',
   maria:'ㅁㄹㅇ', hannah:'ㅎㄴ', lucas:'ㄹㅋㅅ', oscar:'ㅇㅅㅋ', oliver:'ㅇㄹㅂ',
   mia:'ㅁㅇ', ava:'ㅇㅂ', ella:'ㅇㄹ', lily:'ㄹㄹ', nina:'ㄴㄴ', tina:'ㅌㄴ', lee:'ㄹ',
+  jungkook:'ㅈㄱ', jung:'ㅈ', kook:'ㄱ',
 
   /* --- 日本語 (어두 무성음 ㄱ/ㄷ/ㅂ, 어중 ㅋ/ㅌ/ㅍ) --- */
   sato:'ㅅㅌ', satou:'ㅅㅌ', suzuki:'ㅅㅈㅋ', takahashi:'ㄷㅋㅎㅅ', tanaka:'ㄷㄴㅋ',
@@ -1054,13 +1039,13 @@ function colorizeBrand(text){
    키네틱 워드 — 큰 글자(ㅈㄹ/WTF) + 떠다니는 의미 단어들
 =========================================================== */
 const KIN = {
-  ko:{ big:'ㅈㄹ', words:['재력','자랑','진리','잘래?','재롱','주류','정력','조롱'] },
+  ko:{ big:'ㅈㄹ', words:['재력','자랑','진리','잘래?','재롱','주류','정력','조롱','지랄','졸라'] },
   en:{ big:'WTF', words:['Way Too Fine','Wonderfully Tasty Fizz','Worth The Fun','Wild · Tipsy · Free','Wanna Taste, Friend','What The Flavor','Welcome To Fun','Wow, So Fine'] },
   ja:{ big:'WTF', words:['Way Too Fine','Wonderfully Tasty Fizz','Worth The Fun','Wild · Tipsy · Free','Wanna Taste, Friend','What The Flavor','Welcome To Fun','Wow, So Fine'] },
   zh:{ big:'WTF', words:['Way Too Fine','Wonderfully Tasty Fizz','Worth The Fun','Wild · Tipsy · Free','Wanna Taste, Friend','What The Flavor','Welcome To Fun','Wow, So Fine'] }
 };
 // [top%, left%] 슬롯 — 가운데 큰 글자를 피해 가장자리에 배치
-const KIN_SLOTS = [[10,12],[14,68],[30,40],[64,10],[72,72],[84,34],[44,82],[50,4]];
+const KIN_SLOTS = [[10,12],[14,68],[30,40],[64,10],[72,72],[84,34],[44,82],[50,4],[26,52],[78,18]];
 
 function renderKinetic(lang){
   const data = KIN[lang] || KIN.ko;
@@ -1120,10 +1105,7 @@ document.querySelectorAll('.lang button').forEach(b=>{
    4) 링크 주입
 =========================================================== */
 document.getElementById('footer-insta').href = CONFIG.INSTA_URL;
-document.getElementById('footer-store').href = CONFIG.STORE_URL;
 document.getElementById('success-insta').href = CONFIG.INSTA_URL;
-document.getElementById('cta-insta').href = CONFIG.INSTA_URL;
-document.getElementById('cta-store').href = CONFIG.STORE_URL;
 
 // 막꾸 카드: 데스크톱은 hover, 모바일은 탭으로 토글
 document.querySelectorAll('.svc--card').forEach(el=>{
@@ -1160,7 +1142,7 @@ async function drawStoryCard(name, chosung){
   fitFont(x, name, 700, 52, W-300); x.fillText(name, W/2, 540);
   fitFont(x, chosung, 900, 230, W-220); x.fillText(chosung, W/2, 820);
   if(bottleImg.naturalWidth){ const bh = 600, bw = bottleImg.naturalWidth / bottleImg.naturalHeight * bh; x.drawImage(bottleImg, W/2 - bw/2, 900, bw, bh); }
-  x.font = '700 38px Paperlogy'; x.fillText(dict['hero.slogan'] || '가볍게, 위트있게 한 잔!', W/2, 1645);
+  x.font = '700 38px Paperlogy'; x.fillText((dict['hero.slogan'] || 'DRINK HAPPY NOT HEAVY').replace(/\n/g,' '), W/2, 1645);
   x.font = '700 30px Paperlogy'; x.fillText('@zr.makgeolli', W/2, 1718);
   x.font = '400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 7.8', W/2, 1760);
 }
@@ -1216,9 +1198,9 @@ const overlay = document.getElementById('overlay');
 
 /* SNS 인증 → 스페셜 기프트 뽑기 (가챠: 키링20 / 거울50 / 쿠폰30) */
 const GIFTS = [
-  { k:'keyring',  w:20, emoji:'🔑', pre:'K' },
-  { k:'mirror',   w:50, emoji:'🪞', pre:'M' },
-  { k:'discount', w:30, emoji:'🎟️', pre:'D' }
+  { k:'keyring',  w:10, emoji:'🔑', pre:'K' },
+  { k:'mirror',   w:40, emoji:'🪞', pre:'M' },
+  { k:'discount', w:50, emoji:'🏷️', pre:'D' }
 ];
 function drawGift(){ const total=GIFTS.reduce((s,g)=>s+g.w,0); let r=Math.random()*total; for(const g of GIFTS){ if(r<g.w) return g; r-=g.w; } return GIFTS[GIFTS.length-1]; }
 const delay = ms => new Promise(r=>setTimeout(r,ms));
@@ -1264,7 +1246,8 @@ giftForm.addEventListener('submit', async (e)=>{
   await delay(1300);
   code = await codeP;
   clearInterval(spin); giftEmoji.classList.remove('spin');
-  giftEmoji.textContent = gift.emoji;
+  if(gift.k === 'discount'){ giftEmoji.innerHTML = '<span class="coupon-badge">COUPON</span>'; }
+  else { giftEmoji.textContent = gift.emoji; }
   document.getElementById('gift-name').textContent = dict['gift.'+gift.k] || gift.k;
   document.getElementById('gift-code').textContent = code;
   giftBtn.disabled = false;

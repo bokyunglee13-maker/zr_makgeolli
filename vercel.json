@@ -5,6 +5,10 @@
     { "source": "/ja", "destination": "/index.html" },
     { "source": "/zh", "destination": "/index.html" },
     { "source": "/survey", "destination": "/survey.html" },
+    { "source": "/survey/ko", "destination": "/survey.html" },
+    { "source": "/survey/en", "destination": "/survey.html" },
+    { "source": "/survey/ja", "destination": "/survey.html" },
+    { "source": "/survey/zh", "destination": "/survey.html" },
     { "source": "/name", "destination": "/name.html" }
   ]
 }

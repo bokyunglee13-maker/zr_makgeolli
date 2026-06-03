@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ㅈㄹ막걸리 시음 만족도 조사</title>
+<title id="meta-title">ZR Makgeolli — Taste & Brand Survey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -24,222 +24,236 @@
   ::selection{ background:var(--black); color:var(--pink); }
   .wrap{ max-width:680px; margin:0 auto; padding:0 20px; }
 
-  header{ padding:22px 0; border-bottom:2px solid var(--black); }
-  header .wrap{ display:flex; align-items:center; justify-content:space-between; }
+  .bar{ border-bottom:2px solid var(--black); }
+  .bar .wrap{ display:flex; align-items:center; justify-content:space-between; padding:18px 20px; }
   .logo{ font-family:var(--display); font-weight:900; font-size:20px; letter-spacing:-.04em; }
-  .step{ font-family:var(--mono); font-size:12px; text-transform:uppercase; }
+  .lang{ display:flex; gap:2px; }
+  .lang button{ border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:11px; font-weight:700; padding:6px; color:var(--black); opacity:.45; }
+  .lang button[aria-pressed="true"]{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
 
-  .hero{ padding:44px 0 10px; }
+  .hero{ padding:40px 0 6px; }
   .hero .eyebrow{ font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; color:var(--red); }
-  .hero h1{ font-family:var(--display); font-weight:900; text-transform:uppercase; letter-spacing:-.04em; line-height:.9; font-size:clamp(34px,8vw,64px); margin:8px 0 12px; }
-  .hero p{ font-family:var(--mono); font-size:13px; }
+  .hero h1{ font-family:var(--display); font-weight:900; text-transform:uppercase; letter-spacing:-.03em; line-height:.95; font-size:clamp(30px,7vw,52px); margin:8px 0 12px; }
+  .hero p{ font-size:14px; }
 
-  form{ padding:28px 0 80px; }
+  form{ padding:24px 0 80px; }
   .sec{ margin-top:14px; border-top:2px solid var(--black); padding-top:22px; }
-  .sec-h{ font-family:var(--display); font-weight:900; text-transform:uppercase; font-size:20px; letter-spacing:-.02em; margin-bottom:4px; }
-  .sec-sub{ font-family:var(--mono); font-size:11px; text-transform:uppercase; opacity:.6; margin-bottom:14px; }
+  .sec-h{ font-family:var(--display); font-weight:900; text-transform:uppercase; font-size:19px; letter-spacing:-.02em; }
+  .sec-sub{ font-family:var(--mono); font-size:11px; text-transform:uppercase; opacity:.55; margin:4px 0 16px; }
 
-  .q{ margin-bottom:20px; }
-  .q > label{ display:block; font-weight:700; font-size:15px; margin-bottom:8px; }
-  .q .hint{ font-family:var(--mono); font-size:11px; opacity:.6; }
+  .q{ margin-bottom:22px; }
+  .q > label{ display:block; font-weight:700; font-size:15px; margin-bottom:9px; }
+  .req{ color:var(--red); }
 
   .rate, .chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .rate button, .chip{ font-family:var(--mono); font-weight:700; font-size:14px; cursor:pointer;
-    border:2px solid var(--black); background:var(--white); color:var(--black); padding:11px 0; border-radius:0; }
+  .rate button, .chip{ font-family:var(--mono); font-weight:700; font-size:14px; cursor:pointer; border:2px solid var(--black); background:var(--white); color:var(--black); padding:12px 0; border-radius:0; }
   .rate button{ flex:1; min-width:44px; }
-  .rate.nps button{ min-width:34px; flex:0 0 auto; width:calc((100% - 80px)/11); padding:9px 0; font-size:12px; }
-  .rate button[aria-pressed="true"]{ background:var(--black); color:var(--pink); }
-  .scale-ends{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; opacity:.6; margin-top:5px; text-transform:uppercase; }
+  .rate button[aria-pressed="true"], .chip[aria-pressed="true"]{ background:var(--black); color:var(--pink); }
+  .chip{ flex:0 0 auto; padding:11px 20px; }
+  .scale-ends{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; opacity:.65; margin-top:6px; text-transform:uppercase; }
 
-  .chips .chip{ flex:0 0 auto; padding:10px 16px; }
-  .chip[aria-pressed="true"]{ background:var(--black); color:var(--pink); }
-
-  select, input[type=text], textarea{ width:100%; border:2px solid var(--black); background:var(--white); padding:12px 13px; font-family:var(--body); font-size:15px; border-radius:0; }
-  select:focus, input:focus, textarea:focus{ outline:none; box-shadow:inset 0 0 0 2px var(--red); }
+  input[type=text], textarea{ width:100%; border:2px solid var(--black); background:var(--white); padding:13px 14px; font-family:var(--body); font-size:15px; border-radius:0; }
+  input:focus, textarea:focus{ outline:none; box-shadow:inset 0 0 0 2px var(--red); }
   textarea{ min-height:90px; resize:vertical; }
 
-  .submit{ width:100%; margin-top:26px; border:2px solid var(--black); background:var(--black); color:var(--white);
-    font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:15px; padding:18px; cursor:pointer; border-radius:999px; transition:transform .2s; }
+  .submit{ width:100%; margin-top:26px; border:2px solid var(--black); background:var(--black); color:var(--white); font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:15px; padding:18px; cursor:pointer; border-radius:999px; transition:transform .2s; }
   .submit:hover{ transform:scale(1.02); }
-  .err{ color:var(--red); font-family:var(--mono); font-size:11px; text-transform:uppercase; margin-top:8px; display:none; }
+  .err{ color:var(--red); font-family:var(--body); font-size:13px; font-weight:700; margin-top:8px; display:none; }
   .err.show{ display:block; }
 
   .overlay{ position:fixed; inset:0; background:rgba(0,0,0,.75); display:none; align-items:center; justify-content:center; padding:20px; z-index:50; }
   .overlay.show{ display:flex; }
   .modal{ background:var(--pink); border:3px solid var(--black); padding:34px 26px; max-width:380px; text-align:center; }
   .modal h3{ font-family:var(--display); font-weight:900; text-transform:uppercase; font-size:26px; }
-  .modal p{ font-family:var(--mono); font-size:12px; text-transform:uppercase; margin-top:10px; }
-  .modal a{ display:inline-block; margin-top:20px; border:2px solid var(--black); background:var(--black); color:var(--pink);
-    font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:13px; padding:12px 22px; border-radius:999px; text-decoration:none; }
+  .modal p{ font-size:14px; margin-top:10px; }
+  .modal a{ display:inline-block; margin-top:20px; border:2px solid var(--black); background:var(--black); color:var(--pink); font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:13px; padding:12px 22px; border-radius:999px; text-decoration:none; }
 </style>
 </head>
 <body>
 
-<header>
+<div class="bar">
   <div class="wrap">
-    <span class="logo">ㅈㄹ막걸리</span>
-    <span class="step">SURVEY · 약 1분</span>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <div class="eyebrow">TASTE & BRAND SURVEY</div>
-    <h1>시음 만족도<br/>조사</h1>
-    <p>오늘 맛보신 ㅈㄹ막걸리, 어떠셨나요? 솔직한 한 잔의 평가를 들려주세요. 🍶</p>
-  </div>
-</section>
-
-<form id="survey" class="wrap" novalidate>
-
-  <!-- 1. 기본 -->
-  <div class="sec">
-    <div class="sec-h">01 · 기본 정보</div>
-    <div class="sec-sub">About You</div>
-    <div class="q">
-      <label>연령대</label>
-      <select id="age">
-        <option value="">선택</option>
-        <option>10대</option><option>20대</option><option>30대</option><option>40대</option><option>50대+</option>
-      </select>
+    <a class="logo" href="/">ㅈㄹ막걸리</a>
+    <div class="lang" role="group" aria-label="language">
+      <button data-lang="ko" aria-pressed="false">KO</button>
+      <button data-lang="en" aria-pressed="true">EN</button>
+      <button data-lang="ja" aria-pressed="false">JA</button>
+      <button data-lang="zh" aria-pressed="false">ZH</button>
     </div>
-    <div class="q">
-      <label>방문객 유형</label>
-      <div class="chips" data-name="visitor_type" data-single="1">
-        <button type="button" class="chip" data-v="내국인">내국인</button>
-        <button type="button" class="chip" data-v="외국인">외국인</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow">TASTE &amp; BRAND SURVEY</div>
+    <h1 data-k="hero.h">Taste &amp; Brand Survey</h1>
+    <p data-k="hero.p">How was the ㅈㄹ Makgeolli you tasted today? Takes about 1 min 🍶</p>
+  </section>
+
+  <form id="survey" novalidate>
+    <!-- 01 기본 -->
+    <div class="sec">
+      <div class="sec-h" data-k="s1.h">01 · About You</div>
+      <div class="sec-sub">ABOUT YOU</div>
+      <div class="q">
+        <label data-k="q.nationality">Nationality</label>
+        <input type="text" id="nationality" data-k-ph="q.nationalityPh" placeholder="e.g. USA, Japan…" />
+      </div>
+      <div class="q">
+        <label data-k="q.gender">Gender</label>
+        <div class="chips" data-name="gender" data-single="1">
+          <button type="button" class="chip" data-v="male" data-k="gender.m">Male</button>
+          <button type="button" class="chip" data-v="female" data-k="gender.f">Female</button>
+          <button type="button" class="chip" data-v="other" data-k="gender.o">Other</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 2. 맛 평가 -->
-  <div class="sec">
-    <div class="sec-h">02 · 맛 평가</div>
-    <div class="sec-sub">5점 척도 · 1 별로 → 5 아주 좋아요</div>
-    <div class="q"><label>단맛</label><div class="rate" data-name="taste_sweet"></div></div>
-    <div class="q"><label>산미(신맛)</label><div class="rate" data-name="taste_acidity"></div></div>
-    <div class="q"><label>청량감 · 탄산</label><div class="rate" data-name="taste_fizz"></div></div>
-    <div class="q"><label>목넘김</label><div class="rate" data-name="taste_throat"></div></div>
-    <div class="q"><label>향</label><div class="rate" data-name="taste_aroma"></div></div>
-    <div class="q"><label>전체적인 맛 만족도 <span class="hint">필수</span></label><div class="rate" data-name="taste_overall"></div></div>
-  </div>
-
-  <!-- 3. 브랜드/패키지 -->
-  <div class="sec">
-    <div class="sec-h">03 · 브랜드 · 패키지</div>
-    <div class="sec-sub">Brand & Package</div>
-    <div class="q"><label>패키지 · 라벨 디자인 호감도</label><div class="rate" data-name="design"></div></div>
-    <div class="q"><label>'ㅈㄹ' 브랜드 첫인상 호감도</label><div class="rate" data-name="brand"></div></div>
-    <div class="q"><label>가격 적정성 (650ml 기준)</label><div class="rate" data-name="price"></div>
-      <div class="scale-ends"><span>비싸다</span><span>적정하다</span></div></div>
-  </div>
-
-  <!-- 4. 행동 의향 -->
-  <div class="sec">
-    <div class="sec-h">04 · 구매 · 추천</div>
-    <div class="sec-sub">Intent</div>
-    <div class="q"><label>재구매 의향</label><div class="rate" data-name="repurchase"></div></div>
-    <div class="q">
-      <label>지인 추천 의향 <span class="hint">0 전혀 → 10 적극</span></label>
-      <div class="rate nps" data-name="nps"></div>
-    </div>
-    <div class="q">
-      <label>구매하고 싶은 곳 <span class="hint">중복 선택</span></label>
-      <div class="chips" data-name="channels">
-        <button type="button" class="chip" data-v="네이버 스토어">네이버 스토어</button>
-        <button type="button" class="chip" data-v="편의점">편의점</button>
-        <button type="button" class="chip" data-v="대형마트">대형마트</button>
-        <button type="button" class="chip" data-v="술집·식당">술집·식당</button>
-        <button type="button" class="chip" data-v="팝업 현장">팝업 현장</button>
+    <!-- 02 맛 -->
+    <div class="sec">
+      <div class="sec-h" data-k="s2.h">02 · Taste</div>
+      <div class="sec-sub">TASTE</div>
+      <div class="q">
+        <label><span data-k="q.tasteOverall">Overall taste satisfaction</span> <span class="req">*</span></label>
+        <div class="rate" data-name="taste_overall"></div>
+        <div class="scale-ends"><span data-k="scale.bad">Poor</span><span data-k="scale.good">Love it</span></div>
       </div>
     </div>
-  </div>
 
-  <!-- 5. 자유 의견 -->
-  <div class="sec">
-    <div class="sec-h">05 · 한마디</div>
-    <div class="sec-sub">Free Comment</div>
-    <div class="q">
-      <label>개선점 · 응원 · 아무 말이나 환영!</label>
-      <textarea id="comment" placeholder="여기에 자유롭게 적어주세요"></textarea>
+    <!-- 03 브랜드/패키지 -->
+    <div class="sec">
+      <div class="sec-h" data-k="s3.h">03 · Brand &amp; Package</div>
+      <div class="sec-sub">BRAND &amp; PACKAGE</div>
+      <div class="q">
+        <label data-k="q.design">Package &amp; label design</label>
+        <div class="rate" data-name="design"></div>
+        <div class="scale-ends"><span data-k="scale.bad">Poor</span><span data-k="scale.good">Love it</span></div>
+      </div>
+      <div class="q">
+        <label data-k="q.price">Price fairness (650ml)</label>
+        <div class="rate" data-name="price"></div>
+        <div class="scale-ends"><span data-k="scale.expensive">Expensive</span><span data-k="scale.cheap">Cheap</span></div>
+      </div>
     </div>
-  </div>
 
-  <button type="submit" class="submit" id="submit-btn">제출하기</button>
-  <div class="err" id="err">전체적인 맛 만족도(필수)를 선택해 주세요.</div>
-</form>
+    <!-- 04 재구매 -->
+    <div class="sec">
+      <div class="sec-h" data-k="s4.h">04 · Repurchase</div>
+      <div class="sec-sub">REPURCHASE</div>
+      <div class="q">
+        <label data-k="q.repurchase">Will you buy it again?</label>
+        <div class="rate" data-name="repurchase"></div>
+        <div class="scale-ends"><span data-k="scale.low">Unlikely</span><span data-k="scale.high">Definitely</span></div>
+      </div>
+    </div>
+
+    <!-- 05 의견 -->
+    <div class="sec">
+      <div class="sec-h" data-k="s5.h">05 · Comment</div>
+      <div class="sec-sub">FREE COMMENT</div>
+      <div class="q">
+        <label data-k="q.comment">Suggestions, cheers — anything!</label>
+        <textarea id="comment" data-k-ph="q.commentPh" placeholder="Write freely"></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="submit" id="submit-btn" data-k="submit">Submit</button>
+    <div class="err" id="err" data-k="err">Please rate your overall taste satisfaction.</div>
+  </form>
+</div>
 
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h3>제출 완료!</h3>
-    <p>소중한 평가 감사합니다.<br/>당신의 한 잔이 ㅈㄹ막걸리를 더 맛있게 만듭니다. 🍶</p>
-    <a id="ov-insta" href="#" target="_blank" rel="noopener">인스타 팔로우하기</a>
+    <h3 data-k="success.h">Done!</h3>
+    <p data-k="success.p">Thanks for your feedback 🍶</p>
+    <a id="ov-insta" href="#" target="_blank" rel="noopener" data-k="success.insta">Follow us</a>
   </div>
 </div>
 
 <script>
-  document.getElementById('ov-insta').href = CONFIG.INSTA_URL;
+const I18N = {
+  ko:{ "meta":"ㅈㄹ막걸리 — 시음·브랜드 설문","hero.h":"시음·브랜드 설문","hero.p":"오늘 맛본 ㅈㄹ막걸리, 어떠셨나요? 1분이면 끝나요 🍶",
+    "s1.h":"01 · 기본 정보","q.nationality":"국적","q.nationalityPh":"예: 미국, 일본, 대만…","q.gender":"성별","gender.m":"남성","gender.f":"여성","gender.o":"기타",
+    "s2.h":"02 · 맛 평가","q.tasteOverall":"전체적인 맛 만족도","scale.bad":"별로","scale.good":"아주 좋아요",
+    "s3.h":"03 · 브랜드·패키지","q.design":"패키지·라벨 디자인 호감도","q.price":"가격 적정성 (650ml)","scale.expensive":"비싸다","scale.cheap":"저렴하다",
+    "s4.h":"04 · 재구매","q.repurchase":"재구매 의향","scale.low":"안 할래요","scale.high":"꼭 할래요",
+    "s5.h":"05 · 한마디","q.comment":"개선점·응원 등 자유롭게!","q.commentPh":"자유롭게 적어주세요",
+    "submit":"제출하기","err":"전체적인 맛 만족도를 선택해 주세요.","sending":"전송 중…","fail":"전송에 실패했습니다. 다시 시도해 주세요.",
+    "success.h":"제출 완료!","success.p":"소중한 평가 감사합니다 🍶","success.insta":"인스타 팔로우" },
+  en:{ "meta":"ZR Makgeolli — Taste & Brand Survey","hero.h":"Taste & Brand Survey","hero.p":"How was the ㅈㄹ Makgeolli you tasted today? Takes about 1 min 🍶",
+    "s1.h":"01 · About You","q.nationality":"Nationality","q.nationalityPh":"e.g. USA, Japan, Taiwan…","q.gender":"Gender","gender.m":"Male","gender.f":"Female","gender.o":"Other",
+    "s2.h":"02 · Taste","q.tasteOverall":"Overall taste satisfaction","scale.bad":"Poor","scale.good":"Love it",
+    "s3.h":"03 · Brand & Package","q.design":"Package & label design","q.price":"Price fairness (650ml)","scale.expensive":"Expensive","scale.cheap":"Cheap",
+    "s4.h":"04 · Repurchase","q.repurchase":"Will you buy it again?","scale.low":"Unlikely","scale.high":"Definitely",
+    "s5.h":"05 · Comment","q.comment":"Suggestions, cheers — anything!","q.commentPh":"Write freely",
+    "submit":"Submit","err":"Please rate your overall taste satisfaction.","sending":"Sending…","fail":"Submission failed. Please try again.",
+    "success.h":"Done!","success.p":"Thanks for your feedback 🍶","success.insta":"Follow us" },
+  ja:{ "meta":"ㅈㄹマッコリ — 試飲・ブランド アンケート","hero.h":"試飲・ブランド アンケート","hero.p":"今日味わったㅈㄹマッコリはいかがでしたか？1分で終わります🍶",
+    "s1.h":"01 · 基本情報","q.nationality":"国籍","q.nationalityPh":"例：アメリカ、日本、台湾…","q.gender":"性別","gender.m":"男性","gender.f":"女性","gender.o":"その他",
+    "s2.h":"02 · 味の評価","q.tasteOverall":"全体的な味の満足度","scale.bad":"いまいち","scale.good":"とても良い",
+    "s3.h":"03 · ブランド・パッケージ","q.design":"パッケージ・ラベルデザインの好感度","q.price":"価格の妥当性 (650ml)","scale.expensive":"高い","scale.cheap":"安い",
+    "s4.h":"04 · 再購入","q.repurchase":"再購入の意向","scale.low":"買わない","scale.high":"必ず買う",
+    "s5.h":"05 · ひとこと","q.comment":"改善点・応援など自由に！","q.commentPh":"自由にご記入ください",
+    "submit":"送信する","err":"全体的な味の満足度を選んでください。","sending":"送信中…","fail":"送信に失敗しました。再度お試しください。",
+    "success.h":"送信完了！","success.p":"ご回答ありがとうございます🍶","success.insta":"インスタをフォロー" },
+  zh:{ "meta":"ㅈㄹ马格利 — 试饮·品牌问卷","hero.h":"试饮·品牌问卷","hero.p":"今天品尝的ㅈㄹ马格利如何？1分钟即可完成🍶",
+    "s1.h":"01 · 基本信息","q.nationality":"国籍","q.nationalityPh":"例：美国、日本、台湾…","q.gender":"性别","gender.m":"男","gender.f":"女","gender.o":"其他",
+    "s2.h":"02 · 风味评价","q.tasteOverall":"整体口味满意度","scale.bad":"不太好","scale.good":"非常好",
+    "s3.h":"03 · 品牌·包装","q.design":"包装·标签设计好感度","q.price":"价格合理性 (650ml)","scale.expensive":"贵","scale.cheap":"便宜",
+    "s4.h":"04 · 复购","q.repurchase":"复购意愿","scale.low":"不会","scale.high":"一定会",
+    "s5.h":"05 · 留言","q.comment":"建议·鼓励，随意填写！","q.commentPh":"请自由填写",
+    "submit":"提交","err":"请选择整体口味满意度。","sending":"发送中…","fail":"提交失败，请重试。",
+    "success.h":"提交完成！","success.p":"感谢您的反馈🍶","success.insta":"关注我们" }
+};
 
-  // 1~5 / 0~10 버튼 동적 생성
-  document.querySelectorAll('.rate').forEach(g=>{
-    const isNps = g.classList.contains('nps');
-    const start = isNps ? 0 : 1, end = isNps ? 10 : 5;
-    for(let i=start;i<=end;i++){
-      const b=document.createElement('button');
-      b.type='button'; b.dataset.v=i; b.textContent=i; b.setAttribute('aria-pressed','false');
-      g.appendChild(b);
-    }
-  });
+function detectLang(){ const S=['ko','en','ja','zh']; const m=location.pathname.toLowerCase().match(/\/(ko|en|ja|zh)(?:\/|$)/); if(m)return m[1]; const q=new URLSearchParams(location.search).get('lang'); if(S.includes(q))return q; return localStorage.getItem('zr_lang')||'en'; }
+let LANG = detectLang();
+function applyLang(l){
+  LANG=l; localStorage.setItem('zr_lang',l); document.documentElement.lang=l;
+  const d=I18N[l];
+  document.getElementById('meta-title').textContent=d.meta; document.title=d.meta;
+  document.querySelectorAll('[data-k]').forEach(el=>{ const k=el.getAttribute('data-k'); if(d[k]!=null) el.textContent=d[k]; });
+  document.querySelectorAll('[data-k-ph]').forEach(el=>{ const k=el.getAttribute('data-k-ph'); if(d[k]!=null) el.setAttribute('placeholder',d[k]); });
+  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===l)));
+}
+document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.lang)));
 
-  // 단일 선택 그룹 (rate, single chip)
-  function bindSingle(group){
-    group.addEventListener('click', e=>{
-      const btn=e.target.closest('button'); if(!btn) return;
-      group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed', String(b===btn)));
-      group.dataset.value = btn.dataset.v;
-    });
-  }
-  document.querySelectorAll('.rate').forEach(bindSingle);
-  document.querySelectorAll('.chips[data-single="1"]').forEach(bindSingle);
+document.getElementById('ov-insta').href = CONFIG.INSTA_URL;
 
-  // 다중 선택 chips
-  document.querySelectorAll('.chips:not([data-single])').forEach(group=>{
-    group.addEventListener('click', e=>{
-      const btn=e.target.closest('button'); if(!btn) return;
-      const on = btn.getAttribute('aria-pressed')==='true';
-      btn.setAttribute('aria-pressed', String(!on));
-    });
-  });
+// 1~5 버튼 생성
+document.querySelectorAll('.rate').forEach(g=>{
+  for(let i=1;i<=5;i++){ const b=document.createElement('button'); b.type='button'; b.dataset.v=i; b.textContent=i; b.setAttribute('aria-pressed','false'); g.appendChild(b); }
+});
+// 단일 선택 바인딩
+function bindSingle(group){
+  group.addEventListener('click', e=>{ const btn=e.target.closest('button'); if(!btn) return;
+    group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
+    group.dataset.value = btn.dataset.v; });
+}
+document.querySelectorAll('.rate, .chips[data-single="1"]').forEach(bindSingle);
+function val(name){ const g=document.querySelector(`[data-name="${name}"]`); return g?(g.dataset.value||''):''; }
 
-  function val(name){ const g=document.querySelector(`[data-name="${name}"]`); return g ? (g.dataset.value||'') : ''; }
-  function multi(name){ return [...document.querySelectorAll(`[data-name="${name}"] button[aria-pressed="true"]`)].map(b=>b.dataset.v).join(', '); }
+const form=document.getElementById('survey'), overlay=document.getElementById('overlay'), errEl=document.getElementById('err'), submitBtn=document.getElementById('submit-btn');
+form.addEventListener('submit', async e=>{
+  e.preventDefault();
+  if(!val('taste_overall')){ errEl.classList.add('show'); errEl.scrollIntoView({block:'center'}); return; }
+  errEl.classList.remove('show');
+  const payload={ type:'survey', language:LANG,
+    nationality: document.getElementById('nationality').value.trim(),
+    gender: val('gender'), taste_overall: val('taste_overall'),
+    design: val('design'), price: val('price'), repurchase: val('repurchase'),
+    comment: document.getElementById('comment').value.trim() };
+  const origin=submitBtn.textContent; submitBtn.disabled=true; submitBtn.textContent=I18N[LANG].sending;
+  try{
+    await fetch(CONFIG.WEBAPP_URL, { method:'POST', body: JSON.stringify(payload) });
+    overlay.classList.add('show'); form.reset();
+    document.querySelectorAll('[aria-pressed="true"]').forEach(b=>b.setAttribute('aria-pressed','false'));
+    document.querySelectorAll('.rate,.chips').forEach(g=>delete g.dataset.value);
+  }catch(err){ alert(I18N[LANG].fail); }
+  finally{ submitBtn.disabled=false; submitBtn.textContent=origin; }
+});
 
-  const form=document.getElementById('survey'), overlay=document.getElementById('overlay'), errEl=document.getElementById('err'), submitBtn=document.getElementById('submit-btn');
-  form.addEventListener('submit', async e=>{
-    e.preventDefault();
-    if(!val('taste_overall')){ errEl.classList.add('show'); errEl.scrollIntoView({block:'center'}); return; }
-    errEl.classList.remove('show');
-
-    const payload={
-      type:'survey',
-      age: document.getElementById('age').value,
-      visitor_type: val('visitor_type'),
-      taste_sweet: val('taste_sweet'), taste_acidity: val('taste_acidity'), taste_fizz: val('taste_fizz'),
-      taste_throat: val('taste_throat'), taste_aroma: val('taste_aroma'), taste_overall: val('taste_overall'),
-      design: val('design'), brand: val('brand'), price: val('price'),
-      repurchase: val('repurchase'), nps: val('nps'), channels: multi('channels'),
-      comment: document.getElementById('comment').value.trim()
-    };
-
-    const origin=submitBtn.textContent; submitBtn.disabled=true; submitBtn.textContent='전송 중…';
-    try{
-      await fetch(CONFIG.WEBAPP_URL, { method:'POST', body: JSON.stringify(payload) });
-      overlay.classList.add('show'); form.reset();
-      document.querySelectorAll('[aria-pressed="true"]').forEach(b=>b.setAttribute('aria-pressed','false'));
-      document.querySelectorAll('.rate,.chips').forEach(g=>delete g.dataset.value);
-    }catch(err){ alert('전송에 실패했습니다. 잠시 후 다시 시도해 주세요.'); }
-    finally{ submitBtn.disabled=false; submitBtn.textContent=origin; }
-  });
+applyLang(LANG);
 </script>
 </body>
 </html>

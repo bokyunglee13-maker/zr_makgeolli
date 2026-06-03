@@ -26,11 +26,8 @@ function doPost(e) {
     if (data.type === 'survey') {
       var sv = getSurveySheet_();
       sv.appendRow([
-        new Date(), data.age || '', data.visitor_type || '',
-        data.taste_sweet || '', data.taste_acidity || '', data.taste_fizz || '',
-        data.taste_throat || '', data.taste_aroma || '', data.taste_overall || '',
-        data.design || '', data.brand || '', data.price || '',
-        data.repurchase || '', data.nps || '', data.channels || '', data.comment || ''
+        new Date(), data.language || '', data.nationality || '', data.gender || '',
+        data.taste_overall || '', data.design || '', data.price || '', data.repurchase || '', data.comment || ''
       ]);
       return json_({ ok: true });
     }
@@ -97,7 +94,7 @@ function getSurveySheet_() {
   var sheet = ss.getSheetByName(SURVEY_SHEET);
   if (!sheet) {
     sheet = ss.insertSheet(SURVEY_SHEET);
-    sheet.appendRow(['timestamp','age','visitor_type','sweet','acidity','fizz','throat','aroma','overall','design','brand','price','repurchase','nps','channels','comment']);
+    sheet.appendRow(['timestamp','language','nationality','gender','overall','design','price','repurchase','comment']);
     sheet.setFrozenRows(1);
   }
   return sheet;
