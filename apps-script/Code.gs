@@ -12,7 +12,9 @@
 
 var SHEET_NAME = 'responses';
 var SURVEY_SHEET = 'survey';
+var GIFT_SHEET = 'gifts';
 var COUPON_PREFIX = 'ZRSS-';
+var GIFT_PREFIX = { keyring:'ZR-K-', mirror:'ZR-M-', discount:'ZR-D-' };
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -31,6 +33,23 @@ function doPost(e) {
         data.repurchase || '', data.nps || '', data.channels || '', data.comment || ''
       ]);
       return json_({ ok: true });
+    }
+
+    // ── SNS 인증 기프트 뽑기(index.html) → gifts 시트 + 코드 발급 ──
+    if (data.type === 'gift') {
+      var gf = getGiftSheet_();
+      var gseq = gf.getLastRow();
+      var gcode = (GIFT_PREFIX[data.gift] || 'ZR-G-') + ('0000' + gseq).slice(-4);
+      gf.appendRow([
+        new Date(),
+        "'" + (data.instagram || ''),
+        data.gift || '',
+        data.followed ? 'Y' : 'N',
+        data.story ? 'Y' : 'N',
+        gcode,
+        data.language || ''
+      ]);
+      return json_({ ok: true, code: gcode });
     }
 
     // ── 응모 폼(index.html) → 쿠폰 발급 ──
@@ -79,6 +98,17 @@ function getSurveySheet_() {
   if (!sheet) {
     sheet = ss.insertSheet(SURVEY_SHEET);
     sheet.appendRow(['timestamp','age','visitor_type','sweet','acidity','fizz','throat','aroma','overall','design','brand','price','repurchase','nps','channels','comment']);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function getGiftSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(GIFT_SHEET);
+  if (!sheet) {
+    sheet = ss.insertSheet(GIFT_SHEET);
+    sheet.appendRow(['timestamp','instagram','gift','followed','story','code','language']);
     sheet.setFrozenRows(1);
   }
   return sheet;

@@ -174,6 +174,22 @@
   .feat-d{ font-family:var(--body); font-size:14px; color:#2a2a2a; margin-top:7px; line-height:1.55; }
   @media (max-width:560px){ .feat{ grid-template-columns:44px 1fr; gap:14px; } .feat-n{ width:40px; height:40px; font-size:17px; } }
 
+  /* SNS 인증 스텝 */
+  .steps{ margin-top:24px; display:flex; flex-direction:column; gap:14px; }
+  .step{ display:grid; grid-template-columns:50px 1fr; gap:16px; align-items:start; border:2px solid var(--black); padding:18px; background:#fff; }
+  .step-n{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; background:var(--black); color:var(--pink); font-family:var(--display); font-weight:900; font-size:17px; }
+  .step-t{ font-family:var(--display); font-weight:900; font-size:clamp(16px,2.6vw,22px); letter-spacing:-.02em; line-height:1.15; }
+  .step-d{ font-family:var(--body); font-size:14px; color:#2a2a2a; margin-top:6px; line-height:1.5; }
+  .btn--sm{ display:inline-block; margin-top:12px; padding:9px 16px; font-size:12px; }
+
+  /* 기프트 뽑기 모달 */
+  .gift-modal{ max-width:380px; }
+  .gift-emoji{ font-size:74px; line-height:1; }
+  .gift-emoji.spin{ animation:giftpop .18s steps(1) infinite; }
+  @keyframes giftpop{ 50%{ transform:scale(1.15) rotate(-5deg); } }
+  .gift-modal .gift-win{ font-family:var(--mono); font-size:13px; text-transform:uppercase; margin-top:8px; }
+  .gift-modal .gift-name{ font-family:var(--display); font-weight:900; font-size:28px; letter-spacing:-.02em; margin-top:4px; }
+
   /* ===========================================================
      키네틱 워드 섹션 (ㅈㄹ / WTF 떠다니기)
   =========================================================== */
@@ -539,40 +555,54 @@
       <li><b data-i18n="visit.hoursL">운영시간</b><span data-i18n="visit.hoursV">10:30 – 18:00</span></li>
       <li><b data-i18n="visit.priceL">입장</b><span data-i18n="visit.priceV">무료 입장</span></li>
     </ul>
-    <div class="coupon-banner" data-i18n="visit.coupon">🎟️ 지금 응모하면 성수 팝업 2,000원 할인쿠폰을 드려요!</div>
+    <div class="coupon-banner" data-i18n="visit.coupon">🎁 SNS 인증하고 스페셜 기프트(키링·거울·할인쿠폰)를 받아가세요!</div>
   </div>
 </section>
 
 <!-- ================= 신청 폼 ================= -->
 <section class="block" id="apply">
   <div class="wrap">
-    <div class="kicker"><span data-i18n="form.eyebrow">APPLY</span></div>
-    <h2 data-i18n="form.h">응모하고 쿠폰 받기</h2>
-    <form id="apply-form" novalidate>
-      <div class="field">
-        <label><span data-i18n="form.nameL">이름</span> <span class="req">*</span></label>
-        <input type="text" id="f-name" data-i18n-ph="form.namePh" placeholder="이름을 입력하세요" required />
-        <div class="err" data-i18n="form.nameErr">이름을 입력해 주세요.</div>
+    <div class="kicker"><span>SPECIAL GIFT</span></div>
+    <h2 data-i18n="gift.h">SNS 인증하고 스페셜 기프트 받기</h2>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-n">01</span>
+        <div>
+          <div class="step-t" data-i18n="gift.s1t">@zr.makgeolli 팔로우</div>
+          <div class="step-d" data-i18n="gift.s1d">인스타에서 ㅈㄹ막걸리를 팔로우하세요.</div>
+          <a id="gift-follow" class="btn btn--orange btn--sm" target="_blank" rel="noopener" data-i18n="gift.followBtn">팔로우하러 가기 →</a>
+        </div>
       </div>
-      <div class="field">
-        <label><span data-i18n="form.phoneL">연락처</span> <span class="req">*</span></label>
-        <input type="tel" id="f-phone" data-i18n-ph="form.phonePh" placeholder="010-0000-0000" required />
-        <div class="err" data-i18n="form.phoneErr">연락처를 정확히 입력해 주세요.</div>
+      <div class="step">
+        <span class="step-n">02</span>
+        <div>
+          <div class="step-t" data-i18n="gift.s2t">스토리 인증</div>
+          <div class="step-d" data-i18n="gift.s2d">구매한 막걸리+키링 사진을 스토리에 올리고 @zr.makgeolli를 멘션하세요.</div>
+        </div>
       </div>
-      <div class="field">
-        <label data-i18n="form.sourceL">알게 된 경로</label>
-        <select id="f-source"></select>
+      <div class="step">
+        <span class="step-n">03</span>
+        <div>
+          <div class="step-t" data-i18n="gift.s3t">기프트 뽑기</div>
+          <div class="step-d" data-i18n="gift.s3d">아래에서 인증하고 랜덤 스페셜 기프트를 뽑으세요!</div>
+        </div>
       </div>
+    </div>
+
+    <form id="gift-form" novalidate>
       <div class="field">
-        <label class="consent">
-          <input type="checkbox" id="f-consent" required />
-          <span><span data-i18n="form.consent">개인정보 수집·이용에 동의합니다. (필수)</span>
-          <a id="privacy-link" data-i18n="form.consentLink">[전문 보기]</a></span>
-        </label>
-        <div class="err" data-i18n="form.consentErr">개인정보 수집·이용에 동의해 주세요.</div>
+        <label><span data-i18n="gift.handleL">인스타그램 아이디</span> <span class="req">*</span></label>
+        <input type="text" id="g-handle" data-i18n-ph="gift.handlePh" placeholder="@yourname" required />
+        <div class="err" id="g-handle-err" data-i18n="gift.handleErr">인스타그램 아이디를 입력해 주세요.</div>
       </div>
-      <button type="submit" class="btn btn--block" id="submit-btn" data-i18n="form.submit">응모 완료하기</button>
-      <p class="form-note" data-i18n="form.note">응모 시 입력한 이름의 초성과 발급 쿠폰이 함께 저장됩니다.</p>
+      <label class="consent"><input type="checkbox" id="g-follow" /> <span data-i18n="gift.chk1">@zr.makgeolli 팔로우했어요</span></label>
+      <label class="consent" style="margin-top:8px;"><input type="checkbox" id="g-story" /> <span data-i18n="gift.chk2">스토리에 사진 + @zr.makgeolli 멘션 인증했어요</span></label>
+      <div class="err" id="g-chk-err" data-i18n="gift.chkErr">두 가지 인증을 모두 체크해 주세요.</div>
+      <label class="consent" style="margin-top:8px;"><input type="checkbox" id="g-consent" /> <span><span data-i18n="form.consent">개인정보 수집·이용에 동의합니다. (필수)</span> <a id="privacy-link" data-i18n="form.consentLink">[전문 보기]</a></span></label>
+      <div class="err" id="g-consent-err" data-i18n="form.consentErr">개인정보 수집·이용에 동의해 주세요.</div>
+      <button type="submit" class="btn btn--block" id="gift-btn" style="margin-top:20px;" data-i18n="gift.btn">🎁 기프트 뽑기</button>
+      <p class="form-note" data-i18n="gift.note">인증은 현장 스태프가 확인 후 기프트를 드립니다. 인스타 1계정당 1회.</p>
     </form>
   </div>
 </section>
@@ -619,6 +649,24 @@
   </div>
 </div>
 
+<!-- ================= 기프트 뽑기 결과 ================= -->
+<div class="overlay" id="gift-overlay">
+  <div class="modal gift-modal">
+    <div class="gift-emoji" id="gift-emoji">🎁</div>
+    <p class="gift-win" data-i18n="gift.win">축하해요!</p>
+    <h3 class="gift-name" id="gift-name">—</h3>
+    <div class="coupon">
+      <div class="muted" data-i18n="gift.codeL">기프트 코드</div>
+      <div class="code" id="gift-code">—</div>
+    </div>
+    <p class="muted" data-i18n="gift.show">현장 스태프에게 이 화면을 보여주세요.</p>
+    <div class="actions">
+      <a id="gift-insta" class="btn btn--invert" target="_blank" rel="noopener" data-i18n="success.insta">인스타 팔로우</a>
+      <button class="btn" id="gift-close" data-i18n="gen.close2">닫기</button>
+    </div>
+  </div>
+</div>
+
 <!-- ================= 성공 오버레이 ================= -->
 <div class="overlay" id="overlay">
   <div class="modal">
@@ -659,6 +707,15 @@ const I18N = {
     "nav.apply":"신청하기",
     "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ막걸리 × DOOTA 팝업","hero.slogan":"가볍게, 위트있게 한 잔!",
     "hero.date":"2026.6.8 – 7.8","hero.place":"두타몰 B2F · 서울 중구 장충단로 275","hero.cta":"응모하고 쿠폰 받기","cta.h":"더 보러 가기",
+    "gift.h":"SNS 인증하고 스페셜 기프트 받기",
+    "gift.s1t":"@zr.makgeolli 팔로우","gift.s1d":"인스타에서 ㅈㄹ막걸리를 팔로우하세요.","gift.followBtn":"팔로우하러 가기 →",
+    "gift.s2t":"스토리 인증","gift.s2d":"구매한 막걸리+키링 사진을 스토리에 올리고 @zr.makgeolli를 멘션하세요.",
+    "gift.s3t":"기프트 뽑기","gift.s3d":"아래에서 인증하고 랜덤 스페셜 기프트를 뽑으세요!",
+    "gift.handleL":"인스타그램 아이디","gift.handlePh":"@yourname","gift.handleErr":"인스타그램 아이디를 입력해 주세요.",
+    "gift.chk1":"@zr.makgeolli 팔로우했어요","gift.chk2":"스토리에 사진 + @zr.makgeolli 멘션 인증했어요","gift.chkErr":"두 가지 인증을 모두 체크해 주세요.",
+    "gift.btn":"🎁 기프트 뽑기","gift.note":"인증은 현장 스태프가 확인 후 기프트를 드립니다. 인스타 1계정당 1회.",
+    "gift.win":"축하해요!","gift.codeL":"기프트 코드","gift.show":"현장 스태프에게 이 화면을 보여주세요.",
+    "gift.keyring":"막꾸 키링","gift.mirror":"거울 굿즈","gift.discount":"디스카운트 쿠폰",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ막걸리","mean.h":"ㅈㄹ, 무슨 뜻이게요?",
     "intro.body":"위트있게 만나는 MZ 막걸리. 무겁게 들이켜는 전통주가 아니라, 친구와 깔깔대며 가볍게 기울이는 한 잔. 한글 초성 'ㅈㄹ'을 큼직하게 박은 라벨처럼, 재밌지만 맛은 진지함으로 채웠습니다.",
     "taste.eyebrow":"TASTE","taste.h":"맛 설명",
@@ -682,7 +739,7 @@ const I18N = {
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
     "visit.hoursL":"운영시간","visit.hoursV":"10:30 – 18:00",
     "visit.priceL":"입장","visit.priceV":"무료 입장",
-    "visit.coupon":"🎟️ 지금 응모하면 성수 팝업 2,000원 할인쿠폰을 드려요!",
+    "visit.coupon":"🎁 SNS 인증하고 스페셜 기프트(키링·거울·할인쿠폰)를 받아가세요!",
     "form.eyebrow":"APPLY","form.h":"응모하고 쿠폰 받기",
     "form.nameL":"이름","form.namePh":"이름을 입력하세요","form.nameErr":"이름을 입력해 주세요.",
     "form.phoneL":"연락처","form.phonePh":"010-0000-0000","form.phoneErr":"연락처를 정확히 입력해 주세요.",
@@ -702,6 +759,15 @@ const I18N = {
     "nav.apply":"Apply",
     "hero.badge":"DOOTA POP-UP","hero.title":"ZR Makgeolli × DOOTA Pop-up","hero.slogan":"A light, witty drink!",
     "hero.date":"Jun 8 – Jul 8, 2026","hero.place":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul","hero.cta":"Enter & Get a Coupon","cta.h":"Come Find Us",
+    "gift.h":"Verify on SNS, Get a Special Gift",
+    "gift.s1t":"Follow @zr.makgeolli","gift.s1d":"Follow ZR Makgeolli on Instagram.","gift.followBtn":"Go Follow →",
+    "gift.s2t":"Story Verification","gift.s2d":"Post your makgeolli + keyring photo to your story and mention @zr.makgeolli.",
+    "gift.s3t":"Draw a Gift","gift.s3d":"Verify below and draw your random special gift!",
+    "gift.handleL":"Instagram Handle","gift.handlePh":"@yourname","gift.handleErr":"Please enter your Instagram handle.",
+    "gift.chk1":"I followed @zr.makgeolli","gift.chk2":"I posted a story with a photo + @zr.makgeolli mention","gift.chkErr":"Please check both verifications.",
+    "gift.btn":"🎁 Draw My Gift","gift.note":"Gifts are given after on-site staff verification. One draw per Instagram account.",
+    "gift.win":"Congrats!","gift.codeL":"Gift Code","gift.show":"Show this screen to on-site staff.",
+    "gift.keyring":"Makgeolli Keyring","gift.mirror":"Mirror Goods","gift.discount":"Discount Coupon",
     "intro.eyebrow":"ABOUT","intro.h":"ZR Makgeolli","mean.h":"What does WTF mean?",
     "intro.body":"A witty MZ-generation makgeolli. Not a heavy traditional liquor, but a light glass to share and laugh over with friends. Just like its label stamped with the bold Korean initials 'ㅈㄹ' — playful on the outside, but dead serious about taste.",
     "taste.eyebrow":"TASTE","taste.h":"Taste",
@@ -725,7 +791,7 @@ const I18N = {
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
     "visit.hoursL":"Hours","visit.hoursV":"10:30 – 18:00",
     "visit.priceL":"Entry","visit.priceV":"Free entry",
-    "visit.coupon":"🎟️ Enter now and get a 2,000 KRW discount coupon for the Seongsu pop-up!",
+    "visit.coupon":"🎁 Verify on SNS and grab a special gift — keyring, mirror or discount coupon!",
     "form.eyebrow":"APPLY","form.h":"Enter & Get a Coupon",
     "form.nameL":"Name","form.namePh":"Enter your name","form.nameErr":"Please enter your name.",
     "form.phoneL":"Phone","form.phonePh":"010-0000-0000","form.phoneErr":"Please enter a valid phone number.",
@@ -745,6 +811,15 @@ const I18N = {
     "nav.apply":"応募する",
     "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹマッコリ × DOOTA ポップアップ","hero.slogan":"軽く、ウィットに一杯！",
     "hero.date":"2026.6.8 – 7.8","hero.place":"DOOTAモール B2F · ソウル中区奨忠壇路275","hero.cta":"応募してクーポンGET","cta.h":"もっと見る",
+    "gift.h":"SNS認証してスペシャルギフトをGET",
+    "gift.s1t":"@zr.makgeolli をフォロー","gift.s1d":"インスタでㅈㄹマッコリをフォローしてください。","gift.followBtn":"フォローする →",
+    "gift.s2t":"ストーリー認証","gift.s2d":"購入したマッコリ+キーリングの写真をストーリーに載せ、@zr.makgeolli をメンションしてください。",
+    "gift.s3t":"ギフトを引く","gift.s3d":"下で認証して、ランダムなスペシャルギフトを引こう！",
+    "gift.handleL":"インスタグラムID","gift.handlePh":"@yourname","gift.handleErr":"インスタグラムIDを入力してください。",
+    "gift.chk1":"@zr.makgeolli をフォローしました","gift.chk2":"ストーリーに写真+@zr.makgeolli メンションで認証しました","gift.chkErr":"2つの認証を両方チェックしてください。",
+    "gift.btn":"🎁 ギフトを引く","gift.note":"ギフトは現場スタッフの確認後にお渡しします。1アカウント1回。",
+    "gift.win":"おめでとう！","gift.codeL":"ギフトコード","gift.show":"現場スタッフにこの画面を見せてください。",
+    "gift.keyring":"マッコリキーリング","gift.mirror":"ミラーグッズ","gift.discount":"割引クーポン",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹマッコリ","mean.h":"WTFって、どんな意味？",
     "intro.body":"ウィットに出会うMZ世代のマッコリ。重く飲み干す伝統酒ではなく、友達と笑いながら軽く傾ける一杯。ハングルの頭文字「ㅈㄹ」を大きく配したラベルのように、遊び心はたっぷり、でも味は真剣です。",
     "taste.eyebrow":"TASTE","taste.h":"味の説明",
@@ -768,7 +843,7 @@ const I18N = {
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
     "visit.hoursL":"営業時間","visit.hoursV":"10:30 – 18:00",
     "visit.priceL":"入場","visit.priceV":"入場無料",
-    "visit.coupon":"🎟️ 今応募すると、聖水ポップアップの2,000ウォン割引クーポンをプレゼント！",
+    "visit.coupon":"🎁 SNS認証してスペシャルギフト（キーリング・ミラー・割引券）をGET！",
     "form.eyebrow":"APPLY","form.h":"応募してクーポンGET",
     "form.nameL":"名前","form.namePh":"名前を入力してください","form.nameErr":"名前を入力してください。",
     "form.phoneL":"連絡先","form.phonePh":"010-0000-0000","form.phoneErr":"連絡先を正しく入力してください。",
@@ -788,6 +863,15 @@ const I18N = {
     "nav.apply":"报名",
     "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ马格利酒 × DOOTA 快闪","hero.slogan":"轻松、有趣来一杯！",
     "hero.date":"2026.6.8 – 7.8","hero.place":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275","hero.cta":"报名领优惠券","cta.h":"了解更多",
+    "gift.h":"SNS认证领取专属礼物",
+    "gift.s1t":"关注 @zr.makgeolli","gift.s1d":"在Instagram关注ㅈㄹ马格利。","gift.followBtn":"去关注 →",
+    "gift.s2t":"快拍认证","gift.s2d":"将购买的马格利+钥匙扣照片发到快拍，并@zr.makgeolli。",
+    "gift.s3t":"抽取礼物","gift.s3d":"在下方认证并抽取随机专属礼物！",
+    "gift.handleL":"Instagram 账号","gift.handlePh":"@yourname","gift.handleErr":"请输入Instagram账号。",
+    "gift.chk1":"我已关注 @zr.makgeolli","gift.chk2":"我已在快拍发照片并@zr.makgeolli","gift.chkErr":"请勾选两项认证。",
+    "gift.btn":"🎁 抽取礼物","gift.note":"礼物由现场工作人员确认后发放。每个Instagram账号限1次。",
+    "gift.win":"恭喜！","gift.codeL":"礼物码","gift.show":"请向现场工作人员出示此画面。",
+    "gift.keyring":"马格利钥匙扣","gift.mirror":"镜子周边","gift.discount":"折扣券",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ马格利酒","mean.h":"WTF 是什么意思？",
     "intro.body":"用俏皮相遇的MZ世代马格利酒。它不是要一饮而尽的厚重传统酒，而是和朋友谈笑间轻轻举起的一杯。就像瓶身上大大印着的韩文首字母「ㅈㄹ」一样，玩心十足，但对味道很认真。",
     "taste.eyebrow":"TASTE","taste.h":"风味说明",
@@ -811,7 +895,7 @@ const I18N = {
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
     "visit.hoursL":"营业时间","visit.hoursV":"10:30 – 18:00",
     "visit.priceL":"入场","visit.priceV":"免费入场",
-    "visit.coupon":"🎟️ 现在报名即可获得圣水快闪2,000韩元优惠券！",
+    "visit.coupon":"🎁 SNS认证领取专属礼物（钥匙扣·镜子·折扣券）！",
     "form.eyebrow":"APPLY","form.h":"报名领优惠券",
     "form.nameL":"姓名","form.namePh":"请输入姓名","form.nameErr":"请输入姓名。",
     "form.phoneL":"联系方式","form.phonePh":"010-0000-0000","form.phoneErr":"请输入正确的联系方式。",
@@ -1020,13 +1104,6 @@ function applyLang(lang){
   });
   document.title = dict['meta.title'];
 
-  const sel = document.getElementById('f-source');
-  const prev = sel.selectedIndex;
-  sel.innerHTML = '';
-  dict['source.opts'].forEach(opt=>{
-    const o = document.createElement('option'); o.value = opt; o.textContent = opt; sel.appendChild(o);
-  });
-  if(prev >= 0) sel.selectedIndex = prev;
 
   document.querySelectorAll('.lang button').forEach(b=>{
     b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
@@ -1135,52 +1212,63 @@ document.getElementById('privacy-close').addEventListener('click', ()=> privacyO
 /* ===========================================================
    7) 신청 폼 제출 → Apps Script
 =========================================================== */
-const form = document.getElementById('apply-form');
-const submitBtn = document.getElementById('submit-btn');
 const overlay = document.getElementById('overlay');
 
-function showErr(fieldId, on){
-  const err = document.querySelector(`#${fieldId}`).closest('.field').querySelector('.err');
-  if(err) err.classList.toggle('show', on);
-}
+/* SNS 인증 → 스페셜 기프트 뽑기 (가챠: 키링20 / 거울50 / 쿠폰30) */
+const GIFTS = [
+  { k:'keyring',  w:20, emoji:'🔑', pre:'K' },
+  { k:'mirror',   w:50, emoji:'🪞', pre:'M' },
+  { k:'discount', w:30, emoji:'🎟️', pre:'D' }
+];
+function drawGift(){ const total=GIFTS.reduce((s,g)=>s+g.w,0); let r=Math.random()*total; for(const g of GIFTS){ if(r<g.w) return g; r-=g.w; } return GIFTS[GIFTS.length-1]; }
+const delay = ms => new Promise(r=>setTimeout(r,ms));
 
-form.addEventListener('submit', async (e)=>{
+const giftForm = document.getElementById('gift-form');
+const giftBtn  = document.getElementById('gift-btn');
+const giftOverlay = document.getElementById('gift-overlay');
+const giftEmoji = document.getElementById('gift-emoji');
+document.getElementById('gift-follow').href = CONFIG.INSTA_URL;
+document.getElementById('gift-insta').href = CONFIG.INSTA_URL;
+document.getElementById('gift-close').addEventListener('click', ()=> giftOverlay.classList.remove('show'));
+
+giftForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
   const dict = I18N[LANG];
-  const name    = document.getElementById('f-name').value.trim();
-  const phone   = document.getElementById('f-phone').value.trim();
-  const consent = document.getElementById('f-consent').checked;
-  const source  = document.getElementById('f-source').value;
+  const handle   = document.getElementById('g-handle').value.trim();
+  const followed = document.getElementById('g-follow').checked;
+  const story    = document.getElementById('g-story').checked;
+  const consent  = document.getElementById('g-consent').checked;
 
   let ok = true;
-  showErr('f-name', !name);    if(!name) ok=false;
-  const phoneOk = /[0-9]{7,}/.test(phone.replace(/[^0-9]/g,''));
-  showErr('f-phone', !phoneOk); if(!phoneOk) ok=false;
-  showErr('f-consent', !consent); if(!consent) ok=false;
+  document.getElementById('g-handle-err').classList.toggle('show', !handle); if(!handle) ok=false;
+  document.getElementById('g-chk-err').classList.toggle('show', !(followed&&story)); if(!(followed&&story)) ok=false;
+  document.getElementById('g-consent-err').classList.toggle('show', !consent); if(!consent) ok=false;
   if(!ok) return;
 
-  const payload = {
-    language: LANG, name, name_chosung: toChosung(name), phone, source, consent
-  };
+  const gift = drawGift();
+  const handleNorm = handle.replace(/^@/,'');
+  let code = gift.pre + '-' + String(Math.floor(Math.random()*9000)+1000);
 
-  const origin = submitBtn.textContent;
-  submitBtn.disabled = true;
-  submitBtn.textContent = dict['form.sending'];
-  try{
-    const res = await fetch(CONFIG.WEBAPP_URL, { method:'POST', body: JSON.stringify(payload) });
-    const json = await res.json();
-    const coupon = (json && json.coupon) ? json.coupon : 'ZRSS-0000';
+  // 결과 모달 열고 '두근두근' 연출
+  giftBtn.disabled = true;
+  document.getElementById('gift-name').textContent = '...';
+  document.getElementById('gift-code').textContent = '...';
+  giftEmoji.textContent = '🎁'; giftEmoji.classList.add('spin');
+  giftOverlay.classList.add('show');
+  let i=0; const spin = setInterval(()=>{ giftEmoji.textContent = GIFTS[i++ % GIFTS.length].emoji; }, 140);
 
-    document.getElementById('success-chosung').textContent = payload.name_chosung;
-    document.getElementById('success-coupon').textContent = coupon;
-    overlay.classList.add('show');
-    form.reset();
-  }catch(err){
-    alert(dict['form.fail']);
-  }finally{
-    submitBtn.disabled = false;
-    submitBtn.textContent = origin;
-  }
+  // 서버 기록 + 코드 발급 (실패 시 클라 코드 사용)
+  const codeP = fetch(CONFIG.WEBAPP_URL, { method:'POST', body: JSON.stringify({ type:'gift', instagram:handleNorm, followed, story, gift:gift.k, language:LANG }) })
+    .then(r=>r.json()).then(j=> (j && j.code) ? j.code : code).catch(()=> code);
+
+  await delay(1300);
+  code = await codeP;
+  clearInterval(spin); giftEmoji.classList.remove('spin');
+  giftEmoji.textContent = gift.emoji;
+  document.getElementById('gift-name').textContent = dict['gift.'+gift.k] || gift.k;
+  document.getElementById('gift-code').textContent = code;
+  giftBtn.disabled = false;
+  giftForm.reset();
 });
 
 document.getElementById('overlay-close').addEventListener('click', ()=> overlay.classList.remove('show'));
