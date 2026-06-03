@@ -165,6 +165,14 @@
   .spec{ font-family:var(--mono); font-size:13px; font-weight:700; text-transform:uppercase; border:2px solid var(--black); padding:11px 18px; }
   .spec b{ color:var(--red); }
 
+  /* 제조 포인트 리스트 (01~05) */
+  .featlist{ margin-top:28px; border-top:2px solid var(--black); }
+  .feat{ display:grid; grid-template-columns:60px 1fr; gap:18px; align-items:start; padding:22px 4px; border-bottom:2px solid var(--black); }
+  .feat-n{ display:inline-flex; align-items:center; justify-content:center; width:54px; height:54px; background:var(--black); color:var(--pink); font-family:var(--display); font-weight:900; font-size:22px; }
+  .feat-t{ font-family:var(--display); font-weight:900; font-size:clamp(19px,3.2vw,28px); letter-spacing:-.02em; line-height:1.12; }
+  .feat-d{ font-family:var(--body); font-size:14px; color:#2a2a2a; margin-top:7px; line-height:1.55; }
+  @media (max-width:560px){ .feat{ grid-template-columns:44px 1fr; gap:14px; } .feat-n{ width:40px; height:40px; font-size:17px; } }
+
   /* ===========================================================
      키네틱 워드 섹션 (ㅈㄹ / WTF 떠다니기)
   =========================================================== */
@@ -264,8 +272,8 @@
   =========================================================== */
   .info-list{ list-style:none; margin-top:28px; border-top:2px solid var(--black); }
   .info-list li{ display:grid; grid-template-columns:140px 1fr; gap:16px; padding:18px 4px; border-bottom:2px solid var(--black); }
-  .info-list b{ font-family:var(--mono); font-size:12px; text-transform:uppercase; }
-  .info-list span{ font-weight:500; }
+  .info-list b{ font-family:var(--body); font-size:16px; font-weight:700; }
+  .info-list span{ font-family:var(--body); font-size:16px; font-weight:500; }
   .coupon-banner{ margin-top:28px; border:2px solid var(--black); padding:18px 22px; font-family:var(--mono); font-size:14px; text-transform:uppercase; }
 
   /* ===========================================================
@@ -419,12 +427,27 @@
   <div class="wrap">
     <div class="kicker"><span data-i18n="taste.eyebrow">TASTE</span></div>
     <h2 data-i18n="taste.h">맛 설명</h2>
-    <p class="lead" data-i18n="taste.body">부드럽고 크리미한 질감에 은은한 단맛, 산뜻하게 떨어지는 끝맛. 가볍게 톡 쏘는 청량감과 낮은 도수로 누구나 부담 없이 즐길 수 있습니다.</p>
+    <p class="lead" data-i18n="taste.body">당일 도정한 춘천쌀 100%에 강원도 물과 누룩만으로 빚어 50일간 저온 숙성했습니다. 인공감미료·첨가물 0%. 잘 익은 참외와 멜론을 닮은 풍부한 단맛, 수작업 여과로 완성한 벨벳처럼 부드러운 질감. 가볍게 톡 쏘는 청량감과 낮은 도수로 누구나 부담 없이 즐길 수 있습니다.</p>
     <div class="spec-row">
       <span class="spec" data-i18n="taste.spec1">춘천쌀 100%</span>
       <span class="spec" data-i18n="taste.spec2">인공감미료 ZERO</span>
       <span class="spec">ALC. 7%</span>
       <span class="spec">650ML</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 제조 포인트 리스트 ================= -->
+<section class="block" id="made">
+  <div class="wrap">
+    <div class="kicker"><span>MADE WITH</span></div>
+    <h2 data-i18n="feat.h">이렇게 빚었습니다</h2>
+    <div class="featlist">
+      <div class="feat"><span class="feat-n">01</span><div><div class="feat-t" data-i18n="feat1t">당일도정 춘천쌀 100%</div><div class="feat-d" data-i18n="feat1d">매일 아침 엄선한 당일 도정 춘천쌀로 빚습니다.</div></div></div>
+      <div class="feat"><span class="feat-n">02</span><div><div class="feat-t" data-i18n="feat2t">인공감미료·첨가물 0%</div><div class="feat-d" data-i18n="feat2d">춘천쌀·강원도 물·누룩만으로 빚은 생주 막걸리.</div></div></div>
+      <div class="feat"><span class="feat-n">03</span><div><div class="feat-t" data-i18n="feat3t">50일간의 저온 숙성</div><div class="feat-d" data-i18n="feat3d">깊은 맛을 위해 시간을 아낌없이 투자합니다.</div></div></div>
+      <div class="feat"><span class="feat-n">04</span><div><div class="feat-t" data-i18n="feat4t">잘 익은 참외와 멜론의 풍미</div><div class="feat-d" data-i18n="feat4d">인위적 단맛이 아닌, 깔끔하고 풍부한 참외의 단맛.</div></div></div>
+      <div class="feat"><span class="feat-n">05</span><div><div class="feat-t" data-i18n="feat5t">가장 부드러운 질감</div><div class="feat-d" data-i18n="feat5d">벨벳 같은 질감을 위해 수작업으로 직접 여과합니다.</div></div></div>
     </div>
   </div>
 </section>
@@ -513,7 +536,7 @@
       <li><b data-i18n="visit.dateL">기간</b><span data-i18n="visit.dateV">2026.6.8 – 7.8</span></li>
       <li><b data-i18n="visit.placeL">장소</b><span data-i18n="visit.placeV">두타몰 B2F · 서울 중구 장충단로 275</span></li>
       <li><b data-i18n="visit.hoursL">운영시간</b><span data-i18n="visit.hoursV">10:30 – 18:00</span></li>
-      <li><b data-i18n="visit.priceL">입장</b><span data-i18n="visit.priceV">무료 입장 · 일부 체험 유료</span></li>
+      <li><b data-i18n="visit.priceL">입장</b><span data-i18n="visit.priceV">무료 입장</span></li>
     </ul>
     <div class="coupon-banner" data-i18n="visit.coupon">🎟️ 지금 응모하면 성수 팝업 2,000원 할인쿠폰을 드려요!</div>
   </div>
@@ -638,8 +661,14 @@ const I18N = {
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ막걸리","mean.h":"ㅈㄹ, 무슨 뜻이게요?",
     "intro.body":"위트있게 만나는 MZ 막걸리. 무겁게 들이켜는 전통주가 아니라, 친구와 깔깔대며 가볍게 기울이는 한 잔. 한글 초성 'ㅈㄹ'을 큼직하게 박은 라벨처럼, 재밌지만 맛은 진지함으로 채웠습니다.",
     "taste.eyebrow":"TASTE","taste.h":"맛 설명",
-    "taste.body":"부드럽고 크리미한 질감에 은은한 단맛, 산뜻하게 떨어지는 끝맛. 가볍게 톡 쏘는 청량감과 낮은 도수로 누구나 부담 없이 즐길 수 있습니다.",
+    "taste.body":"당일 도정한 춘천쌀 100%에 강원도 물과 누룩만으로 빚어 50일간 저온 숙성했습니다. 인공감미료·첨가물 0%. 잘 익은 참외와 멜론을 닮은 풍부한 단맛, 수작업 여과로 완성한 벨벳처럼 부드러운 질감. 가볍게 톡 쏘는 청량감과 낮은 도수로 누구나 부담 없이 즐길 수 있습니다.",
     "taste.spec1":"춘천쌀 100%","taste.spec2":"인공감미료 ZERO",
+    "feat.h":"이렇게 빚었습니다",
+    "feat1t":"당일도정 춘천쌀 100%","feat1d":"매일 아침 엄선한 당일 도정 춘천쌀로 빚습니다.",
+    "feat2t":"인공감미료·첨가물 0%","feat2d":"춘천쌀·강원도 물·누룩만으로 빚은 생주 막걸리.",
+    "feat3t":"50일간의 저온 숙성","feat3d":"깊은 맛을 위해 시간을 아낌없이 투자합니다.",
+    "feat4t":"잘 익은 참외와 멜론의 풍미","feat4d":"인위적 단맛이 아닌, 깔끔하고 풍부한 참외의 단맛.",
+    "feat5t":"가장 부드러운 질감","feat5d":"벨벳 같은 질감을 위해 수작업으로 직접 여과합니다.",
     "program.eyebrow":"PROGRAM","program.h":"팝업에서 즐기는 것들",
     "program.c1t":"콜라보존","program.c1d":"두타 한정 ㅈㄹ × DOOTA 포토존",
     "program.c2t":"시음","program.c2d":"현장에서 즐기는 ㅈㄹ막걸리 한 잔",
@@ -651,7 +680,7 @@ const I18N = {
     "visit.dateL":"기간","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
     "visit.hoursL":"운영시간","visit.hoursV":"10:30 – 18:00",
-    "visit.priceL":"입장","visit.priceV":"무료 입장 · 일부 체험 유료",
+    "visit.priceL":"입장","visit.priceV":"무료 입장",
     "visit.coupon":"🎟️ 지금 응모하면 성수 팝업 2,000원 할인쿠폰을 드려요!",
     "form.eyebrow":"APPLY","form.h":"응모하고 쿠폰 받기",
     "form.nameL":"이름","form.namePh":"이름을 입력하세요","form.nameErr":"이름을 입력해 주세요.",
@@ -675,8 +704,14 @@ const I18N = {
     "intro.eyebrow":"ABOUT","intro.h":"ZR Makgeolli","mean.h":"What does WTF mean?",
     "intro.body":"A witty MZ-generation makgeolli. Not a heavy traditional liquor, but a light glass to share and laugh over with friends. Just like its label stamped with the bold Korean initials 'ㅈㄹ' — playful on the outside, but dead serious about taste.",
     "taste.eyebrow":"TASTE","taste.h":"Taste",
-    "taste.body":"Smooth and creamy with a gentle sweetness and a crisp, clean finish. A light sparkle and low ABV make it easy for anyone to enjoy.",
+    "taste.body":"Brewed with 100% same-day milled Chuncheon rice, Gangwon water and nuruk, then cold-aged for 50 days. Zero artificial sweeteners or additives. A rich sweetness like ripe Korean melon, with a velvety texture finished by hand filtering. A light sparkle and low ABV make it easy for anyone to enjoy.",
     "taste.spec1":"100% Chuncheon Rice","taste.spec2":"Zero Artificial Sweeteners",
+    "feat.h":"How We Brew It",
+    "feat1t":"100% Same-Day Milled Rice","feat1d":"Brewed with hand-picked Chuncheon rice, milled fresh every morning.",
+    "feat2t":"Zero Sweeteners & Additives","feat2d":"Just rice, Gangwon water and nuruk — a live, unpasteurized makgeolli.",
+    "feat3t":"50 Days of Cold Aging","feat3d":"We take all the time it needs to build deep flavor.",
+    "feat4t":"Ripe Melon Aromatics","feat4d":"Not artificial sweetness, but a clean, full melon-like sweetness.",
+    "feat5t":"The Smoothest Texture","feat5d":"Hand-filtered for a velvety-smooth finish.",
     "program.eyebrow":"PROGRAM","program.h":"What to Enjoy",
     "program.c1t":"Collab Zone","program.c1d":"DOOTA-exclusive ZR × DOOTA photo zone",
     "program.c2t":"Tasting","program.c2d":"Enjoy a glass of ZR Makgeolli on-site",
@@ -688,7 +723,7 @@ const I18N = {
     "visit.dateL":"Dates","visit.dateV":"Jun 8 – Jul 8, 2026",
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
     "visit.hoursL":"Hours","visit.hoursV":"10:30 – 18:00",
-    "visit.priceL":"Entry","visit.priceV":"Free entry · some experiences paid",
+    "visit.priceL":"Entry","visit.priceV":"Free entry",
     "visit.coupon":"🎟️ Enter now and get a 2,000 KRW discount coupon for the Seongsu pop-up!",
     "form.eyebrow":"APPLY","form.h":"Enter & Get a Coupon",
     "form.nameL":"Name","form.namePh":"Enter your name","form.nameErr":"Please enter your name.",
@@ -712,8 +747,14 @@ const I18N = {
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹマッコリ","mean.h":"WTFって、どんな意味？",
     "intro.body":"ウィットに出会うMZ世代のマッコリ。重く飲み干す伝統酒ではなく、友達と笑いながら軽く傾ける一杯。ハングルの頭文字「ㅈㄹ」を大きく配したラベルのように、遊び心はたっぷり、でも味は真剣です。",
     "taste.eyebrow":"TASTE","taste.h":"味の説明",
-    "taste.body":"なめらかでクリーミーな口当たりに、ほんのりとした甘さと爽やかな後味。軽い微発泡と低アルコールで、誰でも気軽に楽しめます。",
+    "taste.body":"その日に精米した春川産米100%に江原道の水と麹だけで仕込み、50日間低温熟成。人工甘味料・添加物ゼロ。よく熟したマクワウリやメロンのような豊かな甘みと、手作業のろ過で仕上げたベルベットのようななめらかな口当たり。軽い微発泡と低アルコールで、誰でも気軽に楽しめます。",
     "taste.spec1":"春川産米100%","taste.spec2":"人工甘味料ゼロ",
+    "feat.h":"こうして造りました",
+    "feat1t":"当日精米の春川産米100%","feat1d":"毎朝厳選した当日精米の米だけで仕込みます。",
+    "feat2t":"人工甘味料・添加物ゼロ","feat2d":"米・江原道の水・麹だけで仕込んだ生酒マッコリ。",
+    "feat3t":"50日間の低温熟成","feat3d":"深い味わいのため、時間を惜しみません。",
+    "feat4t":"よく熟したウリとメロンの風味","feat4d":"人工的な甘さではなく、すっきり豊かなウリの甘み。",
+    "feat5t":"最もなめらかな口当たり","feat5d":"ベルベットのような口当たりのため手作業でろ過します。",
     "program.eyebrow":"PROGRAM","program.h":"ポップアップの楽しみ方",
     "program.c1t":"コラボゾーン","program.c1d":"DOOTA限定 ㅈㄹ × DOOTA フォトゾーン",
     "program.c2t":"試飲","program.c2d":"会場で楽しむ ㅈㄹマッコリ一杯",
@@ -725,7 +766,7 @@ const I18N = {
     "visit.dateL":"期間","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
     "visit.hoursL":"営業時間","visit.hoursV":"10:30 – 18:00",
-    "visit.priceL":"入場","visit.priceV":"入場無料 · 一部体験は有料",
+    "visit.priceL":"入場","visit.priceV":"入場無料",
     "visit.coupon":"🎟️ 今応募すると、聖水ポップアップの2,000ウォン割引クーポンをプレゼント！",
     "form.eyebrow":"APPLY","form.h":"応募してクーポンGET",
     "form.nameL":"名前","form.namePh":"名前を入力してください","form.nameErr":"名前を入力してください。",
@@ -749,8 +790,14 @@ const I18N = {
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ马格利酒","mean.h":"WTF 是什么意思？",
     "intro.body":"用俏皮相遇的MZ世代马格利酒。它不是要一饮而尽的厚重传统酒，而是和朋友谈笑间轻轻举起的一杯。就像瓶身上大大印着的韩文首字母「ㅈㄹ」一样，玩心十足，但对味道很认真。",
     "taste.eyebrow":"TASTE","taste.h":"风味说明",
-    "taste.body":"口感顺滑奶香，带着淡淡甜味与清爽收尾。轻盈的气泡感与较低的酒精度，让每个人都能轻松享用。",
+    "taste.body":"采用当日碾磨的100%春川大米，仅以江原道水与曲酿造，并经50天低温熟成。零人工甜味剂与添加剂。如熟透甜瓜、蜜瓜般丰富的甜味，经手工过滤打造出天鹅绒般顺滑的口感。轻盈气泡感与较低酒精度，让每个人都能轻松享用。",
     "taste.spec1":"100%春川大米","taste.spec2":"零人工甜味剂",
+    "feat.h":"我们这样酿造",
+    "feat1t":"当日碾磨 100%春川大米","feat1d":"每天清晨精选当日碾磨的春川大米酿造。",
+    "feat2t":"零甜味剂与添加剂","feat2d":"仅以大米、江原道水与曲酿造的生酒马格利。",
+    "feat3t":"50天低温熟成","feat3d":"为深邃风味，毫不吝惜时间。",
+    "feat4t":"熟透甜瓜与蜜瓜风味","feat4d":"并非人工甜味，而是清爽丰盈的甜瓜甜味。",
+    "feat5t":"最顺滑的口感","feat5d":"为天鹅绒般口感，手工亲自过滤。",
     "program.eyebrow":"PROGRAM","program.h":"快闪现场玩法",
     "program.c1t":"联名专区","program.c1d":"DOOTA限定 ㅈㄹ × DOOTA 拍照区",
     "program.c2t":"试饮","program.c2d":"现场畅饮一杯 ㅈㄹ马格利酒",
@@ -762,7 +809,7 @@ const I18N = {
     "visit.dateL":"日期","visit.dateV":"2026.6.8 – 7.8",
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
     "visit.hoursL":"营业时间","visit.hoursV":"10:30 – 18:00",
-    "visit.priceL":"入场","visit.priceV":"免费入场 · 部分体验需付费",
+    "visit.priceL":"入场","visit.priceV":"免费入场",
     "visit.coupon":"🎟️ 现在报名即可获得圣水快闪2,000韩元优惠券！",
     "form.eyebrow":"APPLY","form.h":"报名领优惠券",
     "form.nameL":"姓名","form.namePh":"请输入姓名","form.nameErr":"请输入姓名。",
