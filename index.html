@@ -62,8 +62,9 @@
   .display,.logo,.hero h1,.block h2,.work h2,.svc-title,.gen h2,.cta h2,.modal h3{ font-weight:900; }
 
   /* DOOTA 반반 컬러 */
-  .d-red{ color:var(--red); }
-  .d-blue{ color:var(--blue); margin-left:-.06em; }
+  /* DOOTA/두타: 한 단어를 좌(레드)·우(블루) 반반 그라데이션으로 — 글자 간격 없음 */
+  .doota{ background:linear-gradient(90deg, var(--red) 0 50%, var(--blue) 50% 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; }
 
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
@@ -387,7 +388,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
         </span>
       </div>
-      <div class="right">ㅈㄹ MAKGEOLLI®<br/><span class="d-red">DOO</span><span class="d-blue">TA</span> MALL B2F<br/>2026.06.08 — 07.08</div>
+      <div class="right">ㅈㄹ MAKGEOLLI®<br/><span class="doota">DOOTA</span> MALL B2F<br/>2026.06.08 — 07.08</div>
     </div>
   </div>
 </section>
@@ -399,8 +400,8 @@
     <span>ㅈㄹㅁㄱㄹ • ㅈㄹㅁㄱㄹ • ㅈㄹㅁㄱㄹ • ㅈㄹㅁㄱㄹ • ㅈㄹㅁㄱㄹ • </span>
   </div>
   <div class="marquee r2">
-    <span>ZR MAKGEOLLI × <span class="d-red">DOO</span><span class="d-blue">TA</span> POP-UP • JUN 8 — JUL 8 • </span>
-    <span>ZR MAKGEOLLI × <span class="d-red">DOO</span><span class="d-blue">TA</span> POP-UP • JUN 8 — JUL 8 • </span>
+    <span>ZR MAKGEOLLI × <span class="doota">DOOTA</span> POP-UP • JUN 8 — JUL 8 • </span>
+    <span>ZR MAKGEOLLI × <span class="doota">DOOTA</span> POP-UP • JUN 8 — JUL 8 • </span>
   </div>
 </section>
 
@@ -962,10 +963,7 @@ let LANG = detectLang();
 function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 // 'DOOTA' / '두타'를 글자 반반(레드+블루)으로 색칠
 function colorizeBrand(text){
-  return text.replace(/DOOTA|두타/g, m=>{
-    const h = Math.ceil(m.length/2);
-    return '<span class="d-red">'+m.slice(0,h)+'</span><span class="d-blue">'+m.slice(h)+'</span>';
-  });
+  return text.replace(/DOOTA|두타/g, m => '<span class="doota">'+m+'</span>');
 }
 
 /* ===========================================================
