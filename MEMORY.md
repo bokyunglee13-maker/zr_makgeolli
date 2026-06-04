@@ -42,6 +42,7 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - **Canvas 폰트**: 스토리 카드 그리기 전 `document.fonts.load('900 …px Paperlogy')` + `document.fonts.ready` await. 보틀 이미지(`bottle-cut.png`)도 onload await.
 - **인스타 공유**: Web Share API(files) — 모바일만 공유시트, 데스크톱은 다운로드 폴백. 자동 게시 불가(인스타 제약).
 - **이미지 경로**: 반드시 `/assets/...` (루트 절대). `/en` `/survey/ja` 등 하위경로 라우트에서 상대경로 깨짐 방지.
+- ⚠️ **DOM 요소 삭제 시 그 요소를 참조하는 JS도 같이 제거/가드** 必. `document.getElementById('없는id').addEventListener(...)` 가 null 에러를 던지면 **그 줄 이후 스크립트 전체가 중단** → 맨 끝의 `applyLang(LANG)` 초기화·각종 핸들러가 안 붙어 **i18n 미적용(HTML 기본값 노출)·언어토글·폼 전부 먹통**이 됨. (개인정보 동의 삭제로 `#privacy-link` 제거했을 때 실제 발생 → 리스너를 `if(el)` null-safe로 수정.) 증상: "번역 안 되고 기본 텍스트만 보임"이면 콘솔 에러부터 확인.
 - **대용량 원본**: `_originals/`(56MB png 등)는 gitignore. 배포/Push 전 거대 파일 들어가지 않게 유지. 신규 이미지는 PIL로 웹 최적화 후 assets에.
 - **막꾸 이미지**: `assets/makku.jpg`(우하단 제미나이 워터마크 제거 + 최적화본). 원본은 `_originals/makku.png`.
 - **레거시 코드**: Code.gs 의 default(응모폼+쿠폰 `responses`) 분기는 현재 프론트 미사용 → 정리 가능하나 보존 중.
