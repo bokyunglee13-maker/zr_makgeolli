@@ -1185,8 +1185,7 @@ document.getElementById('card-share').addEventListener('click', async ()=>{
 =========================================================== */
 const privacyOverlay = document.getElementById('privacy-overlay');
 function openPrivacy(e){ if(e) e.preventDefault(); privacyOverlay.classList.add('show'); }
-document.getElementById('privacy-link').addEventListener('click', openPrivacy);
-document.getElementById('privacy-link2').addEventListener('click', openPrivacy);
+['privacy-link','privacy-link2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('click', openPrivacy); });
 document.getElementById('privacy-close').addEventListener('click', ()=> privacyOverlay.classList.remove('show'));
 
 /* ===========================================================
