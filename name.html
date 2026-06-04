@@ -129,12 +129,13 @@ function romanChosung(word){
     const ch=word[i];
     if(VOWELS.includes(ch)){ tk.push({c:false,v:ch}); i++; continue; }
     if(ch==='y'){ const nx=word[i+1]; tk.push(nx&&VOWELS.includes(nx)?{c:true,cho:'ㅇ'}:{c:false,v:'y'}); i++; continue; }
-    tk.push({c:true,cho:LATIN[ch]||'ㅇ'}); i++;
+    { const cho=LATIN[ch]||'ㅇ'; const last=tk[tk.length-1]; if(!(last&&last.c&&last.cho===cho)) tk.push({c:true,cho}); } i++;
   }
+  const CODA='ㄱㄴㄹㅁㅂㅇㅎ';
   let out='';
   for(let i=0;i<tk.length;i++){
     const cur=tk[i],prev=tk[i-1],prevV=prev&&!prev.c;
-    if(cur.c){ const nextV=tk[i+1]&&!tk[i+1].c; let va=false; for(let j=i+1;j<tk.length;j++){ if(!tk[j].c){va=true;break;} } if(nextV||(!prevV&&va)) out+=cur.cho; }
+    if(cur.c){ const nextV=tk[i+1]&&!tk[i+1].c; let va=false; for(let j=i+1;j<tk.length;j++){ if(!tk[j].c){va=true;break;} } if(nextV||!CODA.includes(cur.cho)||(!prevV&&va)) out+=cur.cho; }
     else { if(i===0||(prevV&&prev.v!==cur.v)) out+='ㅇ'; }
   }
   return out;

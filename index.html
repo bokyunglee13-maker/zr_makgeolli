@@ -973,9 +973,10 @@ function romanChosung(word){
       tk.push(nx && VOWELS.includes(nx) ? {c:true, cho:'ㅇ'} : {c:false, v:'y'});
       i++; continue;
     }
-    tk.push({c:true, cho: LATIN[ch] || 'ㅇ'}); i++;
+    { const cho = LATIN[ch] || 'ㅇ'; const last = tk[tk.length-1]; if(!(last && last.c && last.cho === cho)) tk.push({c:true, cho}); } i++;
   }
-  // 2) 음절 초성 추출 — onset 자음(coda 제외) + 모음 음절(ㅇ)
+  // 2) 음절 초성 추출 — 받침 가능 자음(ㄱㄴㄹㅁㅂㅇ+묵음ㅎ)만 흡수, 그 외(ㄷㅌㅅㅈㅊㅋㅍ…)는 '으' 음절로 살림
+  const CODA = 'ㄱㄴㄹㅁㅂㅇㅎ';
   let out = '';
   for(let i=0;i<tk.length;i++){
     const cur = tk[i], prev = tk[i-1];
@@ -984,7 +985,9 @@ function romanChosung(word){
       const nextV = tk[i+1] && !tk[i+1].c;         // 다음이 모음 → onset
       let vowelAfter = false;                       // 뒤쪽에 모음이 남아있나 (어두 자음군 판별)
       for(let j=i+1;j<tk.length;j++){ if(!tk[j].c){ vowelAfter = true; break; } }
-      if(nextV || (!prevV && vowelAfter)) out += cur.cho;
+      // 초성으로 살림: ①뒤가 모음(onset) ②받침 불가 자음('으' 음절) ③어두·자음군이 모음으로 이어짐
+      if(nextV || !CODA.includes(cur.cho) || (!prevV && vowelAfter)) out += cur.cho;
+      // else: 모음 뒤 + 받침 가능 자음 → 받침으로 흡수(초성 생략)
     } else {                                       // 모음: 어두거나 다른 모음 뒤(연모음)면 ㅇ 음절
       if(i === 0 || (prevV && prev.v !== cur.v)) out += 'ㅇ';
     }

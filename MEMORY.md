@@ -28,7 +28,7 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 ## 4. 초성 변환 로직 (index + name 양쪽에 복제)
 - `toChosung()`: 한글 단어→음절별 초성 / 그 외→`NAME_MAP[소문자키]` 있으면 사용, 없으면 `romanChosung()` 휴리스틱.
 - `NAME_MAP`: 영·일·중 흔한 이름 예외표 (발음/표기법 반영). `jungkook:'ㅈㄱ'` 등 포함.
-- `romanChosung()`: 디그래프 병합(zh/sh/ch/ts…) → 토큰화 → onset 자음 + 모음 음절(ㅇ) 추출, coda 제외.
+- `romanChosung()`: 디그래프 병합(zh/sh/ch/ts…) + **중복자음 흡수(tt/ll/nn…)** → 토큰화 → 초성 추출. **받침 가능 자음(ㄱㄴㄹㅁㅂㅇ+묵음ㅎ)만 코다로 흡수**, 그 외 자음(ㄷㅌㅅㅈㅊㅋㅍ)은 **'으' 음절로 살림**(예: Edward→ㅇㄷㅇㄷ, Brad→ㅂㄹㄷ). 어두/자음군이 모음으로 이어지면 살림. (※ 과거엔 모든 coda를 버려 d/t/k가 누락되던 버그 있었음)
 - ⚠️ name.html 은 별도 복사본 → 로직 수정 시 **두 파일 동기화** 필요(NAME_MAP 포함).
 
 ## 5. 기프트 가챠
