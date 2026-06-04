@@ -189,7 +189,7 @@ async function draw(name,cho){
   if(bottleImg.naturalWidth){ const bh=600,bw=bottleImg.naturalWidth/bottleImg.naturalHeight*bh; x.drawImage(bottleImg,W/2-bw/2,900,bw,bh); }
   x.font='700 38px Paperlogy'; x.fillText(d.slogan,W/2,1645);
   x.font='700 30px Paperlogy'; x.fillText('@zr.makgeolli',W/2,1718);
-  x.font='400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 7.8',W/2,1760);
+  x.font='400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 6.30',W/2,1760);
 }
 async function open(){ const v=genInput.value.trim(); if(!v)return; await draw(v,toChosung(v)); cardOverlay.classList.add('show'); }
 genBtn.addEventListener('click',open);

@@ -34,4 +34,4 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 - `survey`: timestamp · language · nationality · gender · overall · design · price · repurchase · comment
 
 ## 현재 열린 항목
-WEBAPP_URL 입력 / 기프트 재고 캡 / 개인정보 동의 방향 / OG 도메인 확정 — 자세한 건 [PRD.md](PRD.md) §8.
+WEBAPP_URL 입력 / 기프트 재고 캡 / OG 도메인 확정 — 자세한 건 [PRD.md](PRD.md) §8. (개인정보 동의는 인스타 아이디 미저장으로 불필요 처리 완료)

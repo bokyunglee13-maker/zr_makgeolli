@@ -54,6 +54,8 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 라벨링: `초성/Korean Initial` → 영문은 `Korean Alphabet (Name)` 으로 통일(한국어는 '초성' 유지).
 - 설문: 한국어 단일 → **외국인 대상 4개 언어 + 언어별 URL**, 문항 축소(국적·성별/맛 전체/디자인·가격/재구매/의견).
 - 폴더명 공백 이슈로 `zr makgeolli` → `zr_makgeolli` (내용 이사, 옛 폴더 삭제 예정).
+- 기프트 폼: **개인정보 동의 체크박스 제거 + 인스타 아이디 미저장**(payload `instagram:''`). 아이디 입력은 현장 스태프 확인용으로만. 안내문 2줄(확인 후 지급 / 1계정 1회).
+- 행사 기간 단축: 2026.6.8 – **6.30** (hero-meta·마퀴·VISIT·카드·en 전부 반영).
 - 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNG KOOK·Rihanna, 각 줄바꿈)로 분리.
 
 ## 8. 배포 절차
@@ -65,6 +67,6 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 ## 9. 열린 TODO (PRD §8과 동일)
 - [ ] WEBAPP_URL 입력
 - [ ] 기프트 재고 캡(수량) 여부
-- [ ] 개인정보 동의 (A)/(B)
+- [x] 개인정보 동의 (B 채택: 미저장+동의 제거)
 - [ ] OG 도메인 확정
 - [ ] 운영시간/개인정보 문구 최종 확인
