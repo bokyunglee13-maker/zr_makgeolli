@@ -61,7 +61,9 @@
 ## 5. 데이터 모델 (구글시트, Apps Script)
 - `gifts`: timestamp · instagram · gift · followed · story · code · language
 - `survey`: timestamp · language · nationality · gender · overall · design · price · repurchase · comment
+- `namegen`: timestamp · event(generate/share/save) · name(입력원본) · chosung · language · page(index/name) — 생성기 사용 로깅(횟수·입력 이름).
 - `responses` (레거시, 현재 프론트 미사용): 과거 응모폼·쿠폰용. 코드엔 남아있으나 사이트에서 호출 안 함.
+- **분석 2단**: ①구글시트 `namegen`(원본 이름+횟수) ②Vercel Web Analytics 커스텀 이벤트 `name_generate/share/save`(이름 없이 횟수·언어·페이지). 생성기 하단 "통계 수집" 안내문 표기(4개 언어).
 - 한 개의 웹앱이 `type` 으로 분기: `gift` / `survey` / (default=레거시 응모).
 
 ## 6. 전환(Conversion) 목표

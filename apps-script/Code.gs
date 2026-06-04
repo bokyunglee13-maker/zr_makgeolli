@@ -13,6 +13,7 @@
 var SHEET_NAME = 'responses';
 var SURVEY_SHEET = 'survey';
 var GIFT_SHEET = 'gifts';
+var NAMEGEN_SHEET = 'namegen';
 var COUPON_PREFIX = 'ZRSS-';
 var GIFT_PREFIX = { keyring:'ZR-K-', mirror:'ZR-M-', discount:'ZR-D-' };
 
@@ -28,6 +29,20 @@ function doPost(e) {
       sv.appendRow([
         new Date(), data.language || '', data.nationality || '', data.gender || '',
         data.taste_overall || '', data.design || '', data.price || '', data.repurchase || '', data.comment || ''
+      ]);
+      return json_({ ok: true });
+    }
+
+    // ── 이름 생성기 로깅(index.html / name.html) → namegen 시트 ──
+    if (data.type === 'namegen') {
+      var ng = getNamegenSheet_();
+      ng.appendRow([
+        new Date(),
+        data.event || 'generate',   // generate / share / save
+        data.name || '',            // 입력 원본 이름
+        data.chosung || '',         // 변환 결과
+        data.language || '',
+        data.page || ''             // index / name
       ]);
       return json_({ ok: true });
     }
@@ -95,6 +110,17 @@ function getSurveySheet_() {
   if (!sheet) {
     sheet = ss.insertSheet(SURVEY_SHEET);
     sheet.appendRow(['timestamp','language','nationality','gender','overall','design','price','repurchase','comment']);
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function getNamegenSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(NAMEGEN_SHEET);
+  if (!sheet) {
+    sheet = ss.insertSheet(NAMEGEN_SHEET);
+    sheet.appendRow(['timestamp','event','name','chosung','language','page']);
     sheet.setFrozenRows(1);
   }
   return sheet;

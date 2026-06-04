@@ -57,6 +57,8 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 폴더명 공백 이슈로 `zr makgeolli` → `zr_makgeolli` (내용 이사, 옛 폴더 삭제 예정).
 - 기프트 폼: **개인정보 동의 체크박스 제거 + 인스타 아이디 미저장**(payload `instagram:''`). 아이디 입력은 현장 스태프 확인용으로만. 안내문 2줄(확인 후 지급 / 1계정 1회).
 - 행사 기간 단축: 2026.6.8 – **6.30** (hero-meta·마퀴·VISIT·카드·en 전부 반영).
+- 생성기 사용 로깅 추가: A)구글시트 `namegen`(generate/share/save + 원본 이름·초성·언어·page) B)Vercel Analytics 커스텀이벤트(이름 없이). `logName()` 헬퍼가 둘 다 발사. 안내문 `gen.track` 4개 언어.
+- ⚠️ 버그2: **name.html 생성기 함수명이 `open`이라 네이티브 `window.open`과 충돌** → 버튼 오작동 가능 → `openCard`로 리네임. // **name.html엔 원래 `CONFIG`가 없었음** → logName의 `CONFIG.WEBAPP_URL`이 ReferenceError로 시트 로깅 조용히 실패 → name.html에 CONFIG 추가. (교훈: 페이지마다 CONFIG 존재 확인, 전역 함수명은 네이티브와 충돌 주의)
 - 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNG KOOK·Rihanna, 각 줄바꿈)로 분리.
 
 ## 8. 배포 절차

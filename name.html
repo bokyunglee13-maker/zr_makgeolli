@@ -10,6 +10,11 @@
 <meta property="og:title" content="내 이름, ㅈㄹ로 만들기" />
 <meta property="og:description" content="이름을 한글 초성으로! ㅈㄹ막걸리 × DOOTA 팝업" />
 <meta property="og:image" content="https://zr-makgeolli.vercel.app/assets/og.jpg" />
+<script>
+  const CONFIG = { WEBAPP_URL: "https://script.google.com/macros/s/XXXXXXXX/exec", INSTA_URL: "https://www.instagram.com/zr.makgeolli/" }; // index.html과 동일 URL
+</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>
   @font-face{ font-family:'Paperlogy'; font-weight:400; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff2') format('woff2'); }
   @font-face{ font-family:'Paperlogy'; font-weight:700; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2'); }
@@ -36,6 +41,7 @@
   .gen-form input{ flex:1; border:2px solid var(--white); background:transparent; color:var(--white); padding:16px; font-family:var(--mono); font-size:15px; }
   .gen-form input::placeholder{ color:rgba(255,255,255,.5); }
   .gen-form input:focus{ outline:none; border-color:var(--pink); }
+  .gen-track{ font-family:var(--mono); font-size:11px; color:rgba(255,255,255,.45); text-transform:uppercase; margin-top:16px; }
   .btn{ border:2px solid var(--black); background:var(--pink); color:var(--black); font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:14px; padding:16px 24px; cursor:pointer; border-radius:999px; transition:transform .2s; }
   .btn:hover{ transform:scale(1.05); }
   .btn--invert{ background:var(--white); }
@@ -73,6 +79,7 @@
     <input id="gen-input" type="text" placeholder="이름 입력 (예: 김민지)" />
     <button class="btn" id="gen-btn" data-k="btn">만들기</button>
   </div>
+  <p class="gen-track" data-k="track">입력한 이름은 통계 목적으로 수집될 수 있어요.</p>
 </main>
 
 <footer>
@@ -153,10 +160,10 @@ function toChosung(name){
 
 /* ===== 다국어 (생성기 전용) ===== */
 const I18N = {
-  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: 김민지)",btn:"만들기",label:"나의 이름",slogan:"DRINK HAPPY NOT HEAVY",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"캡처해서 인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!"},
-  en:{title:"Make Your Name ㅈㄹ | ZR Makgeolli",h:"Make Your Name ㅈㄹ",desc:"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"Enter your name (e.g. EMMA)",btn:"Generate",label:"MY NAME",slogan:"DRINK HAPPY NOT HEAVY",share:"Share",save:"Save image",close:"Close",hint:"Post it to your IG story!",fb:"Saved! Post it to your Instagram story."},
-  ja:{title:"あなたの名前を ㅈㄹ に | ㅈㄹマッコリ",h:"あなたの名前を ㅈㄹ に",desc:"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"ローマ字で入力（例：HIMARI）",btn:"作成",label:"私の名前",slogan:"DRINK HAPPY NOT HEAVY",share:"インスタで共有",save:"画像を保存",close:"閉じる",hint:"ストーリーに載せてね！",fb:"画像を保存しました。ストーリーに載せてね！"},
-  zh:{title:"把你的名字变成 ㅈㄹ | ㅈㄹ马格利酒",h:"把你的名字变成 ㅈㄹ",desc:"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"用拼音或英文输入（例：XINYI）",btn:"生成",label:"我的名字",slogan:"DRINK HAPPY NOT HEAVY",share:"分享到IG",save:"保存图片",close:"关闭",hint:"发到你的IG快拍吧！",fb:"已保存图片，发到IG快拍吧！"}
+  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: 김민지)",btn:"만들기",label:"나의 이름",slogan:"DRINK HAPPY NOT HEAVY",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"캡처해서 인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!",track:"입력한 이름은 통계 목적으로 수집될 수 있어요."},
+  en:{title:"Make Your Name ㅈㄹ | ZR Makgeolli",h:"Make Your Name ㅈㄹ",desc:"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"Enter your name (e.g. EMMA)",btn:"Generate",label:"MY NAME",slogan:"DRINK HAPPY NOT HEAVY",share:"Share",save:"Save image",close:"Close",hint:"Post it to your IG story!",fb:"Saved! Post it to your Instagram story.",track:"Entered names may be collected for statistics."},
+  ja:{title:"あなたの名前を ㅈㄹ に | ㅈㄹマッコリ",h:"あなたの名前を ㅈㄹ に",desc:"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"ローマ字で入力（例：HIMARI）",btn:"作成",label:"私の名前",slogan:"DRINK HAPPY NOT HEAVY",share:"インスタで共有",save:"画像を保存",close:"閉じる",hint:"ストーリーに載せてね！",fb:"画像を保存しました。ストーリーに載せてね！",track:"入力された名前は統計目的で収集される場合があります。"},
+  zh:{title:"把你的名字变成 ㅈㄹ | ㅈㄹ马格利酒",h:"把你的名字变成 ㅈㄹ",desc:"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"用拼音或英文输入（例：XINYI）",btn:"生成",label:"我的名字",slogan:"DRINK HAPPY NOT HEAVY",share:"分享到IG",save:"保存图片",close:"关闭",hint:"发到你的IG快拍吧！",fb:"已保存图片，发到IG快拍吧！",track:"输入的名字可能用于统计收集。"}
 };
 function detectLang(){ const S=['ko','en','ja','zh']; const m=location.pathname.toLowerCase().match(/\/(ko|en|ja|zh)(?:\/|$)/); if(m)return m[1]; const q=new URLSearchParams(location.search).get('lang'); if(S.includes(q))return q; return localStorage.getItem('zr_lang')||'ko'; }
 let LANG=detectLang();
@@ -192,14 +199,20 @@ async function draw(name,cho){
   x.font='700 30px Paperlogy'; x.fillText('@zr.makgeolli',W/2,1718);
   x.font='400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 6.30',W/2,1760);
 }
-async function open(){ const v=genInput.value.trim(); if(!v)return; await draw(v,toChosung(v)); cardOverlay.classList.add('show'); }
-genBtn.addEventListener('click',open);
-genInput.addEventListener('keydown',e=>{ if(e.key==='Enter') open(); });
+let lastGen={name:'',cho:''};
+function logName(event,name,cho){
+  try{ fetch(CONFIG.WEBAPP_URL,{method:'POST',body:JSON.stringify({type:'namegen',event,name:name||'',chosung:cho||'',language:LANG,page:'name'})}); }catch(e){}
+  try{ if(window.va) va('event',{name:'name_'+event,page:'name',lang:LANG}); }catch(e){}
+}
+async function openCard(){ const v=genInput.value.trim(); if(!v)return; const c=toChosung(v); lastGen={name:v,cho:c}; await draw(v,c); cardOverlay.classList.add('show'); logName('generate',v,c); }
+genBtn.addEventListener('click',openCard);
+genInput.addEventListener('keydown',e=>{ if(e.key==='Enter') openCard(); });
 document.getElementById('card-close').addEventListener('click',()=>cardOverlay.classList.remove('show'));
 function blob(){ return new Promise(r=>storyCanvas.toBlob(r,'image/png')); }
 function dl(){ return blob().then(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-name.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); }); }
-document.getElementById('card-save').addEventListener('click',dl);
+document.getElementById('card-save').addEventListener('click',()=>{ logName('save',lastGen.name,lastGen.cho); dl(); });
 document.getElementById('card-share').addEventListener('click',async()=>{
+  logName('share',lastGen.name,lastGen.cho);
   const b=await blob(); const f=new File([b],'zr-name.png',{type:'image/png'});
   if(navigator.canShare&&navigator.canShare({files:[f]})){ try{ await navigator.share({files:[f],text:'내 ㅈㄹ 이름 🍶 @zr.makgeolli'});}catch(e){} }
   else { await dl(); alert(I18N[LANG].fb); }

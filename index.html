@@ -16,6 +16,10 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://zr-makgeolli.vercel.app/assets/og.jpg" />
 
+<!-- Vercel Web Analytics (Vercel 대시보드에서 Analytics 켜면 자동 집계) -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -277,6 +281,7 @@
   .gen-form input{ flex:1; border:2px solid var(--white); background:transparent; color:var(--white); padding:16px; font-family:var(--mono); font-size:15px; }
   .gen-form input::placeholder{ color:rgba(255,255,255,.5); }
   .gen-form input:focus{ outline:none; border-color:var(--pink); }
+  .gen-track{ font-family:var(--mono); font-size:11px; color:rgba(255,255,255,.45); text-transform:uppercase; margin-top:16px; }
 
   /* 스토리 카드 모달 */
   .card-modal{ max-width:340px; width:100%; text-align:center; }
@@ -542,6 +547,7 @@
       <input id="gen-input" type="text" data-i18n-ph="gen.ph" placeholder="이름 입력 (예: 김민지)" />
       <button class="btn btn--orange" id="gen-btn" data-i18n="gen.btn">만들기</button>
     </div>
+    <p class="gen-track" data-i18n="gen.track">입력한 이름은 통계 목적으로 수집될 수 있어요.</p>
   </div>
 </section>
 
@@ -715,7 +721,7 @@ const I18N = {
     "program.c3t":"막꾸","program.c3d":"내 막걸리 꾸미기 + 한국 전통 키링 + 이름 스티커",
     "program.c4t":"초성 네임","program.c4d":"내 이름을 ㅈㄹ로 바꿔보기",
     "gen.h":"내 이름, ㅈㄹ로 만들기","gen.desc":"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"이름 입력 (예: 김민지)","gen.btn":"만들기","gen.resultLabel":"나의 이름","gen.share":"인스타 공유","gen.save":"이미지 저장","gen.close2":"닫기","gen.hint":"캡처해서 인스타 스토리에 올려보세요!","gen.sharefallback":"이미지를 저장했어요. 인스타 스토리에 올려보세요!",
+    "gen.ph":"이름 입력 (예: 김민지)","gen.btn":"만들기","gen.resultLabel":"나의 이름","gen.share":"인스타 공유","gen.save":"이미지 저장","gen.close2":"닫기","gen.hint":"캡처해서 인스타 스토리에 올려보세요!","gen.sharefallback":"이미지를 저장했어요. 인스타 스토리에 올려보세요!","gen.track":"입력한 이름은 통계 목적으로 수집될 수 있어요.",
     "visit.eyebrow":"VISIT","visit.h":"방문 안내",
     "visit.dateL":"기간","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
@@ -767,7 +773,7 @@ const I18N = {
     "program.c3t":"Bottle Deco","program.c3d":"Decorate your bottle + Korean traditional keyring + name sticker",
     "program.c4t":"Korean Alphabet Name","program.c4d":"Turn your name into the Korean alphabet",
     "gen.h":"Make Your Name ㅈㄹ","gen.desc":"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"Enter your name (e.g. EMMA)","gen.btn":"Generate","gen.resultLabel":"MY NAME","gen.share":"Share","gen.save":"Save image","gen.close2":"Close","gen.hint":"Post it to your IG story!","gen.sharefallback":"Saved! Post it to your Instagram story.",
+    "gen.ph":"Enter your name (e.g. EMMA)","gen.btn":"Generate","gen.resultLabel":"MY NAME","gen.share":"Share","gen.save":"Save image","gen.close2":"Close","gen.hint":"Post it to your IG story!","gen.sharefallback":"Saved! Post it to your Instagram story.","gen.track":"Entered names may be collected for statistics.",
     "visit.eyebrow":"VISIT","visit.h":"Visit Info",
     "visit.dateL":"Dates","visit.dateV":"Jun 8 – 30, 2026",
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
@@ -819,7 +825,7 @@ const I18N = {
     "program.c3t":"ボトルデコ","program.c3d":"マイボトルデコ + 韓国伝統キーリング + ネームステッカー",
     "program.c4t":"頭文字ネーム","program.c4d":"自分の名前を ㅈㄹ に変換",
     "gen.h":"あなたの名前を ㅈㄹ に","gen.desc":"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"ローマ字で入力（例：HIMARI）","gen.btn":"作成","gen.resultLabel":"私の名前","gen.share":"インスタで共有","gen.save":"画像を保存","gen.close2":"閉じる","gen.hint":"ストーリーに載せてね！","gen.sharefallback":"画像を保存しました。ストーリーに載せてね！",
+    "gen.ph":"ローマ字で入力（例：HIMARI）","gen.btn":"作成","gen.resultLabel":"私の名前","gen.share":"インスタで共有","gen.save":"画像を保存","gen.close2":"閉じる","gen.hint":"ストーリーに載せてね！","gen.sharefallback":"画像を保存しました。ストーリーに載せてね！","gen.track":"入力された名前は統計目的で収集される場合があります。",
     "visit.eyebrow":"VISIT","visit.h":"来場案内",
     "visit.dateL":"期間","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
@@ -871,7 +877,7 @@ const I18N = {
     "program.c3t":"瓶身DIY","program.c3d":"装饰我的酒瓶 + 韩国传统钥匙扣 + 姓名贴纸",
     "program.c4t":"首字母名","program.c4d":"把你的名字变成 ㅈㄹ 首字母",
     "gen.h":"把你的名字变成 ㅈㄹ","gen.desc":"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNG KOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
-    "gen.ph":"用拼音或英文输入（例：XINYI）","gen.btn":"生成","gen.resultLabel":"我的名字","gen.share":"分享到IG","gen.save":"保存图片","gen.close2":"关闭","gen.hint":"发到你的IG快拍吧！","gen.sharefallback":"已保存图片，发到IG快拍吧！",
+    "gen.ph":"用拼音或英文输入（例：XINYI）","gen.btn":"生成","gen.resultLabel":"我的名字","gen.share":"分享到IG","gen.save":"保存图片","gen.close2":"关闭","gen.hint":"发到你的IG快拍吧！","gen.sharefallback":"已保存图片，发到IG快拍吧！","gen.track":"输入的名字可能用于统计收集。",
     "visit.eyebrow":"VISIT","visit.h":"到场指南",
     "visit.dateL":"日期","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
@@ -1148,10 +1154,20 @@ async function drawStoryCard(name, chosung){
   x.font = '400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 6.30', W/2, 1760);
 }
 
+// 사용 로깅 — A:구글시트(원본 이름 저장) + B:Vercel Analytics(이름 없이 횟수/언어만)
+let lastGen = { name:'', cho:'' };
+function logName(event, name, cho){
+  try{ fetch(CONFIG.WEBAPP_URL, { method:'POST', body: JSON.stringify({ type:'namegen', event, name:name||'', chosung:cho||'', language:LANG, page:'index' }) }); }catch(e){}
+  try{ if(window.va) va('event', { name:'name_'+event, page:'index', lang:LANG }); }catch(e){}
+}
+
 async function openCard(){
   const v = genInput.value.trim(); if(!v) return;
-  await drawStoryCard(v, toChosung(v));
+  const cho = toChosung(v);
+  lastGen = { name:v, cho };
+  await drawStoryCard(v, cho);
   cardOverlay.classList.add('show');
+  logName('generate', v, cho);
 }
 genBtn.addEventListener('click', openCard);
 genInput.addEventListener('keydown', e=>{ if(e.key==='Enter') openCard(); });
@@ -1159,8 +1175,9 @@ document.getElementById('card-close').addEventListener('click', ()=> cardOverlay
 
 function canvasBlob(){ return new Promise(res=> storyCanvas.toBlob(res, 'image/png')); }
 function downloadCanvas(){ return canvasBlob().then(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-name.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); }); }
-document.getElementById('card-save').addEventListener('click', downloadCanvas);
+document.getElementById('card-save').addEventListener('click', ()=>{ logName('save', lastGen.name, lastGen.cho); downloadCanvas(); });
 document.getElementById('card-share').addEventListener('click', async ()=>{
+  logName('share', lastGen.name, lastGen.cho);
   const b = await canvasBlob(); const f = new File([b], 'zr-name.png', {type:'image/png'});
   if(navigator.canShare && navigator.canShare({files:[f]})){
     try{ await navigator.share({ files:[f], text:'내 ㅈㄹ 이름 🍶 @zr.makgeolli' }); }catch(e){}
