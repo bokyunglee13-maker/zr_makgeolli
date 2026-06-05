@@ -18,7 +18,7 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 ## 2. 아키텍처
 - **정적 사이트** (빌드 없음) → Vercel. 백엔드는 **Google Apps Script 웹앱**(구글시트 DB).
 - 프론트 → `fetch(CONFIG.WEBAPP_URL, {method:'POST', body: JSON.stringify(payload)})`. payload.`type` 으로 시트 분기.
-- 동일 `WEBAPP_URL` 을 index/survey/name 3곳 `CONFIG` 에 넣어야 함. **현재 placeholder (`…/XXXXXXXX/exec`) — 미입력 상태.**
+- 동일 `WEBAPP_URL` 을 index/survey/name 3곳 `CONFIG` 에 입력. **✅ 연결 완료**(Apps Script 웹앱 배포 → gift/survey/namegen 시트 적재 검증 끝). Vercel Analytics Enable 됨.
 
 ## 3. i18n 규칙
 - index/survey: `applyLang()` 가 `[data-i18n]`(index) / `[data-k]`(survey/name) 요소의 textContent, `[data-i18n-ph]`/`[data-k-ph]` placeholder 를 교체.
@@ -59,6 +59,9 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 행사 기간 단축: 2026.6.8 – **6.30** (hero-meta·마퀴·VISIT·카드·en 전부 반영).
 - 생성기 사용 로깅 추가: A)구글시트 `namegen`(generate/share/save + 원본 이름·초성·언어·page) B)Vercel Analytics 커스텀이벤트(이름 없이). `logName()` 헬퍼가 둘 다 발사. 안내문 `gen.track` 4개 언어.
 - ⚠️ 버그2: **name.html 생성기 함수명이 `open`이라 네이티브 `window.open`과 충돌** → 버튼 오작동 가능 → `openCard`로 리네임. // **name.html엔 원래 `CONFIG`가 없었음** → logName의 `CONFIG.WEBAPP_URL`이 ReferenceError로 시트 로깅 조용히 실패 → name.html에 CONFIG 추가. (교훈: 페이지마다 CONFIG 존재 확인, 전역 함수명은 네이티브와 충돌 주의)
+- 기프트 결과 UX: 버튼 = **이미지 저장(흰 버튼, 메인)** + 공유·팔로우·닫기(투명 아이콘 `.iconbtn`). 저장은 **캔버스 기프트 티켓(`gift-canvas` 1080×1350, `drawGiftTicket()`)** PNG — 모달과 동일 디자인 + "코드·스토리 보여주세요" 안내. 공유=Web Share(티켓 이미지). gift.show 4개 언어 갱신.
+- 대시보드: Code.gs에 `onOpen()`(메뉴 [📊 ZR > 대시보드 갱신]) + `buildDashboard()` + `getRows_()` 추가 → `Dashboard` 시트에 KPI 요약. **웹앱 재배포 불필요**(시트 바운드 함수). namegen/survey/gifts 읽어 집계.
+- ⚠️ 버그3(또 CONFIG/요소 참조): 기프트 동의 삭제 때처럼 **`gift-insta` 제거 시 그 요소 참조 JS도 같이 삭제** 필요(안 하면 또 스크립트 중단). 처리 완료.
 - 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNG KOOK·Rihanna, 각 줄바꿈)로 분리.
 
 ## 8. 배포 절차
@@ -66,9 +69,11 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 2. `CONFIG.WEBAPP_URL` 3개 파일에 입력.
 3. GitHub push → Vercel 자동 배포 (또는 `vercel`). Framework: Other(빌드 없음).
 4. 코드 수정 시 Apps Script는 **배포 관리 → 새 버전** 재배포(URL 유지). 기존 테스트 시트 헤더 바뀌면 시트 삭제 후 재생성.
+5. **대시보드**: Code.gs에 `onOpen`/`buildDashboard`/`getRows_` 포함 → 시트 새로고침 후 메뉴 **[📊 ZR > 대시보드 갱신]** 실행(웹앱 재배포 불필요). 매일 자동 원하면 시간 트리거 추가.
+- (현재 상태: WEBAPP_URL 연결·시트 적재·Analytics Enable 완료. 남은 건 대시보드 함수만 Apps Script에 추가하면 끝.)
 
 ## 9. 열린 TODO (PRD §8과 동일)
-- [ ] WEBAPP_URL 입력
+- [x] WEBAPP_URL 입력·연결 완료 (gift/survey/namegen 적재 검증)
 - [ ] 기프트 재고 캡(수량) 여부
 - [x] 개인정보 동의 (B 채택: 미저장+동의 제거)
 - [ ] OG 도메인 확정

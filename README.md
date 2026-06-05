@@ -30,8 +30,11 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 > 코드 수정 시 Apps Script는 **배포 관리 → 새 버전** 재배포. 시트 헤더가 바뀌면 기존 시트 삭제 후 재생성.
 
 ## 데이터(구글시트)
-- `gifts`: timestamp · instagram · gift · followed · story · code · language
+- `gifts`: timestamp · instagram(빈값) · gift · followed · story · code · language
 - `survey`: timestamp · language · nationality · gender · overall · design · price · repurchase · comment
+- `namegen`: timestamp · event(generate/share/save) · name · chosung · language · page
+- `Dashboard`: 시트 메뉴 **[📊 ZR > 대시보드 갱신]** 으로 KPI 요약 자동 생성 (`buildDashboard()`)
+- 분석: 구글시트(내용·전환) + Vercel Analytics(방문수·이벤트, Enable됨)
 
 ## 현재 열린 항목
-WEBAPP_URL 입력 / 기프트 재고 캡 / OG 도메인 확정 — 자세한 건 [PRD.md](PRD.md) §8. (개인정보 동의는 인스타 아이디 미저장으로 불필요 처리 완료)
+**완료**: WEBAPP_URL 연결·시트 적재·Vercel Analytics·개인정보(미저장). **남음**: 기프트 재고 캡(수량 정하면) / OG 도메인 확정 / 운영시간·개인정보 문구 최종 — 자세한 건 [PRD.md](PRD.md) §8.
