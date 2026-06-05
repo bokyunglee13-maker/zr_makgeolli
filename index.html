@@ -194,6 +194,11 @@
   .gift-modal .gift-win{ font-family:var(--mono); font-size:13px; text-transform:uppercase; margin-top:8px; }
   .gift-modal .gift-name{ font-family:var(--display); font-weight:900; font-size:28px; letter-spacing:-.02em; margin-top:4px; }
   .coupon-badge{ display:inline-block; border:3px dashed var(--black); background:var(--white); color:var(--black); font-family:var(--display); font-weight:900; font-size:34px; letter-spacing:.06em; padding:8px 20px; }
+  .gift-icons{ display:flex; justify-content:center; gap:16px; margin-top:16px; }
+  .iconbtn{ display:flex; flex-direction:column; align-items:center; gap:5px; background:none; border:none; cursor:pointer; text-decoration:none; font-family:var(--mono); font-size:10px; font-weight:700; text-transform:uppercase; color:var(--black); }
+  .iconbtn .ic{ width:46px; height:46px; border:2px solid var(--black); border-radius:999px; background:transparent; display:flex; align-items:center; justify-content:center; font-size:18px; transition:transform .15s; }
+  .iconbtn:hover .ic{ transform:scale(1.08); }
+  .iconbtn .ic svg{ width:20px; height:20px; }
 
   /* ===========================================================
      키네틱 워드 섹션 (ㅈㄹ / WTF 떠다니기)
@@ -647,11 +652,14 @@
       <div class="muted" data-i18n="gift.codeL">기프트 코드</div>
       <div class="code" id="gift-code">—</div>
     </div>
-    <p class="muted" data-i18n="gift.show">현장 스태프에게 이 화면을 보여주세요.</p>
-    <div class="actions">
-      <a id="gift-insta" class="btn btn--invert" target="_blank" rel="noopener" data-i18n="success.insta">인스타 팔로우</a>
-      <button class="btn" id="gift-close" data-i18n="gen.close2">닫기</button>
+    <p class="muted" data-i18n="gift.show">현장 스태프에게 이 코드와 인스타 스토리를 함께 보여주세요.</p>
+    <button id="gift-save" class="btn btn--invert btn--block" style="margin-top:18px" data-i18n="gen.save">이미지 저장</button>
+    <div class="gift-icons">
+      <button class="iconbtn" id="gift-share"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></span><span data-i18n="gift.shareS">공유</span></button>
+      <a class="iconbtn" id="gift-follow2" href="#" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span><span data-i18n="gift.followS">팔로우</span></a>
+      <button class="iconbtn" id="gift-close"><span class="ic">✕</span><span data-i18n="gen.close2">닫기</span></button>
     </div>
+    <canvas id="gift-canvas" width="1080" height="1350" style="display:none"></canvas>
   </div>
 </div>
 
@@ -702,8 +710,8 @@ const I18N = {
     "gift.handleL":"인스타그램 아이디","gift.handlePh":"@yourname","gift.handleErr":"인스타그램 아이디를 입력해 주세요.",
     "gift.chk1":"@zr.makgeolli 팔로우했어요","gift.chk2":"스토리에 사진 + @zr.makgeolli 멘션 인증했어요","gift.chkErr":"두 가지 인증을 모두 체크해 주세요.",
     "gift.btn":"🎁 기프트 뽑기","gift.note":"인증은 현장 스태프가 확인 후 기프트를 드립니다.\n인스타 1계정당 1회.",
-    "gift.win":"축하해요!","gift.codeL":"기프트 코드","gift.show":"현장 스태프에게 이 화면을 보여주세요.",
-    "gift.keyring":"막꾸 키링","gift.mirror":"거울 굿즈","gift.discount":"현장 할인 쿠폰",
+    "gift.win":"축하해요!","gift.codeL":"기프트 코드","gift.show":"현장 스태프에게 이 코드와 인스타 스토리를 함께 보여주세요.",
+    "gift.keyring":"막꾸 키링","gift.mirror":"거울 굿즈","gift.discount":"현장 할인 쿠폰","gift.shareS":"공유","gift.followS":"팔로우",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ막걸리","mean.h":"ㅈㄹ, 무슨 뜻이게요?",
     "intro.body":"위트있게 만나는 MZ 막걸리. 무겁게 들이켜는 전통주가 아니라, 친구와 깔깔대며 가볍게 기울이는 한 잔. 한글 초성 'ㅈㄹ'을 큼직하게 박은 라벨처럼, 재밌지만 맛은 진지함으로 채웠습니다.",
     "taste.eyebrow":"TASTE","taste.h":"맛 설명",
@@ -754,8 +762,8 @@ const I18N = {
     "gift.handleL":"Instagram Handle","gift.handlePh":"@yourname","gift.handleErr":"Please enter your Instagram handle.",
     "gift.chk1":"I followed @zr.makgeolli","gift.chk2":"I posted a story with a photo + @zr.makgeolli mention","gift.chkErr":"Please check both verifications.",
     "gift.btn":"🎁 Draw My Gift","gift.note":"Gifts are given after on-site staff verification.\nOne draw per Instagram account.",
-    "gift.win":"Congrats!","gift.codeL":"Gift Code","gift.show":"Show this screen to on-site staff.",
-    "gift.keyring":"Makgeolli Keyring","gift.mirror":"Mirror Goods","gift.discount":"Discount Coupon",
+    "gift.win":"Congrats!","gift.codeL":"Gift Code","gift.show":"Show this code and your Instagram story to on-site staff.",
+    "gift.keyring":"Makgeolli Keyring","gift.mirror":"Mirror Goods","gift.discount":"Discount Coupon","gift.shareS":"Share","gift.followS":"Follow",
     "intro.eyebrow":"ABOUT","intro.h":"ZR Makgeolli","mean.h":"What does WTF mean?",
     "intro.body":"A witty MZ-generation makgeolli. Not a heavy traditional liquor, but a light glass to share and laugh over with friends. Just like its label stamped with the bold Korean alphabet 'ㅈㄹ' — playful on the outside, but dead serious about taste.",
     "taste.eyebrow":"TASTE","taste.h":"Taste",
@@ -806,8 +814,8 @@ const I18N = {
     "gift.handleL":"インスタグラムID","gift.handlePh":"@yourname","gift.handleErr":"インスタグラムIDを入力してください。",
     "gift.chk1":"@zr.makgeolli をフォローしました","gift.chk2":"ストーリーに写真+@zr.makgeolli メンションで認証しました","gift.chkErr":"2つの認証を両方チェックしてください。",
     "gift.btn":"🎁 ギフトを引く","gift.note":"ギフトは現場スタッフの確認後にお渡しします。\n1アカウント1回。",
-    "gift.win":"おめでとう！","gift.codeL":"ギフトコード","gift.show":"現場スタッフにこの画面を見せてください。",
-    "gift.keyring":"マッコリキーリング","gift.mirror":"ミラーグッズ","gift.discount":"割引クーポン",
+    "gift.win":"おめでとう！","gift.codeL":"ギフトコード","gift.show":"現場スタッフにこのコードとインスタのストーリーを見せてください。",
+    "gift.keyring":"マッコリキーリング","gift.mirror":"ミラーグッズ","gift.discount":"割引クーポン","gift.shareS":"共有","gift.followS":"フォロー",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹマッコリ","mean.h":"WTFって、どんな意味？",
     "intro.body":"ウィットに出会うMZ世代のマッコリ。重く飲み干す伝統酒ではなく、友達と笑いながら軽く傾ける一杯。ハングルの頭文字「ㅈㄹ」を大きく配したラベルのように、遊び心はたっぷり、でも味は真剣です。",
     "taste.eyebrow":"TASTE","taste.h":"味の説明",
@@ -858,8 +866,8 @@ const I18N = {
     "gift.handleL":"Instagram 账号","gift.handlePh":"@yourname","gift.handleErr":"请输入Instagram账号。",
     "gift.chk1":"我已关注 @zr.makgeolli","gift.chk2":"我已在快拍发照片并@zr.makgeolli","gift.chkErr":"请勾选两项认证。",
     "gift.btn":"🎁 抽取礼物","gift.note":"礼物由现场工作人员确认后发放。\n每个Instagram账号限1次。",
-    "gift.win":"恭喜！","gift.codeL":"礼物码","gift.show":"请向现场工作人员出示此画面。",
-    "gift.keyring":"马格利钥匙扣","gift.mirror":"镜子周边","gift.discount":"折扣券",
+    "gift.win":"恭喜！","gift.codeL":"礼物码","gift.show":"请向现场工作人员出示此码和你的Instagram快拍。",
+    "gift.keyring":"马格利钥匙扣","gift.mirror":"镜子周边","gift.discount":"折扣券","gift.shareS":"分享","gift.followS":"关注",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ马格利酒","mean.h":"WTF 是什么意思？",
     "intro.body":"用俏皮相遇的MZ世代马格利酒。它不是要一饮而尽的厚重传统酒，而是和朋友谈笑间轻轻举起的一杯。就像瓶身上大大印着的韩文首字母「ㅈㄹ」一样，玩心十足，但对味道很认真。",
     "taste.eyebrow":"TASTE","taste.h":"风味说明",
@@ -1227,8 +1235,48 @@ const giftBtn  = document.getElementById('gift-btn');
 const giftOverlay = document.getElementById('gift-overlay');
 const giftEmoji = document.getElementById('gift-emoji');
 document.getElementById('gift-follow').href = CONFIG.INSTA_URL;
-document.getElementById('gift-insta').href = CONFIG.INSTA_URL;
 document.getElementById('gift-close').addEventListener('click', ()=> giftOverlay.classList.remove('show'));
+
+// 저장용 기프트 티켓 이미지 (모달과 동일 디자인 — 화면엔 안 보이고 저장 시 생성)
+const giftCanvas = document.getElementById('gift-canvas');
+function wrapText(x, text, cx, cy, maxW, lh){
+  const words = (text||'').split(/\s+/); let line='', y=cy;
+  for(const w of words){ const t = line ? line+' '+w : w; if(x.measureText(t).width > maxW && line){ x.fillText(line, cx, y); line=w; y+=lh; } else line=t; }
+  if(line) x.fillText(line, cx, y);
+}
+async function drawGiftTicket(gift, code){
+  const dict = I18N[LANG], x = giftCanvas.getContext('2d'), W=1080, H=1350;
+  try{ await Promise.all([document.fonts.load('900 80px Paperlogy'), document.fonts.load('700 40px Paperlogy')]); await document.fonts.ready; }catch(e){}
+  x.fillStyle='#F0A0BC'; x.fillRect(0,0,W,H);
+  x.strokeStyle='#000'; x.lineWidth=14; x.strokeRect(40,40,W-80,H-80);
+  x.textAlign='center'; x.fillStyle='#000'; x.textBaseline='alphabetic';
+  x.font='700 34px Paperlogy'; x.fillText('ZR MAKGEOLLI · ㅈㄹ막걸리', W/2, 150);
+  x.font='700 22px Paperlogy'; x.fillText('× DOOTA POP-UP', W/2, 190);
+  if(gift.k==='discount'){ x.lineWidth=6; x.setLineDash([16,12]); x.strokeRect(W/2-210,395,420,105); x.setLineDash([]); x.font='900 78px Paperlogy'; x.fillText('COUPON', W/2, 470); }
+  else { x.font='190px serif'; x.fillText(gift.emoji, W/2, 490); }
+  x.font='700 36px Paperlogy'; x.fillText(dict['gift.win']||'축하해요!', W/2, 600);
+  x.font='900 70px Paperlogy'; x.fillText(dict['gift.'+gift.k]||gift.k, W/2, 690);
+  x.fillStyle='#000'; x.fillRect(120,760,W-240,170);
+  x.fillStyle='#F0A0BC'; x.font='700 26px Paperlogy'; x.fillText(dict['gift.codeL']||'기프트 코드', W/2, 815);
+  x.fillStyle='#fff'; x.font='900 62px Paperlogy'; x.fillText(code, W/2, 895);
+  x.fillStyle='#000'; x.font='700 28px Paperlogy'; wrapText(x, dict['gift.show']||'', W/2, 1015, W-200, 42);
+  x.font='700 28px Paperlogy'; x.fillText('@zr.makgeolli', W/2, 1235);
+  x.font='400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 6.30', W/2, 1278);
+}
+document.getElementById('gift-save').addEventListener('click', ()=>{
+  giftCanvas.toBlob(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-gift.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); }, 'image/png');
+});
+document.getElementById('gift-follow2').href = CONFIG.INSTA_URL;
+document.getElementById('gift-share').addEventListener('click', ()=>{
+  giftCanvas.toBlob(async b=>{
+    const f = new File([b], 'zr-gift.png', {type:'image/png'});
+    if(navigator.canShare && navigator.canShare({files:[f]})){
+      try{ await navigator.share({ files:[f], text:'내 ㅈㄹ 기프트 🎁 @zr.makgeolli' }); }catch(e){}
+    } else {
+      const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-gift.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+    }
+  }, 'image/png');
+});
 
 giftForm.addEventListener('submit', async (e)=>{
   e.preventDefault();
@@ -1264,6 +1312,7 @@ giftForm.addEventListener('submit', async (e)=>{
   else { giftEmoji.textContent = gift.emoji; }
   document.getElementById('gift-name').textContent = dict['gift.'+gift.k] || gift.k;
   document.getElementById('gift-code').textContent = code;
+  drawGiftTicket(gift, code);   // 저장용 티켓 이미지 미리 렌더
   giftBtn.disabled = false;
   giftForm.reset();
 });
