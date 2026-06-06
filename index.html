@@ -31,6 +31,7 @@
   const CONFIG = {
     WEBAPP_URL: "https://script.google.com/macros/s/AKfycbzXBYwep0qWg8yW7bitqW-Jms4v2_-KR-EDiyHy-NGJzP_XOy408xEVZ2JKOkJWWhQi/exec", // TODO: 교체
     INSTA_URL:  "https://www.instagram.com/zr.makgeolli/",
+    XHS_URL:    "https://www.xiaohongshu.com/search_result?keyword=zr.makgeolli", // TODO: 小红书 공식계정 프로필 URL 확정되면 교체 (현재 검색 딥링크)
     STORE_URL:  "https://smartstore.naver.com/soulspirit/products/12909210705"
   };
 </script>
@@ -103,12 +104,13 @@
   }
   .pill a:hover{ background:var(--white); color:var(--black); }
   .nav-right{ display:flex; align-items:center; gap:14px; }
-  .lang{ display:flex; gap:2px; }
+  .lang{ display:flex; gap:6px; align-items:center; }
   .lang button{
-    border:none; background:transparent; cursor:pointer; font-family:var(--mono);
-    font-size:11px; font-weight:700; padding:6px 6px; color:var(--black); opacity:.5; transition:.2s;
+    border:none; background:transparent; cursor:pointer; padding:0; line-height:0;
+    opacity:.5; transition:.2s; border-radius:3px;
   }
-  .lang button[aria-pressed="true"]{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
+  .lang button img{ display:block; width:22px; height:15px; object-fit:cover; border-radius:2px; box-shadow:0 0 0 1px rgba(0,0,0,.18); }
+  .lang button[aria-pressed="true"]{ opacity:1; box-shadow:0 0 0 2px var(--black); }
   .nav-ig{ display:inline-flex; }
   .nav-ig svg{ width:22px; height:22px; }
 
@@ -384,10 +386,10 @@
     </div>
     <div class="nav-right">
       <div class="lang" role="group" aria-label="language">
-        <button data-lang="ko" aria-pressed="true">KO</button>
-        <button data-lang="en" aria-pressed="false">EN</button>
-        <button data-lang="ja" aria-pressed="false">JA</button>
-        <button data-lang="zh" aria-pressed="false">ZH</button>
+        <button data-lang="ko" aria-pressed="true" aria-label="한국어" title="한국어"><img src="https://flagcdn.com/kr.svg" width="22" height="15" alt="KO"></button>
+        <button data-lang="en" aria-pressed="false" aria-label="English" title="English"><img src="https://flagcdn.com/us.svg" width="22" height="15" alt="EN"></button>
+        <button data-lang="ja" aria-pressed="false" aria-label="日本語" title="日本語"><img src="https://flagcdn.com/jp.svg" width="22" height="15" alt="JA"></button>
+        <button data-lang="zh" aria-pressed="false" aria-label="中文" title="中文"><img src="https://flagcdn.com/cn.svg" width="22" height="15" alt="ZH"></button>
       </div>
       <a class="nav-ig" href="https://www.instagram.com/zr.makgeolli/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -564,7 +566,7 @@
     <ul class="info-list">
       <li><b data-i18n="visit.dateL">기간</b><span data-i18n="visit.dateV">2026.6.8 – 6.30</span></li>
       <li><b data-i18n="visit.placeL">장소</b><span data-i18n="visit.placeV">두타몰 B2F · 서울 중구 장충단로 275</span></li>
-      <li><b data-i18n="visit.hoursL">운영시간</b><span data-i18n="visit.hoursV">10:30 – 18:00 (MON–SUN)</span></li>
+      <li><b data-i18n="visit.hoursL">운영시간</b><span data-i18n="visit.hoursV">14:00 – 24:00 (MON–SUN)</span></li>
       <li><b data-i18n="visit.priceL">입장</b><span data-i18n="visit.priceV">무료 입장</span></li>
     </ul>
     <div class="coupon-banner" data-i18n="visit.coupon">🎁 SNS 인증하고 스페셜 기프트(키링·거울·할인쿠폰)를 받아가세요!</div>
@@ -733,7 +735,7 @@ const I18N = {
     "visit.eyebrow":"VISIT","visit.h":"방문 안내",
     "visit.dateL":"기간","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
-    "visit.hoursL":"운영시간","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
+    "visit.hoursL":"운영시간","visit.hoursV":"14:00 – 24:00 (MON–SUN)",
     "visit.priceL":"입장","visit.priceV":"무료 입장",
     "visit.coupon":"🎁 SNS 인증하고 스페셜 기프트(키링·거울·할인쿠폰)를 받아가세요!",
     "form.eyebrow":"APPLY","form.h":"응모하고 쿠폰 받기",
@@ -785,7 +787,7 @@ const I18N = {
     "visit.eyebrow":"VISIT","visit.h":"Visit Info",
     "visit.dateL":"Dates","visit.dateV":"Jun 8 – 30, 2026",
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
-    "visit.hoursL":"Hours","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
+    "visit.hoursL":"Hours","visit.hoursV":"14:00 – 24:00 (MON–SUN)",
     "visit.priceL":"Entry","visit.priceV":"Free entry",
     "visit.coupon":"🎁 Verify on SNS and grab a special gift — keyring, mirror or discount coupon!",
     "form.eyebrow":"APPLY","form.h":"Enter & Get a Coupon",
@@ -837,7 +839,7 @@ const I18N = {
     "visit.eyebrow":"VISIT","visit.h":"来場案内",
     "visit.dateL":"期間","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
-    "visit.hoursL":"営業時間","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
+    "visit.hoursL":"営業時間","visit.hoursV":"14:00 – 24:00 (MON–SUN)",
     "visit.priceL":"入場","visit.priceV":"入場無料",
     "visit.coupon":"🎁 SNS認証してスペシャルギフト（キーリング・ミラー・割引券）をGET！",
     "form.eyebrow":"APPLY","form.h":"応募してクーポンGET",
@@ -859,14 +861,14 @@ const I18N = {
     "nav.apply":"报名",
     "hero.badge":"DOOTA POP-UP","hero.title":"ㅈㄹ马格利酒 × DOOTA 快闪","hero.slogan":"DRINK HAPPY NOT HEAVY",
     "hero.date":"2026.6.8 – 6.30","hero.place":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275","hero.cta":"报名领优惠券","cta.h":"了解更多",
-    "gift.h":"SNS认证\n领取专属礼物",
-    "gift.s1t":"关注 @zr.makgeolli","gift.s1d":"在Instagram关注ㅈㄹ马格利。","gift.followBtn":"去关注 →",
-    "gift.s2t":"快拍认证","gift.s2d":"将快闪店或购买的马格利+钥匙扣照片发到快拍，并@zr.makgeolli。",
+    "gift.h":"小红书认证\n领取专属礼物",
+    "gift.s1t":"关注 @zr.makgeolli","gift.s1d":"在小红书关注ㅈㄹ马格利。","gift.followBtn":"去关注 →",
+    "gift.s2t":"发布笔记","gift.s2d":"把快闪店或马格利+钥匙扣的照片发布成小红书笔记，@zr.makgeolli，并带话题 #韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃，标记 DOOTA 地点。",
     "gift.s3t":"抽取礼物","gift.s3d":"在下方认证并抽取随机专属礼物！",
-    "gift.handleL":"Instagram 账号","gift.handlePh":"@yourname","gift.handleErr":"请输入Instagram账号。",
-    "gift.chk1":"我已关注 @zr.makgeolli","gift.chk2":"我已在快拍发照片并@zr.makgeolli","gift.chkErr":"请勾选两项认证。",
-    "gift.btn":"🎁 抽取礼物","gift.note":"礼物由现场工作人员确认后发放。\n每个Instagram账号限1次。",
-    "gift.win":"恭喜！","gift.codeL":"礼物码","gift.show":"请向现场工作人员出示此码和你的Instagram快拍。",
+    "gift.handleL":"小红书账号","gift.handlePh":"@yourname","gift.handleErr":"请输入小红书账号。",
+    "gift.chk1":"我已在小红书关注 @zr.makgeolli","gift.chk2":"我已发布笔记并@zr.makgeolli、添加话题标签和DOOTA地点","gift.chkErr":"请勾选两项认证。",
+    "gift.btn":"🎁 抽取礼物","gift.note":"礼物由现场工作人员确认后发放。\n每个小红书账号限1次。",
+    "gift.win":"恭喜！","gift.codeL":"礼物码","gift.show":"请向现场工作人员出示此码和你的小红书笔记。",
     "gift.keyring":"马格利钥匙扣","gift.mirror":"镜子周边","gift.discount":"折扣券","gift.shareS":"分享","gift.followS":"关注",
     "intro.eyebrow":"ABOUT","intro.h":"ㅈㄹ马格利酒","mean.h":"WTF 是什么意思？",
     "intro.body":"用俏皮相遇的MZ世代马格利酒。它不是要一饮而尽的厚重传统酒，而是和朋友谈笑间轻轻举起的一杯。就像瓶身上大大印着的韩文首字母「ㅈㄹ」一样，玩心十足，但对味道很认真。",
@@ -889,9 +891,9 @@ const I18N = {
     "visit.eyebrow":"VISIT","visit.h":"到场指南",
     "visit.dateL":"日期","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
-    "visit.hoursL":"营业时间","visit.hoursV":"10:30 – 18:00 (MON–SUN)",
+    "visit.hoursL":"营业时间","visit.hoursV":"14:00 – 24:00 (MON–SUN)",
     "visit.priceL":"入场","visit.priceV":"免费入场",
-    "visit.coupon":"🎁 SNS认证领取专属礼物（钥匙扣·镜子·折扣券）！",
+    "visit.coupon":"🎁 小红书认证领取专属礼物（钥匙扣·镜子·折扣券）！",
     "form.eyebrow":"APPLY","form.h":"报名领优惠券",
     "form.nameL":"姓名","form.namePh":"请输入姓名","form.nameErr":"请输入姓名。",
     "form.phoneL":"联系方式","form.phonePh":"010-0000-0000","form.phoneErr":"请输入正确的联系方式。",
@@ -900,7 +902,7 @@ const I18N = {
     "form.note":"报名时将一并保存所输入姓名的首字母与所发优惠券。","form.sending":"发送中…","form.fail":"提交失败，请稍后再试。",
     "success.h":"报名完成！","success.body":"从今天起，你的名字是","success.couponLabel":"圣水快闪 2,000韩元优惠券",
     "success.couponNote":"请截图并在圣水快闪现场出示。","success.insta":"关注 Instagram","success.close":"关闭",
-    "footer.insta":"Instagram @zr.makgeolli","footer.store":"前往商店购买","footer.addr":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
+    "footer.insta":"小红书 @zr.makgeolli","footer.store":"前往商店购买","footer.addr":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
     "footer.privacy":"隐私政策","footer.rights":"ⓒ ZR Makgeolli. DRINK HAPPY NOT HEAVY.",
     "privacy.h":"个人信息收集与使用同意","privacy.close":"确认",
     "privacy.body":"▪ 收集项目：姓名、联系方式\n▪ 收集目的：活动报名及优惠券发放与通知\n▪ 保留期限：活动结束后6个月内销毁\n▪ 您有权拒绝同意，拒绝将限制报名。",
@@ -1108,6 +1110,10 @@ function applyLang(lang){
   document.querySelectorAll('.lang button').forEach(b=>{
     b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
   });
+
+  // 팔로우/SNS 링크: 중국어는 小红书, 그 외 Instagram
+  const followUrl = (lang === 'zh') ? CONFIG.XHS_URL : CONFIG.INSTA_URL;
+  ['gift-follow','gift-follow2','footer-insta'].forEach(id=>{ const el = document.getElementById(id); if(el) el.href = followUrl; });
 
   renderKinetic(lang);
 }

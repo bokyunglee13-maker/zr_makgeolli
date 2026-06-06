@@ -28,6 +28,7 @@
 ## 3. 핵심 컴포넌트
 - **버튼**: `.btn` — 2px 블랙 보더, pill(rounded-full), hover `scale(1.06)`. variants: `--orange`(핑크필), `--invert`(화이트), `--block`.
 - **DOOTA 브랜드 표기** `.doota`: 한 단어를 `linear-gradient(90deg, red 50%, blue 50%)` + `background-clip:text` 로 좌우 반반 색. (글자 쪼개지 않아 간격 없음. `DOOTA`/`두타` 모두 적용, i18n은 `colorizeBrand()`가 자동 래핑)
+- **언어토글** `.lang`: 국기 이미지 버튼(22×15 flagcdn SVG, kr/gb/jp/cn). 비활성 opacity .45~.5, 활성 = `box-shadow` 링(밝은 바 black / name.html 다크 바 pink). 텍스트 라벨 없음(`aria-label`로 접근성).
 - **마퀴**: `transform:skewY(-2deg)` + `@keyframes marq` 무한 스크롤.
 - **회전 스크롤 인디케이터**: 144px SVG `textPath`("SCROLL DOWN •") `@keyframes spin` 12s.
 - **번호 리스트**(MADE WITH `.feat`, 스텝 `.step`): 블랙 정사각 박스 + 핑크 숫자(display) + 본문(Inter).

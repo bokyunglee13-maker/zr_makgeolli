@@ -62,6 +62,11 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 기프트 결과 UX: 버튼 = **이미지 저장(흰 버튼, 메인)** + 공유·팔로우·닫기(투명 아이콘 `.iconbtn`). 저장은 **캔버스 기프트 티켓(`gift-canvas` 1080×1350, `drawGiftTicket()`)** PNG — 모달과 동일 디자인 + "코드·스토리 보여주세요" 안내. 공유=Web Share(티켓 이미지). gift.show 4개 언어 갱신.
 - 대시보드: Code.gs에 `onOpen()`(메뉴 [📊 ZR > 대시보드 갱신]) + `buildDashboard()` + `getRows_()` 추가 → `Dashboard` 시트에 KPI 요약. **웹앱 재배포 불필요**(시트 바운드 함수). namegen/survey/gifts 읽어 집계.
 - ⚠️ 버그3(또 CONFIG/요소 참조): 기프트 동의 삭제 때처럼 **`gift-insta` 제거 시 그 요소 참조 JS도 같이 삭제** 필요(안 하면 또 스크립트 중단). 처리 완료.
+- 언어토글: 텍스트(KO/EN/JA/ZH) → **국기 이미지**(flagcdn SVG: kr/us/jp/cn)로 변경(3개 파일 동일). 활성 = `box-shadow` 링(밝은 배경 black, name.html 다크 배경 pink). `aria-label`/`alt`로 접근성·CDN 실패 시 폴백. (EN=미국기 us)
+- 운영시간: **14:00–24:00 (MON–SUN)** 로 변경(index 4개 언어 `visit.hoursV` + PRD 반영. survey/name엔 시간 표기 없음).
+- 중국어(zh) 전용 **小红书 현지화 완료**(중국은 인스타 불가): 헤더·쿠폰배너 "小红书认证" + s1d "在小红书关注" + **s2t/s2d: 快拍(스토리) → 笔记(피드 포스트)** + 태그 안내 `@zr.makgeolli #韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃 + DOOTA 地点(위치)` + handleL "小红书账号" + chk1/chk2/note/show 전부 小红书·笔记 기준. 공식계정 핸들 = `zr.makgeolli`(인스타와 동일 표기 사용).
+  - 팔로우 링크 **언어별 분기**: `applyLang()`에서 `lang==='zh' ? CONFIG.XHS_URL : CONFIG.INSTA_URL`로 `gift-follow`/`gift-follow2` href 설정(언어 전환 시 갱신). ⚠️ `CONFIG.XHS_URL`은 현재 **검색 딥링크 placeholder** (`search_result?keyword=zr.makgeolli`) — 小红书 공식 프로필 URL(user/profile/{id}) 확정 시 교체 必.
+  - 푸터 SNS(`footer-insta`)도 언어 분기에 포함 → zh는 텍스트 "小红书 @zr.makgeolli" + href XHS_URL, 그 외 Instagram. ⚠️ 다른 언어(ko/en/ja)는 그대로 Instagram/스토리.
 - 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNG KOOK·Rihanna, 각 줄바꿈)로 분리.
 
 ## 8. 배포 절차
@@ -77,4 +82,5 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - [ ] 기프트 재고 캡(수량) 여부
 - [x] 개인정보 동의 (B 채택: 미저장+동의 제거)
 - [ ] OG 도메인 확정
-- [ ] 운영시간/개인정보 문구 최종 확인
+- [ ] 小红书 공식 프로필 URL 확정 → `CONFIG.XHS_URL` 교체 (현재 검색 딥링크 placeholder)
+- [x] 운영시간 14:00–24:00 (MON–SUN) 적용 완료 / [ ] 개인정보 문구 최종 확인

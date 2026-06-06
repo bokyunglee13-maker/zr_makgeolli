@@ -21,7 +21,8 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 | 생성기 단독 | `/name` |
 | 설문(언어별) | `/survey/ko` `/survey/en` `/survey/ja` `/survey/zh` |
 
-→ **언어별로 QR을 따로** 만들면 됩니다.
+→ **언어별로 QR을 따로** 만들면 됩니다. 언어 토글은 **국기 아이콘**(🇰🇷/🇺🇸/🇯🇵/🇨🇳, flagcdn). 운영시간 **14:00–24:00 (MON–SUN)**.
+> 🇨🇳 **중국어(zh)만** 인스타 대신 **小红书(RED)** 흐름: 关注 + 笔记(피드) 발행 + 태그(`#韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃` + DOOTA 地点) + 푸터/팔로우 링크 `CONFIG.XHS_URL`.
 
 ## 빠른 셋업
 1. **Apps Script**: 구글시트 → 확장 프로그램 → Apps Script에 `apps-script/Code.gs` 붙여넣기 → **배포 → 웹 앱**(실행: 나 / 액세스: 모든 사용자) → URL 복사.
@@ -37,4 +38,4 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 - 분석: 구글시트(내용·전환) + Vercel Analytics(방문수·이벤트, Enable됨)
 
 ## 현재 열린 항목
-**완료**: WEBAPP_URL 연결·시트 적재·Vercel Analytics·개인정보(미저장). **남음**: 기프트 재고 캡(수량 정하면) / OG 도메인 확정 / 운영시간·개인정보 문구 최종 — 자세한 건 [PRD.md](PRD.md) §8.
+**완료**: WEBAPP_URL 연결·시트 적재·Vercel Analytics·개인정보(미저장)·운영시간(14:00–24:00). **남음**: 기프트 재고 캡(수량 정하면) / OG 도메인 확정 / **小红书 프로필 URL 확정(`CONFIG.XHS_URL`)** / 개인정보 문구 최종 — 자세한 건 [PRD.md](PRD.md) §8.

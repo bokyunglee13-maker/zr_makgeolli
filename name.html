@@ -28,9 +28,10 @@
 
   .bar{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:2px solid rgba(255,255,255,.15); }
   .logo{ font-family:var(--display); font-weight:900; font-size:20px; letter-spacing:-.04em; }
-  .lang{ display:flex; gap:2px; }
-  .lang button{ border:none; background:transparent; cursor:pointer; font-family:var(--mono); font-size:11px; font-weight:700; padding:6px; color:#fff; opacity:.5; }
-  .lang button[aria-pressed="true"]{ opacity:1; color:var(--pink); text-decoration:underline; text-underline-offset:3px; }
+  .lang{ display:flex; gap:6px; align-items:center; }
+  .lang button{ border:none; background:transparent; cursor:pointer; padding:0; line-height:0; opacity:.5; border-radius:3px; transition:.2s; }
+  .lang button img{ display:block; width:22px; height:15px; object-fit:cover; border-radius:2px; box-shadow:0 0 0 1px rgba(255,255,255,.25); }
+  .lang button[aria-pressed="true"]{ opacity:1; box-shadow:0 0 0 2px var(--pink); }
 
   main{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:48px 22px; }
   .kicker{ font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; color:var(--pink); letter-spacing:.05em; }
@@ -64,10 +65,10 @@
 <div class="bar">
   <a class="logo" href="/">ㅈㄹ막걸리</a>
   <div class="lang" role="group" aria-label="language">
-    <button data-lang="ko" aria-pressed="true">KO</button>
-    <button data-lang="en" aria-pressed="false">EN</button>
-    <button data-lang="ja" aria-pressed="false">JA</button>
-    <button data-lang="zh" aria-pressed="false">ZH</button>
+    <button data-lang="ko" aria-pressed="true" aria-label="한국어" title="한국어"><img src="https://flagcdn.com/kr.svg" width="22" height="15" alt="KO"></button>
+    <button data-lang="en" aria-pressed="false" aria-label="English" title="English"><img src="https://flagcdn.com/us.svg" width="22" height="15" alt="EN"></button>
+    <button data-lang="ja" aria-pressed="false" aria-label="日本語" title="日本語"><img src="https://flagcdn.com/jp.svg" width="22" height="15" alt="JA"></button>
+    <button data-lang="zh" aria-pressed="false" aria-label="中文" title="中文"><img src="https://flagcdn.com/cn.svg" width="22" height="15" alt="ZH"></button>
   </div>
 </div>
 
