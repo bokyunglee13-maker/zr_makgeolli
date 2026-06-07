@@ -4,12 +4,13 @@
 
 ## 1. 파일 맵
 ```
-index.html            # 랜딩 (4개 언어 i18n 내장, 단일 파일)
-name.html             # 초성 생성기 단독 페이지 (변환 로직 자체 포함, 4개 언어)
+index.html            # 랜딩 (4개 언어 i18n 내장)
+name.html             # 초성 생성기 단독 페이지 (4개 언어)
 survey.html           # 시음·브랜드 설문 (4개 언어, 기본 en)
+assets/chosung.js     # ★ 초성 변환 엔진(공유) — index/name 둘 다 <script src>로 로드
 apps-script/Code.gs   # 구글시트 백엔드 (gift / survey / 레거시 응모 분기)
 vercel.json           # rewrites: 언어별·/survey/*·/name 라우팅
-assets/               # 웹 최적화 이미지 (≈1MB) — 배포 대상
+assets/               # 웹 최적화 이미지 (≈1MB) + chosung.js — 배포 대상
 _originals/           # 고화질 원본(대용량) — .gitignore, 배포 제외
 .gitignore            # .claude/, .vercel, node_modules, _originals/
 PRD.md / DESIGN.md / MEMORY.md / README.md
@@ -25,14 +26,14 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 언어 감지 `detectLang()`: 경로 `/(ko|en|ja|zh)` > `?lang=` > localStorage(`zr_lang`) > 기본(index=ko, survey/name=en/현재 localStorage).
 - 줄바꿈은 문자열에 `\n` + 해당 요소 CSS `white-space:pre-line` (예: 생성기 설명, 기프트 제목).
 
-## 4. 초성 변환 로직 (index + name 양쪽에 복제)
-- `toChosung()`: 한글 단어→음절별 초성 / 그 외→`NAME_MAP[소문자키]` 있으면 사용, 없으면 `romanChosung()` 휴리스틱.
-- `NAME_MAP`: 영·일·중 흔한 이름 예외표 (발음/표기법 반영). `jungkook:'ㅈㄱ'` 등 포함.
-- `romanChosung()`: 자음 디그래프 병합(zh/sh/ch/ts…) + **모음 이중자(`VOWEL_DI`: eo/eu/ae/oe/ui/oo/ou/ee/ea) = 한 음절로 묶음** + **중복자음 흡수(tt/ll/nn…)** → 토큰화 → 초성 추출. **받침 가능 자음(ㄱㄴㄹㅁㅂㅇ+묵음ㅎ+ㅋ)만 코다로 흡수**, 그 외 자음(ㄷㅌㅅㅈㅊㅍ)은 **'으' 음절로 살림**(예: Edward→ㅇㄷㅇㄷ, Brad→ㅂㄹㄷ). 어두/자음군이 모음으로 이어지면 살림.
-  - ⚠️ 버그5(어말 /k/): `ㅋ`(c·k·q·ck)이 받침불가라 어말에서 '크' 음절이 생김(polyc→ㅍㄹㅋ). 한국어 /k/받침=ㄱ받침이므로 **CODA에 `ㅋ` 추가** → 어말/자음앞 ㅋ은 ㄱ받침으로 흡수(polyc→ㅍㄹ, eric→ㅇㄹ, nick→ㄴ, park→ㅍ). **온셋 ㅋ(모음 앞)은 nextV 조건으로 그대로 유지**(nicole→ㄴㅋㄹ, kevin→ㅋㅂ). `ㅍ`은 f어말('프', 제프)과 충돌해 제외, ㄷㅌㅅㅈㅊ는 의도적으로 음절 유지(Edward 보존).
-  - ⚠️ 버그4(모음 이중자): 인접한 **서로 다른 모음**을 무조건 별개 음절(+ㅇ)로 쪼개던 문제 → 한글 로마자(seo·young·taeyeon)·영어 이중모음에서 ㅇ 과잉. **`VOWEL_DI` 묶음으로 해결**: seo→ㅅ(서), jang won young→㈈ㅇㅇ, seo da bin→ㅅㄷㅂ, taeyeon→ㅌㅇ(태연), sean→ㅅ(션). 진짜 이중모음(haeun=ae+u 하은→ㅎㅇ)·일/중 다모음(aoi·inoue)은 NAME_MAP/단일모음 병치로 유지. `amy`는 NAME_MAP 'ㅇㅁ'→**'ㅇㅇㅁ'**(에이미) 수정.
-  - ⚠️ `ou` 양면성: `young`(영)은 한 음절(ㅇ)이라 `ou` 병합이 필요하지만 `soul`(소울)은 ㅅㅇ로 쪼개야 함 — **같은 철자 정반대 처리**라 규칙 불가 → `young`류(wonyoung·hyoung 등)는 `ou` 병합으로 살리고 `soul`만 **NAME_MAP `soul:'ㅅㅇ'`** 예외 등록. (`seoul`=서울은 eo+u로 이미 ㅅㅇ.) (※ 과거엔 모든 coda를 버려 d/t/k가 누락되던 버그도 있었음)
-- ⚠️ name.html 은 별도 복사본 → 로직 수정 시 **두 파일 동기화** 필요(NAME_MAP 포함).
+## 4. 초성 변환 엔진 `assets/chosung.js` (공유 — 언어별 분기)
+- ✅ **2026.6 리팩터: index/name에 복제돼 있던 로직을 `/assets/chosung.js` 한 파일로 추출**(전역 `toChosung(name, lang)`). 두 HTML은 `<script src="/assets/chosung.js">` 로드 후 호출 시 **현재 `LANG` 전달**: `toChosung(v, LANG)`. (더 이상 두 파일 동기화 불필요!)
+- `toChosung(name, lang)`: 단어별로 — ①한글/자모→직접 초성 ②`NAME_MAP[키]` 있으면 사용 ③없으면 **언어별 로마자 함수**. lang: `ko`|`en`|`ja`|`zh`(기본 en). ⚠️ lang은 UI 언어이지 입력 이름의 언어가 아님(ko 사용자가 영어 입력 가능) → 한글은 항상 직접 처리, NAME_MAP이 교차 폴백.
+- **`NAME_MAP`**(공통): 불규칙 표기 예외 — 한국 성씨(kim·park·choi…), 영·일·중 흔한 이름. 엔진이 못 맞추는 케이스의 최종 안전망.
+- **ko/en 공용 `romanLatin(word,{silentE})`**: 자음 디그래프(zh/sh/ch/ts…) + **모음 이중자 `VOWEL_DI`(eo/eu/ae/oe/ui/oo/ou/ee/ea)=한 음절** + 중복자음 흡수 → 토큰화. **받침 흡수 집합 `CODA=ㄱㄴㄹㅁㅂㅇㅎㅋ`**(ㅋ=/k/는 ㄱ받침), 그 외(ㄷㅌㅅㅈㅊㅍ)는 '으'음절로 살림(Edward→ㅇㄷㅇㄷ). **en만 `silentE`**(자음+e 어말 묵음: nicole→ㄴㅋ). ko는 RR 모음 이중자 그대로.
+- **ja `romanize_ja`(모라)**: 모든 모음=음절, 묵음 없음, CV(+ん). **어두 무성음 k/t/ch→ㄱ/ㄷ/ㅈ, 어중→ㅋ/ㅌ/ㅊ**(외래어표기법). f→ㅎ, つ(ts)→ㅊ, 장음(ou/ei…) 한 음절, っ/ん 코다. → 대부분 맵 없이 정확(takano→ㄷㅋㄴ, fukuda→ㅎㅋㄷ, watanabe→ㅇㅌㄴㅂ).
+- **zh `romanize_zh`(병음 분해)**: 성모(초성)+운모. 운모 중 한국어로 2음절 되는 복운모(ai·ei·ao·ou·ui·iao·uai)는 ㅇ 추가. 그리디 분해(xiaoming→ㅅㅇㅁ, wangfei→ㅇㅍㅇ, lixin→ㄹㅅ).
+- 변환 히스토리(해결된 버그): 모든 coda 누락(d/t/k)→ CODA 도입 / 모음연속 ㅇ과잉(seo·young)→ `VOWEL_DI` / 어말 ㅋ '크'음절→ CODA에 ㅋ / `ou` 양면성(young 병합 vs soul 분리)→ `soul`만 NAME_MAP 예외 / `amy`→'ㅇㅇㅁ' / `nicole`→'ㄴㅋ'(en silentE로도 해결).
 
 ## 5. 기프트 가챠
 - 가중치 `GIFTS`(index 스크립트): keyring 10 / mirror 40 / discount 50. `drawGift()` 가중 랜덤.
