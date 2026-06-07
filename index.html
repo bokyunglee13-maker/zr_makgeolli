@@ -932,7 +932,7 @@ const NAME_MAP = {
   sophia:'ㅅㅍㅇ', william:'ㅇㄹㅇ', daniel:'ㄷㄴㅇ', kevin:'ㅋㅂ', joseph:'ㅈㅅㅍ',
   thomas:'ㅌㅁㅅ', peter:'ㅍㅌ', robert:'ㄹㅂㅌ', charles:'ㅊㅅ', george:'ㅈㅈ',
   henry:'ㅎㄹ', jack:'ㅈ', luke:'ㄹㅋ', noah:'ㄴㅇ', leo:'ㄹㅇ', max:'ㅁㅅ',
-  sam:'ㅅ', ben:'ㅂ', tom:'ㅌ', amy:'ㅇㅇㅁ', anna:'ㅇㄴ', sarah:'ㅅㄹ', sara:'ㅅㄹ',
+  sam:'ㅅ', ben:'ㅂ', tom:'ㅌ', amy:'ㅇㅇㅁ', anna:'ㅇㄴ', sarah:'ㅅㄹ', sara:'ㅅㄹ', soul:'ㅅㅇ', nicole:'ㄴㅋ',
   rachel:'ㄹㅇㅊ', jessica:'ㅈㅅㅋ', jennifer:'ㅈㄴㅍ', ashley:'ㅇㅅㄹ', laura:'ㄹㄹ',
   maria:'ㅁㄹㅇ', hannah:'ㅎㄴ', lucas:'ㄹㅋㅅ', oscar:'ㅇㅅㅋ', oliver:'ㅇㄹㅂ',
   mia:'ㅁㅇ', ava:'ㅇㅂ', ella:'ㅇㄹ', lily:'ㄹㄹ', nina:'ㄴㄴ', tina:'ㅌㄴ', lee:'ㄹ',
@@ -994,7 +994,7 @@ function romanChosung(word){
     { const cho = LATIN[ch] || 'ㅇ'; const last = tk[tk.length-1]; if(!(last && last.c && last.cho === cho)) tk.push({c:true, cho}); } i++;
   }
   // 2) 음절 초성 추출 — 받침 가능 자음(ㄱㄴㄹㅁㅂㅇ+묵음ㅎ)만 흡수, 그 외(ㄷㅌㅅㅈㅊㅋㅍ…)는 '으' 음절로 살림
-  const CODA = 'ㄱㄴㄹㅁㅂㅇㅎ';
+  const CODA = 'ㄱㄴㄹㅁㅂㅇㅎㅋ'; // ㅋ(/k/=c·k·q·ck) 어말/자음앞은 ㄱ받침으로 흡수 (polyc→ㅍㄹ, eric→ㅇㄹ). 온셋은 nextV로 유지
   let out = '';
   for(let i=0;i<tk.length;i++){
     const cur = tk[i], prev = tk[i-1];

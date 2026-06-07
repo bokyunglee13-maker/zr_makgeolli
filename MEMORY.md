@@ -28,8 +28,10 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 ## 4. 초성 변환 로직 (index + name 양쪽에 복제)
 - `toChosung()`: 한글 단어→음절별 초성 / 그 외→`NAME_MAP[소문자키]` 있으면 사용, 없으면 `romanChosung()` 휴리스틱.
 - `NAME_MAP`: 영·일·중 흔한 이름 예외표 (발음/표기법 반영). `jungkook:'ㅈㄱ'` 등 포함.
-- `romanChosung()`: 자음 디그래프 병합(zh/sh/ch/ts…) + **모음 이중자(`VOWEL_DI`: eo/eu/ae/oe/ui/oo/ou/ee/ea) = 한 음절로 묶음** + **중복자음 흡수(tt/ll/nn…)** → 토큰화 → 초성 추출. **받침 가능 자음(ㄱㄴㄹㅁㅂㅇ+묵음ㅎ)만 코다로 흡수**, 그 외 자음(ㄷㅌㅅㅈㅊㅋㅍ)은 **'으' 음절로 살림**(예: Edward→ㅇㄷㅇㄷ, Brad→ㅂㄹㄷ). 어두/자음군이 모음으로 이어지면 살림.
-  - ⚠️ 버그4(모음 이중자): 인접한 **서로 다른 모음**을 무조건 별개 음절(+ㅇ)로 쪼개던 문제 → 한글 로마자(seo·young·taeyeon)·영어 이중모음에서 ㅇ 과잉. **`VOWEL_DI` 묶음으로 해결**: seo→ㅅ(서), jang won young→㈈ㅇㅇ, seo da bin→ㅅㄷㅂ, taeyeon→ㅌㅇ(태연), sean→ㅅ(션). 진짜 이중모음(haeun=ae+u 하은→ㅎㅇ)·일/중 다모음(aoi·inoue)은 NAME_MAP/단일모음 병치로 유지. `amy`는 NAME_MAP 'ㅇㅁ'→**'ㅇㅇㅁ'**(에이미) 수정. (※ 과거엔 모든 coda를 버려 d/t/k가 누락되던 버그도 있었음)
+- `romanChosung()`: 자음 디그래프 병합(zh/sh/ch/ts…) + **모음 이중자(`VOWEL_DI`: eo/eu/ae/oe/ui/oo/ou/ee/ea) = 한 음절로 묶음** + **중복자음 흡수(tt/ll/nn…)** → 토큰화 → 초성 추출. **받침 가능 자음(ㄱㄴㄹㅁㅂㅇ+묵음ㅎ+ㅋ)만 코다로 흡수**, 그 외 자음(ㄷㅌㅅㅈㅊㅍ)은 **'으' 음절로 살림**(예: Edward→ㅇㄷㅇㄷ, Brad→ㅂㄹㄷ). 어두/자음군이 모음으로 이어지면 살림.
+  - ⚠️ 버그5(어말 /k/): `ㅋ`(c·k·q·ck)이 받침불가라 어말에서 '크' 음절이 생김(polyc→ㅍㄹㅋ). 한국어 /k/받침=ㄱ받침이므로 **CODA에 `ㅋ` 추가** → 어말/자음앞 ㅋ은 ㄱ받침으로 흡수(polyc→ㅍㄹ, eric→ㅇㄹ, nick→ㄴ, park→ㅍ). **온셋 ㅋ(모음 앞)은 nextV 조건으로 그대로 유지**(nicole→ㄴㅋㄹ, kevin→ㅋㅂ). `ㅍ`은 f어말('프', 제프)과 충돌해 제외, ㄷㅌㅅㅈㅊ는 의도적으로 음절 유지(Edward 보존).
+  - ⚠️ 버그4(모음 이중자): 인접한 **서로 다른 모음**을 무조건 별개 음절(+ㅇ)로 쪼개던 문제 → 한글 로마자(seo·young·taeyeon)·영어 이중모음에서 ㅇ 과잉. **`VOWEL_DI` 묶음으로 해결**: seo→ㅅ(서), jang won young→㈈ㅇㅇ, seo da bin→ㅅㄷㅂ, taeyeon→ㅌㅇ(태연), sean→ㅅ(션). 진짜 이중모음(haeun=ae+u 하은→ㅎㅇ)·일/중 다모음(aoi·inoue)은 NAME_MAP/단일모음 병치로 유지. `amy`는 NAME_MAP 'ㅇㅁ'→**'ㅇㅇㅁ'**(에이미) 수정.
+  - ⚠️ `ou` 양면성: `young`(영)은 한 음절(ㅇ)이라 `ou` 병합이 필요하지만 `soul`(소울)은 ㅅㅇ로 쪼개야 함 — **같은 철자 정반대 처리**라 규칙 불가 → `young`류(wonyoung·hyoung 등)는 `ou` 병합으로 살리고 `soul`만 **NAME_MAP `soul:'ㅅㅇ'`** 예외 등록. (`seoul`=서울은 eo+u로 이미 ㅅㅇ.) (※ 과거엔 모든 coda를 버려 d/t/k가 누락되던 버그도 있었음)
 - ⚠️ name.html 은 별도 복사본 → 로직 수정 시 **두 파일 동기화** 필요(NAME_MAP 포함).
 
 ## 5. 기프트 가챠
