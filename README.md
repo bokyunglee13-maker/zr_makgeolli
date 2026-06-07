@@ -39,4 +39,4 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 - 분석: 구글시트(내용·전환) + Vercel Analytics(방문수·이벤트, Enable됨)
 
 ## 현재 열린 항목
-**완료**: WEBAPP_URL 연결·시트 적재·Vercel Analytics·개인정보(미저장)·운영시간(14:00–24:00). **남음**: 기프트 재고 캡(수량 정하면) / OG 도메인 확정 / **小红书 프로필 URL 확정(`CONFIG.XHS_URL`)** / 개인정보 문구 최종 — 자세한 건 [PRD.md](PRD.md) §8.
+**완료**: WEBAPP_URL 연결·시트 적재·Vercel Analytics·개인정보(미저장)·운영시간(14:00–24:00)·小红书 계정(Tipsyrice). **남음**: 기프트 재고 캡(수량 정하면) / OG 도메인 확정 / 개인정보 문구 최종 — 자세한 건 [PRD.md](PRD.md) §8.
