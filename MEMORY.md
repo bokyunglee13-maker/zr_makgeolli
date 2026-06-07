@@ -69,7 +69,8 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - 언어토글: 텍스트(KO/EN/JA/ZH) → **국기 이미지**(flagcdn SVG: kr/us/jp/cn)로 변경(3개 파일 동일). 활성 = `box-shadow` 링(밝은 배경 black, name.html 다크 배경 pink). `aria-label`/`alt`로 접근성·CDN 실패 시 폴백. (EN=미국기 us)
 - 운영시간: **14:00–24:00 (MON–SUN)** 로 변경(index 4개 언어 `visit.hoursV` + PRD 반영. survey/name엔 시간 표기 없음).
 - 중국어(zh) 전용 **小红书 현지화 완료**(중국은 인스타 불가): 헤더·쿠폰배너 "小红书认证" + s1d "在小红书关注" + **s2t/s2d: 快拍(스토리) → 笔记(피드 포스트)** + 태그 안내 `@zr.makgeolli #韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃 + DOOTA 地点(위치)` + handleL "小红书账号" + chk1/chk2/note/show 전부 小红书·笔记 기준.
-  - **小红书 실제 계정: 小红书号(ID) `Tipsyrice` / 닉네임 `Makgeolli lover`.** 표기 규칙 → 팔로우 검색·chk1·footer는 **ID `Tipsyrice`**, 笔记 @멘션(s2d·chk2)은 **닉네임 `@Makgeolli lover`**(小红书 @는 닉네임으로 뜸), s1t 제목은 `关注 Makgeolli lover`.
+  - **小红书 실제 계정: 小红书号(ID) `Tipsyrice` / 닉네임 `Makgeolli lover`.** 표기 규칙 → 팔로우 검색·chk1·footer는 **ID `Tipsyrice`**, 笔记 @멘션(s2d·chk2)은 **닉네임 `@Makgeolli lover`**(小红书 @는 닉네임으로만 뜸·ID로 @ 불가), s1t 제목은 `关注 Makgeolli lover`.
+    - ⚠️ **왜 ID로 검색·팔로우?** 小红书号(ID)는 **유일**하지만 닉네임은 **중복 가능**(동명이인·사칭) → 닉네임으로 검색하면 엉뚱한 계정이 뜰 수 있어 **검색/팔로우/푸터는 반드시 유일 ID**로. @멘션만 닉네임 불가피(필요시 `（小红书号：Tipsyrice）` 병기로 오선택 방지 가능 — 현재 미적용).
   - 팔로우 링크 **언어별 분기**: `applyLang()`에서 `lang==='zh' ? CONFIG.XHS_URL : CONFIG.INSTA_URL`로 `gift-follow`/`gift-follow2` href 설정(언어 전환 시 갱신). `CONFIG.XHS_URL = search_result?keyword=Tipsyrice`(**검색 딥링크**). 小红书는 웹→앱 링크가 불안정 → s1d에 **ID 텍스트로 검색 유도**가 핵심(프로필 URL 불필요, 의도된 선택).
   - 푸터 SNS(`footer-insta`)도 언어 분기 포함 → zh는 텍스트 "小红书 Tipsyrice" + href XHS_URL, 그 외 Instagram. ⚠️ 다른 언어(ko/en/ja)는 그대로 Instagram/스토리.
 - 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNGKOOK·Rihanna, 각 줄바꿈, **결과는 글자마다 한 칸 띄움으로 통일**: ㅈ ㅇ ㅇ / ㅈ ㄱ / ㄹ ㅎ ㄴ)로 분리.

@@ -23,7 +23,7 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 | 설문(언어별) | `/survey/ko` `/survey/en` `/survey/ja` `/survey/zh` |
 
 → **언어별로 QR을 따로** 만들면 됩니다. 언어 토글은 **국기 아이콘**(🇰🇷/🇺🇸/🇯🇵/🇨🇳, flagcdn). 운영시간 **14:00–24:00 (MON–SUN)**.
-> 🇨🇳 **중국어(zh)만** 인스타 대신 **小红书(RED)** 흐름: 关注 + 笔记(피드) 발행 + 태그(`#韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃` + DOOTA 地点) + 푸터/팔로우 링크 `CONFIG.XHS_URL`.
+> 🇨🇳 **중국어(zh)만** 인스타 대신 **小红书(RED)** 흐름. 계정: 小红书号 **`Tipsyrice`**(검색·팔로우·푸터 — 닉네임은 중복 위험이라 **유일 ID 사용**) / 닉네임 **`Makgeolli lover`**(笔记 @멘션). 关注 + 笔记(피드) 발행 + 태그(`#韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃` + DOOTA 地点). 팔로우 링크 `CONFIG.XHS_URL=search_result?keyword=Tipsyrice`.
 
 ## 빠른 셋업
 1. **Apps Script**: 구글시트 → 확장 프로그램 → Apps Script에 `apps-script/Code.gs` 붙여넣기 → **배포 → 웹 앱**(실행: 나 / 액세스: 모든 사용자) → URL 복사.
