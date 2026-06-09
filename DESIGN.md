@@ -37,6 +37,8 @@
 - **스토리 카드**(Canvas 1080×1920): 핑크 배경 + 블랙 보더 + 상단 `ZR MAKGEOLLI · ㅈㄹ막걸리` + `KOREAN ALPHABET VER.` + 이름/초성 + 보틀 누끼 + 슬로건 + @핸들.
 - **기프트 결과 모달**: 이모지(🔑/🪞) + 할인쿠폰은 `.coupon-badge`("COUPON", 점선 보더). 버튼 = **이미지 저장**(`btn--invert`, 흰 배경 메인) + `.iconbtn` 행(공유·팔로우·닫기 — 투명 동그라미 46px + 검정 보더 + 아이콘 + 10px 라벨).
 - **기프트 티켓**(저장용 Canvas `gift-canvas` 1080×1350): 모달과 동일 — 핑크 배경·블랙 보더·굿즈 아이콘(또는 COUPON 박스)·당첨명·코드 박스·"코드+스토리" 안내·@핸들/날짜. `drawGiftTicket()`.
+- **NAME MATCH 배너**(`.matchband`, index): 다크(블랙 배경+핑크 액센트) 풀폭 링크 → `/match`. eyebrow(NAME MATCH)·display 헤드라인·mono 설명·핑크 pill CTA.
+- **이름 궁합 결과/카드**(match.html): 흰 패널 위 — 획수 칩(블랙 보더 라운드)·점수대 pill 태그·게이지(`linear-gradient(핑크→레드)`)·대형 점수(레드 display)·이모지·양방향 점수. 스토리 카드(Canvas 1080×1920): `A ♥ B`+점수%+이모지+멘트+게이지+양방향+슬로건/핸들. 스토리 카드는 기존 초성 카드와 동일 톤(핑크·블랙 보더).
 
 ## 4. 폰트 사용 원칙(통일)
 - 큰 제목·번호 = display.

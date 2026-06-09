@@ -9,6 +9,7 @@
     { "source": "/survey/en", "destination": "/survey.html" },
     { "source": "/survey/ja", "destination": "/survey.html" },
     { "source": "/survey/zh", "destination": "/survey.html" },
-    { "source": "/name", "destination": "/name.html" }
+    { "source": "/name", "destination": "/name.html" },
+    { "source": "/match", "destination": "/match.html" }
   ]
 }

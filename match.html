@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>이름 궁합 테스트 | ㅈㄹ막걸리 × DOOTA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+<meta property="og:title" content="이름 궁합 테스트 🍶 ㅈㄹ막걸리 × DOOTA" />
+<meta property="og:description" content="두 사람 이름 넣고 막걸리 궁합 점수 확인! 천생연분일까?" />
+<meta property="og:image" content="https://zr-makgeolli.vercel.app/assets/og.jpg" />
+<script>
+  const CONFIG = { WEBAPP_URL: "https://script.google.com/macros/s/AKfycbzXBYwep0qWg8yW7bitqW-Jms4v2_-KR-EDiyHy-NGJzP_XOy408xEVZ2JKOkJWWhQi/exec", INSTA_URL: "https://www.instagram.com/zr.makgeolli/" };
+</script>
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+  @font-face{ font-family:'Paperlogy'; font-weight:400; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff2') format('woff2'); }
+  @font-face{ font-family:'Paperlogy'; font-weight:700; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2'); }
+  @font-face{ font-family:'Paperlogy'; font-weight:900; font-display:swap; src:url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.woff2') format('woff2'); }
+  :root{ --pink:#F0A0BC; --pink-soft:#FBE3EB; --black:#000; --white:#fff; --red:#E11B2D; --blue:#0E7CA6;
+    --display:'Archivo Black','Paperlogy',sans-serif; --mono:'Space Mono','Paperlogy',monospace; --body:'Inter','Paperlogy',sans-serif; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:var(--body); background:var(--pink); color:var(--black); min-height:100vh; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:var(--black); color:var(--pink); }
+  a{ color:inherit; text-decoration:none; }
+
+  .bar{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; border-bottom:2px solid var(--black); }
+  .logo{ font-family:var(--display); font-weight:900; font-size:20px; letter-spacing:-.04em; }
+  .bar .back{ font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; }
+  .bar .back:hover{ color:var(--red); }
+
+  main{ flex:1; width:100%; max-width:640px; margin:0 auto; padding:32px 20px 60px; }
+  .kicker{ font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; color:var(--red); letter-spacing:.05em; }
+  h1{ font-family:var(--display); font-weight:900; letter-spacing:-.04em; line-height:1; font-size:clamp(36px,10vw,68px); margin:10px 0 8px; }
+  .sub{ font-family:var(--mono); font-size:13px; text-transform:uppercase; opacity:.7; margin-bottom:24px; }
+
+  /* 입력 카드 */
+  .panel{ background:var(--white); border:3px solid var(--black); padding:22px; }
+  .row{ display:flex; align-items:flex-end; gap:10px; }
+  .field{ flex:1; }
+  .field label{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:8px; }
+  .field .tag{ opacity:.45; }
+  .field input{ width:100%; border:2px solid var(--black); background:#fff; padding:15px; font-family:var(--display); font-size:20px; text-align:center; }
+  .field input:focus{ outline:none; background:var(--pink-soft); }
+  .swap{ width:50px; height:50px; flex:0 0 auto; margin-bottom:2px; border:2px solid var(--black); background:#fff; border-radius:999px; font-size:20px; cursor:pointer; transition:transform .25s; }
+  .swap:hover{ transform:rotate(180deg); background:var(--pink-soft); }
+  .actions{ display:flex; gap:10px; justify-content:center; margin-top:20px; }
+  .btn{ border:2px solid var(--black); background:var(--pink); color:var(--black); font-family:var(--display); font-size:17px; padding:15px 30px; cursor:pointer; border-radius:999px; transition:transform .15s; display:inline-flex; align-items:center; gap:8px; }
+  .btn:hover{ transform:scale(1.05); }
+  .btn--ghost{ background:#fff; }
+  .btn--sm{ font-family:var(--mono); font-weight:700; font-size:13px; text-transform:uppercase; padding:12px 18px; }
+  .hint{ text-align:center; font-family:var(--mono); font-size:11px; text-transform:uppercase; opacity:.55; margin-top:16px; }
+
+  /* 결과 */
+  #result{ display:none; margin-top:26px; background:var(--white); border:3px solid var(--black); padding:24px 22px 28px; }
+  #result.show{ display:block; animation:pop .35s ease; }
+  @keyframes pop{ from{ transform:scale(.96); opacity:0; } to{ transform:scale(1); opacity:1; } }
+  .chips{ display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:18px; min-height:54px; }
+  .chip{ border:2px solid var(--black); border-radius:10px; padding:5px 9px; text-align:center; line-height:1.1; opacity:0; transform:translateY(8px); transition:.25s; }
+  .chip.in{ opacity:1; transform:none; }
+  .chip b{ font-family:var(--display); font-size:18px; display:block; }
+  .chip span{ font-family:var(--mono); font-size:10px; }
+  .chip .num{ color:var(--red); font-weight:700; }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:16px; }
+  .pill{ font-family:var(--mono); font-size:11px; font-weight:700; text-transform:uppercase; background:var(--pink-soft); border:1.5px solid var(--black); border-radius:999px; padding:5px 12px; }
+  .gauge-h{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:7px; }
+  .gauge{ height:16px; border:2px solid var(--black); background:#fff; overflow:hidden; }
+  .gauge i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#F0A0BC,#E11B2D); transition:width 1s cubic-bezier(.2,.8,.2,1); }
+  .score-wrap{ text-align:center; margin:18px 0 6px; }
+  .score-lab{ font-family:var(--display); font-size:20px; }
+  .score{ font-family:var(--display); font-size:clamp(60px,18vw,104px); color:var(--red); line-height:1; }
+  .emoji{ font-size:44px; }
+  .verdict{ text-align:center; font-family:var(--body); font-weight:700; font-size:17px; line-height:1.5; margin:8px auto 0; max-width:420px; }
+  .who{ text-align:center; font-family:var(--body); font-size:15px; background:var(--pink-soft); border:2px solid var(--black); border-radius:12px; padding:11px; margin:16px 0 10px; }
+  .who b.a{ color:var(--red); } .who b.b{ color:var(--blue); }
+  .dir{ display:flex; justify-content:center; gap:22px; font-family:var(--mono); font-size:13px; }
+  .dir b{ font-family:var(--display); font-size:17px; }
+  .res-actions{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:22px; }
+
+  footer{ text-align:center; padding:22px; font-family:var(--mono); font-size:12px; text-transform:uppercase; border-top:2px solid var(--black); }
+  footer a:hover{ color:var(--red); }
+
+  .overlay{ position:fixed; inset:0; background:rgba(0,0,0,.82); display:none; align-items:center; justify-content:center; padding:20px; z-index:50; }
+  .overlay.show{ display:flex; }
+  .card-modal{ max-width:340px; width:100%; text-align:center; }
+  #card-canvas{ width:min(70vw,300px); height:auto; display:block; margin:0 auto; border:3px solid var(--white); box-shadow:0 20px 60px rgba(0,0,0,.5); }
+  .card-actions{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:18px; }
+  .card-hint{ font-family:var(--mono); font-size:11px; color:#fff; opacity:.85; text-transform:uppercase; margin-top:12px; }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <a class="logo" href="/">ㅈㄹ막걸리</a>
+  <a class="back" href="/">← 랜딩</a>
+</div>
+
+<main>
+  <div class="kicker">NAME MATCH · 이름 궁합</div>
+  <h1>우리 궁합,<br>ㅈㄹ인가요?</h1>
+  <p class="sub">두 사람 이름을 넣으면 막걸리 궁합 점수가 촤르륵 🍶</p>
+
+  <div class="panel">
+    <div class="row">
+      <div class="field">
+        <label>내 이름 <span class="tag">한글</span></label>
+        <input id="n1" type="text" maxlength="6" placeholder="예: 김민준" autocomplete="off" />
+      </div>
+      <button class="swap" id="swap" title="이름 순서 바꾸기" aria-label="이름 순서 바꾸기">⇄</button>
+      <div class="field">
+        <label>상대 이름 <span class="tag">한글</span></label>
+        <input id="n2" type="text" maxlength="6" placeholder="예: 박서연" autocomplete="off" />
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="go">♥ 궁합 보기</button>
+      <button class="btn btn--ghost btn--sm" id="rand">🔀 랜덤</button>
+    </div>
+    <p class="hint">이름 순서를 바꾸면 각자 기준 점수가 달라질 수 있어요</p>
+  </div>
+
+  <div id="result">
+    <div class="chips" id="chips"></div>
+    <div class="tags" id="tags"></div>
+    <div class="gauge-h"><span>궁합 텐션</span><span id="gnum">0 / 100</span></div>
+    <div class="gauge"><i id="gbar"></i></div>
+    <div class="score-wrap">
+      <div class="emoji" id="emoji">🍶</div>
+      <div class="score-lab">두 사람의 궁합 점수</div>
+      <div class="score"><span id="score">0</span>점</div>
+    </div>
+    <p class="verdict" id="verdict"></p>
+    <div class="who" id="who"></div>
+    <div class="dir" id="dir"></div>
+    <div class="res-actions">
+      <button class="btn" id="share">📷 결과 공유</button>
+      <button class="btn btn--ghost" id="save">이미지 저장</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="https://www.instagram.com/zr.makgeolli/" target="_blank" rel="noopener">@zr.makgeolli</a> · <a href="/">ㅈㄹ막걸리 × DOOTA 팝업 →</a>
+</footer>
+
+<div class="overlay" id="card-overlay">
+  <div class="card-modal">
+    <canvas id="card-canvas" width="1080" height="1920"></canvas>
+    <div class="card-actions">
+      <button class="btn btn--sm" id="card-share">인스타 공유</button>
+      <button class="btn btn--ghost btn--sm" id="card-save">이미지 저장</button>
+      <button class="btn btn--sm" id="card-close" style="background:#000;color:#fff;border-color:#fff">닫기</button>
+    </div>
+    <p class="card-hint">인스타 스토리에 올려보세요!</p>
+  </div>
+</div>
+
+<script>
+/* ===== 한글 획수 궁합 알고리즘 ===== */
+const BASE='가'.charCodeAt(0);
+const INITIALS=['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const MEDIALS=['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'];
+const FINALES=['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+const STROKES={'':0,'ㄱ':2,'ㄲ':4,'ㄴ':2,'ㄷ':3,'ㄸ':6,'ㄹ':5,'ㅁ':4,'ㅂ':4,'ㅃ':8,'ㅅ':2,'ㅆ':4,'ㅇ':1,'ㅈ':3,'ㅉ':6,'ㅊ':4,'ㅋ':3,'ㅌ':4,'ㅍ':4,'ㅎ':3,'ㄳ':4,'ㄵ':5,'ㄶ':5,'ㄺ':7,'ㄻ':9,'ㄼ':9,'ㄽ':7,'ㄾ':9,'ㄿ':9,'ㅀ':8,'ㅄ':6,'ㅏ':2,'ㅐ':3,'ㅑ':3,'ㅒ':4,'ㅓ':2,'ㅔ':3,'ㅕ':3,'ㅖ':4,'ㅗ':2,'ㅘ':4,'ㅙ':5,'ㅚ':3,'ㅛ':3,'ㅜ':2,'ㅝ':4,'ㅞ':5,'ㅟ':3,'ㅠ':3,'ㅡ':1,'ㅢ':2,'ㅣ':1};
+function getSymbol(ch){
+  if(!/[ㄱ-ㅎ가-힣]/.test(ch)) return null;
+  let initial='',medial='',finale='';
+  if(/[ㄱ-ㅎ]/.test(ch)){ initial=ch; }
+  else{ const t=ch.charCodeAt(0)-BASE; const fo=t%FINALES.length; const mo=((t-fo)/FINALES.length)%MEDIALS.length; const io=((t-fo)/FINALES.length-mo)/MEDIALS.length; initial=INITIALS[io]; medial=MEDIALS[mo]; finale=FINALES[fo]; }
+  return { numOfStrokes:(STROKES[initial]||0)+(STROKES[medial]||0)+(STROKES[finale]||0) };
+}
+function strokesOf(name){ return [...name].filter(c=>/[가-힣ㄱ-ㅎ]/.test(c)).map(c=>[c,getSymbol(c).numOfStrokes]); }
+function getScore(name1,name2){
+  const s1=strokesOf(name1), s2=strokesOf(name2), maxLen=Math.max(s1.length,s2.length);
+  let nums=[];
+  for(let i=0;i<maxLen;i++){ nums.push((s1[i]||['',0])[1], (s2[i]||['',0])[1]); }
+  while(nums.length>2 && nums.join('')!=='100'){
+    nums=nums.reduce((a,e,i,arr)=> i<arr.length-1 ? [...a,(e+arr[i+1])%10] : a, []);
+  }
+  return ~~nums.join('');
+}
+
+/* ===== 점수대별 연출 ===== */
+function band(s){
+  if(s>=90) return {emoji:'💞', tag:'천생연분', msg:'천생연분! 오늘 막걸리로 축배를 들어야 할 운명 🍶'};
+  if(s>=75) return {emoji:'😍', tag:'꽤 잘 맞음', msg:'꽤 잘 맞아요! 막걸리 한 잔이면 더 가까워질 사이'};
+  if(s>=60) return {emoji:'🥰', tag:'순항 중', msg:'좋은 흐름! 막걸리 기울이며 천천히 알아가 봐요'};
+  if(s>=40) return {emoji:'🤔', tag:'노력형', msg:'노력하면 충분! 막걸리 한 사발에 마음이 녹아요'};
+  if(s>=20) return {emoji:'😅', tag:'밀당 중', msg:'아직은 밀당 중? 막걸리로 분위기부터 풀어봐요'};
+  return {emoji:'🌶️', tag:'상극의 짜릿함', msg:'상극의 짜릿함! 막걸리 한 잔으로 중화가 필요해요'};
+}
+
+/* ===== DOM & 계산 흐름 ===== */
+const $=id=>document.getElementById(id);
+const n1=$('n1'), n2=$('n2'), result=$('result');
+const SAMPLE=['김민준','이서연','박도윤','최지우','정하준','강서윤','조시우','윤지아','임수아','한지호','오예린','권채원','신건우','황주원','문가온'];
+let last=null;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+$('rand').addEventListener('click',()=>{ const a=Math.floor(Math.random()*SAMPLE.length); let b; do{ b=Math.floor(Math.random()*SAMPLE.length); }while(b===a); n1.value=SAMPLE[a]; n2.value=SAMPLE[b]; });
+$('swap').addEventListener('click',()=>{ const t=n1.value; n1.value=n2.value; n2.value=t; });
+$('go').addEventListener('click',run);
+[n1,n2].forEach(el=>el.addEventListener('keydown',e=>{ if(e.key==='Enter') run(); }));
+
+function valid(s){ return /[가-힣]/.test(s); }
+async function run(){
+  const a=n1.value.trim(), b=n2.value.trim();
+  if(!valid(a)||!valid(b)){ alert('두 사람의 이름을 한글로 입력해 주세요 🙏'); return; }
+  const sMe=getScore(a,b), sYou=getScore(b,a);            // 양방향
+  const score=Math.round((sMe+sYou)/2);
+  const bd=band(score);
+  last={a,b,score,sMe,sYou,bd};
+
+  // 1) 결과 영역 노출 + 초기화
+  result.classList.add('show'); result.scrollIntoView({behavior:'smooth',block:'nearest'});
+  $('gbar').style.width='0'; $('gnum').textContent='0 / 100'; $('score').textContent='0';
+  ['tags','who','dir','verdict','emoji'].forEach(id=>{ if(id==='emoji'){$('emoji').textContent='🍶';} else $(id).innerHTML=''; });
+
+  // 2) 획수 칩 촤르륵
+  const chips=$('chips'); chips.innerHTML='';
+  const all=[...strokesOf(a), ...strokesOf(b)];
+  all.forEach(([c,n])=>{ const d=document.createElement('div'); d.className='chip'; d.innerHTML=`<b>${c}</b><span>획수 <span class="num">0</span></span>`; chips.appendChild(d); });
+  const chipEls=[...chips.children];
+  for(let i=0;i<chipEls.length;i++){
+    chipEls[i].classList.add('in');
+    await sleep(160);
+    const target=all[i][1], numEl=chipEls[i].querySelector('.num');
+    for(let v=1;v<=target;v++){ numEl.textContent=v; await sleep(28); }
+  }
+  await sleep(180);
+
+  // 3) 게이지 + 점수 카운트업
+  $('gbar').style.width=score+'%'; $('gnum').textContent=score+' / 100';
+  await sleep(120);
+  const dur=900, t0=performance.now();
+  await new Promise(res=>{ (function step(t){ const p=Math.min(1,(t-t0)/dur); $('score').textContent=Math.round(score*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); else res(); })(t0); });
+  $('emoji').textContent=bd.emoji;
+
+  // 4) 메시지/태그/양방향
+  const gap=Math.abs(sMe-sYou);
+  const tagList=[bd.tag, gap>=20?'감정 편차형':'밸런스형', '양방향 계산 완료'];
+  $('tags').innerHTML=tagList.map(t=>`<span class="pill">${t}</span>`).join('');
+  $('verdict').textContent=bd.msg;
+  const moreA = sMe>=sYou;
+  $('who').innerHTML = sMe===sYou
+    ? `두 사람 마음이 딱 같아요! 💕`
+    : `<b class="${moreA?'a':'b'}">${moreA?a:b}</b>님이 <b class="${moreA?'b':'a'}">${moreA?b:a}</b>님을 더 많이 좋아하고 있어요! 💕`;
+  $('dir').innerHTML = `<span>${a} 기준 <b>${sMe}점</b></span><span>${b} 기준 <b>${sYou}점</b></span>`;
+
+  logMatch('generate');
+}
+
+/* ===== 로깅 ===== */
+function logMatch(event){
+  if(!last) return;
+  try{ fetch(CONFIG.WEBAPP_URL,{method:'POST',body:JSON.stringify({type:'namegen',event:'match_'+event,name:`${last.a} × ${last.b}`,chosung:String(last.score),language:'ko',page:'match'})}); }catch(e){}
+  try{ if(window.va) va('event',{name:'match_'+event,page:'match',band:last.bd.tag}); }catch(e){}
+}
+
+/* ===== 스토리 카드 (1080×1920) ===== */
+const cv=$('card-canvas'), overlay=$('card-overlay');
+function wrap(x,text,cx,cy,maxW,lh){ const w=(text||'').split(' '); let line='',y=cy; for(const word of w){ const t=line?line+' '+word:word; if(x.measureText(t).width>maxW&&line){ x.fillText(line,cx,y); line=word; y+=lh; } else line=t; } if(line) x.fillText(line,cx,y); return y; }
+async function drawCard(){
+  if(!last) return; const d=last, x=cv.getContext('2d'), W=1080,H=1920;
+  try{ await Promise.all([document.fonts.load('900 200px Paperlogy'),document.fonts.load('700 40px Paperlogy')]); await document.fonts.ready; }catch(e){}
+  x.fillStyle='#F0A0BC'; x.fillRect(0,0,W,H); x.strokeStyle='#000'; x.lineWidth=14; x.strokeRect(40,40,W-80,H-80);
+  x.textAlign='center'; x.fillStyle='#000';
+  x.font='700 40px Paperlogy'; x.fillText('ㅈㄹ막걸리 · 이름 궁합',W/2,150);
+  x.font='700 23px Paperlogy'; x.fillText('× DOOTA POP-UP',W/2,192);
+  x.font='900 64px Paperlogy'; x.fillText(`${d.a} ♥ ${d.b}`,W/2,340);
+  x.font='110px serif'; x.fillText(d.bd.emoji,W/2,520);
+  x.font='700 46px Paperlogy'; x.fillText('두 사람의 궁합 점수',W/2,640);
+  x.font='900 240px Paperlogy'; x.fillStyle='#E11B2D'; x.fillText(d.score+'%',W/2,900);
+  x.fillStyle='#000'; x.font='700 40px Paperlogy'; wrap(x,d.bd.msg,W/2,1020,W-180,56);
+  // 게이지
+  x.strokeStyle='#000'; x.lineWidth=5; x.strokeRect(160,1180,W-320,46); x.fillStyle='#E11B2D'; x.fillRect(163,1183,(W-326)*d.score/100,40);
+  // 양방향
+  x.fillStyle='#000'; x.font='700 34px Paperlogy';
+  x.fillText(`${d.a} 기준 ${d.sMe}점     ${d.b} 기준 ${d.sYou}점`,W/2,1320);
+  x.font='700 38px Paperlogy'; x.fillText('DRINK HAPPY NOT HEAVY',W/2,1660);
+  x.font='700 30px Paperlogy'; x.fillText('@zr.makgeolli',W/2,1722);
+  x.font='400 24px Paperlogy'; x.fillText('DOOTA MALL B2F · 2026.6.8 – 6.30',W/2,1764);
+}
+async function openCard(){ await drawCard(); overlay.classList.add('show'); }
+$('save').addEventListener('click',()=>{ logMatch('save'); openCard(); });
+$('share').addEventListener('click',openCard);
+$('card-close').addEventListener('click',()=>overlay.classList.remove('show'));
+function blob(){ return new Promise(r=>cv.toBlob(r,'image/png')); }
+function dl(){ return blob().then(b=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='zr-match.png'; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1500); }); }
+$('card-save').addEventListener('click',()=>{ logMatch('save'); dl(); });
+$('card-share').addEventListener('click',async()=>{
+  logMatch('share');
+  const b=await blob(); const f=new File([b],'zr-match.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){
+    try{ await navigator.share({files:[f],text:`${last.a} ♥ ${last.b} 궁합 ${last.score}점 🍶 @zr.makgeolli`}); return; }catch(e){ if(e&&e.name==='AbortError') return; }
+  }
+  await dl(); try{ window.open('https://www.instagram.com/','_blank'); }catch(e){} alert('이미지를 저장했어요! 인스타그램에서 스토리에 올려보세요 🍶');
+});
+</script>
+</body>
+</html>

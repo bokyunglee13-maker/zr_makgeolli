@@ -90,7 +90,8 @@
   /* ===========================================================
      플로팅 네비게이션
   =========================================================== */
-  header{ position:fixed; top:0; left:0; right:0; z-index:80; }
+  header{ position:fixed; top:0; left:0; right:0; z-index:80; transition:transform .3s ease; }
+  header.nav-hidden{ transform:translateY(-105%); }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; }
   .nav .logo{ font-family:var(--display); font-size:22px; letter-spacing:-.04em; }
   @media (max-width:560px){ .nav .logo{ font-size:17px; } }
@@ -102,6 +103,7 @@
     font-family:var(--mono); font-size:12px; color:var(--white); text-transform:uppercase;
     padding:8px 14px; border-radius:999px; transition:.2s;
   }
+  .pill a.accent{ color:var(--pink); }
   .pill a:hover{ background:var(--white); color:var(--black); }
   .nav-right{ display:flex; align-items:center; gap:14px; }
   .lang{ display:flex; gap:6px; align-items:center; }
@@ -113,6 +115,8 @@
   .lang button[aria-pressed="true"]{ opacity:1; box-shadow:0 0 0 2px var(--black); }
   .nav-ig{ display:inline-flex; }
   .nav-ig svg{ width:22px; height:22px; }
+  /* 고정 네비 높이만큼 앵커 스크롤 여백 */
+  #about,#taste,#visit,#gen,#apply{ scroll-margin-top:84px; }
 
   /* ===========================================================
      버튼
@@ -363,7 +367,10 @@
      반응형
   =========================================================== */
   @media (max-width:860px){
-    .pill{ display:none; }
+    .nav{ flex-wrap:wrap; row-gap:9px; padding:12px 16px; }
+    .pill{ order:3; width:100%; justify-content:center; gap:3px; padding:5px 6px; }
+    .pill a{ font-size:11px; padding:7px 10px; }
+    #about,#taste,#visit,#gen,#apply{ scroll-margin-top:118px; }
     .hero-meta{ grid-template-columns:1fr; text-align:center; gap:24px; }
     .hero-meta .right{ text-align:center; }
     .svc{ grid-template-columns:48px 1fr 36px; gap:12px; }
@@ -381,8 +388,9 @@
     <div class="pill">
       <a href="#about">ABOUT</a>
       <a href="#taste">TASTE</a>
-      <a href="#work">PROGRAM</a>
+      <a href="#gen" class="accent">EVENT</a>
       <a href="#visit">VISIT</a>
+      <a href="#apply" class="accent">GIFT</a>
     </div>
     <div class="nav-right">
       <div class="lang" role="group" aria-label="language">
@@ -557,6 +565,25 @@
     <p class="gen-track" data-i18n="gen.track">입력한 이름은 통계 목적으로 수집될 수 있어요.</p>
   </div>
 </section>
+
+<!-- ================= 이름 궁합 배너 ================= -->
+<style>
+  .matchband{ display:block; background:var(--black); color:#fff; }
+  .matchband-inner{ max-width:900px; margin:0 auto; padding:56px 24px; text-align:center; }
+  .matchband .kicker span{ color:var(--pink); }
+  .matchband h2{ font-family:var(--display); font-size:clamp(30px,6vw,54px); letter-spacing:-.03em; line-height:1.02; margin:12px 0 10px; color:#fff; }
+  .matchband p{ font-family:var(--mono); font-size:13px; text-transform:uppercase; opacity:.8; margin-bottom:22px; }
+  .matchband-cta{ display:inline-block; border:2px solid var(--pink); background:var(--pink); color:var(--black); font-family:var(--mono); font-weight:700; text-transform:uppercase; font-size:14px; padding:14px 28px; border-radius:999px; transition:transform .2s; }
+  .matchband:hover .matchband-cta{ transform:scale(1.06); }
+</style>
+<a class="matchband" href="/match">
+  <div class="matchband-inner">
+    <div class="kicker"><span>NAME MATCH</span></div>
+    <h2 data-i18n="match.h">우리 궁합, ㅈㄹ인가요? 🍶</h2>
+    <p data-i18n="match.d">두 사람 이름 넣고 궁합 점수 확인!</p>
+    <span class="matchband-cta" data-i18n="match.cta">궁합 보러 가기 →</span>
+  </div>
+</a>
 
 <!-- ================= 방문 안내 ================= -->
 <section class="block" id="visit">
@@ -733,6 +760,7 @@ const I18N = {
     "program.c4t":"초성 네임","program.c4d":"내 이름을 ㅈㄹ로 바꿔보기",
     "gen.h":"내 이름, ㅈㄹ로 만들기","gen.desc":"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
     "gen.ph":"이름 입력 (예: 김민지)","gen.btn":"만들기","gen.resultLabel":"나의 이름","gen.share":"인스타 공유","gen.save":"이미지 저장","gen.close2":"닫기","gen.hint":"캡처해서 인스타 스토리에 올려보세요!","gen.sharefallback":"이미지를 저장했어요. 인스타 스토리에 올려보세요!","gen.track":"입력한 이름은 통계 목적으로 수집될 수 있어요.",
+    "match.h":"우리 궁합, ㅈㄹ인가요? 🍶","match.d":"두 사람 이름 넣고 궁합 점수 확인!","match.cta":"궁합 보러 가기 →",
     "visit.eyebrow":"VISIT","visit.h":"방문 안내",
     "visit.dateL":"기간","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"장소","visit.placeV":"두타몰 B2F · 서울 중구 장충단로 275",
@@ -785,6 +813,7 @@ const I18N = {
     "program.c4t":"Korean Alphabet Name","program.c4d":"Turn your name into the Korean alphabet",
     "gen.h":"Make Your Name ㅈㄹ","gen.desc":"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
     "gen.ph":"Enter your name (e.g. EMMA)","gen.btn":"Generate","gen.resultLabel":"MY NAME","gen.share":"Share","gen.save":"Save image","gen.close2":"Close","gen.hint":"Post it to your IG story!","gen.sharefallback":"Saved! Post it to your Instagram story.","gen.track":"Entered names may be collected for statistics.",
+    "match.h":"Are We a Match? 🍶","match.d":"Two names → your makgeolli compatibility score! (Korean names)","match.cta":"Try Name Match →",
     "visit.eyebrow":"VISIT","visit.h":"Visit Info",
     "visit.dateL":"Dates","visit.dateV":"Jun 8 – 30, 2026",
     "visit.placeL":"Place","visit.placeV":"DOOTA Mall B2F · 275 Jangchungdan-ro, Jung-gu, Seoul",
@@ -837,6 +866,7 @@ const I18N = {
     "program.c4t":"頭文字ネーム","program.c4d":"自分の名前を ㅈㄹ に変換",
     "gen.h":"あなたの名前を ㅈㄹ に","gen.desc":"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
     "gen.ph":"ローマ字で入力（例：HIMARI）","gen.btn":"作成","gen.resultLabel":"私の名前","gen.share":"インスタで共有","gen.save":"画像を保存","gen.close2":"閉じる","gen.hint":"ストーリーに載せてね！","gen.sharefallback":"画像を保存しました。ストーリーに載せてね！","gen.track":"入力された名前は統計目的で収集される場合があります。",
+    "match.h":"私たちの相性は？ 🍶","match.d":"二人の名前でマッコリ相性スコア！（韓国語の名前）","match.cta":"相性を見る →",
     "visit.eyebrow":"VISIT","visit.h":"来場案内",
     "visit.dateL":"期間","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"場所","visit.placeV":"DOOTAモール B2F · ソウル中区奨忠壇路275",
@@ -889,6 +919,7 @@ const I18N = {
     "program.c4t":"首字母名","program.c4d":"把你的名字变成 ㅈㄹ 首字母",
     "gen.h":"把你的名字变成 ㅈㄹ","gen.desc":"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",
     "gen.ph":"用拼音或英文输入（例：XINYI）","gen.btn":"生成","gen.resultLabel":"我的名字","gen.share":"分享到IG","gen.save":"保存图片","gen.close2":"关闭","gen.hint":"发到你的IG快拍吧！","gen.sharefallback":"已保存图片，发到IG快拍吧！","gen.track":"输入的名字可能用于统计收集。",
+    "match.h":"我们合得来吗？ 🍶","match.d":"输入两人姓名看马格利缘分分数！（韩文姓名）","match.cta":"去测缘分 →",
     "visit.eyebrow":"VISIT","visit.h":"到场指南",
     "visit.dateL":"日期","visit.dateV":"2026.6.8 – 6.30",
     "visit.placeL":"地点","visit.placeV":"DOOTA购物中心 B2F · 首尔中区奖忠坛路275",
@@ -1007,6 +1038,21 @@ function applyLang(lang){
 document.querySelectorAll('.lang button').forEach(b=>{
   b.addEventListener('click', ()=> applyLang(b.dataset.lang));
 });
+
+/* 네비 스마트 숨김: 내리면 숨고, 올리면 다시 등장 */
+(function(){
+  const hdr = document.querySelector('header'); if(!hdr) return;
+  let lastY = window.scrollY, ticking = false;
+  window.addEventListener('scroll', ()=>{
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(()=>{
+      const y = window.scrollY;
+      if(y > 140 && y > lastY + 4) hdr.classList.add('nav-hidden');      // 아래로 → 숨김
+      else if(y < lastY - 4 || y <= 140) hdr.classList.remove('nav-hidden'); // 위로/상단 → 등장
+      lastY = y; ticking = false;
+    });
+  }, {passive:true});
+})();
 
 /* ===========================================================
    4) 링크 주입

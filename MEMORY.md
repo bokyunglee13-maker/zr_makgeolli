@@ -6,6 +6,7 @@
 ```
 index.html            # 랜딩 (4개 언어 i18n 내장)
 name.html             # 초성 생성기 단독 페이지 (4개 언어)
+match.html            # 이름 궁합 테스트 (한글 획수 궁합, 한국어 전용, 자체 알고리즘 내장)
 survey.html           # 시음·브랜드 설문 (4개 언어, 기본 en)
 assets/chosung.js     # ★ 초성 변환 엔진(공유) — index/name 둘 다 <script src>로 로드
 apps-script/Code.gs   # 구글시트 백엔드 (gift / survey / 레거시 응모 분기)
@@ -50,7 +51,7 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
 - **대용량 원본**: `_originals/`(56MB png 등)는 gitignore. 배포/Push 전 거대 파일 들어가지 않게 유지. 신규 이미지는 PIL로 웹 최적화 후 assets에.
 - **막꾸 이미지**: `assets/makku.jpg`(우하단 제미나이 워터마크 제거 + 최적화본). 원본은 `_originals/makku.png`.
 - **레거시 코드**: Code.gs 의 default(응모폼+쿠폰 `responses`) 분기는 현재 프론트 미사용 → 정리 가능하나 보존 중.
-- **로컬 미리보기**: 정적 파일이라 Python `http.server` 등으로 폴더 서빙. (`.claude/launch.json` 은 gitignore)
+- **로컬 미리보기**: 정적 파일 폴더 서빙. ⚠️ 이 환경의 `python`/`python3`은 **MS Store 스텁(가짜)** 이라 안 됨 → **node** 사용. `.claude/serve.cjs`(미니 static 서버, 5510) + `.claude/launch.json`(`node .claude/serve.cjs`). **둘 다 `.claude/`라 gitignore**(로컬 전용, 배포·저장소 무관).
 
 ## 7. 의사결정 로그 (요약)
 - 응모폼/쿠폰 → **SNS 인증 기프트 가챠**로 전환 (UGC 확산 목적).
@@ -74,6 +75,7 @@ PRD.md / DESIGN.md / MEMORY.md / README.md
   - 팔로우 링크 **언어별 분기**: `applyLang()`에서 `lang==='zh' ? CONFIG.XHS_URL : CONFIG.INSTA_URL`로 `gift-follow`/`gift-follow2` href 설정(언어 전환 시 갱신). `CONFIG.XHS_URL = search_result?keyword=Tipsyrice`(**검색 딥링크**). 小红书는 웹→앱 링크가 불안정 → s1d에 **ID 텍스트로 검색 유도**가 핵심(프로필 URL 불필요, 의도된 선택).
   - 푸터 SNS(`footer-insta`)도 언어 분기 포함 → zh는 텍스트 "小红书 Tipsyrice" + href XHS_URL, 그 외 Instagram. ⚠️ 다른 언어(ko/en/ja)는 그대로 Instagram/스토리.
 - 생성기 입력 placeholder = 언어별 **흔한 이름**(KO 김민지 / EN EMMA / JA HIMARI / ZH XINYI) — 셀럽 이름 혼동 방지, "본인 이름 입력" 유도. 변환 **예시**는 설명부(JANG WON YOUNG·JUNGKOOK·Rihanna, 각 줄바꿈, **결과는 글자마다 한 칸 띄움으로 통일**: ㅈ ㅇ ㅇ / ㅈ ㄱ / ㄹ ㅎ ㄴ)로 분리.
+- **이름 궁합(match.html, 한국어 전용)** 추가: 한글 **획수 궁합** 알고리즘(초/중/종성 분해→자소 획수 합→두 이름 교차 배열→인접합 mod10 반복→2자리 점수). chosung.js와 **별개**(match.html에 자체 내장, 한글 전용이라 분리). 양방향(`getScore(A,B)`/`(B,A)`, 순서 의존) → 각자 기준 점수, 헤드라인=평균, 높은 쪽이 더 좋아함. 키치 연출(획수 카운트업→게이지→점수 카운트업→점수대별 이모지·막걸리 멘트 6단계). 스토리 카드(1080×1920 Canvas) 저장/공유. 로깅 = `namegen` 시트 재사용(event=`match_*`, name=`A × B`, chosung=점수, page=`match`) → **Apps Script 수정 불필요**. 랜딩 진입 배너(`.matchband`, i18n `match.h/d/cta` 4언어). 라우트 `/match`(vercel.json). 알고리즘 검증: 배성재×장예원=77, 장원영 기준 93·안유진 기준 73(레퍼런스 일치).
 
 ## 8. 배포 절차
 1. **Apps Script**: 구글시트 → Apps Script에 `Code.gs` 붙여넣기 → 웹앱 배포(실행:나 / 액세스:모든 사용자) → URL 획득.

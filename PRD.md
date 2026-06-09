@@ -14,6 +14,7 @@
 |---|---|---|---|
 | 랜딩 | `index.html` | `/`, `/ko` `/en` `/ja` `/zh` | 언어별 QR. 기본 ko |
 | 초성 생성기(단독) | `name.html` | `/name` (+`?lang=`) | 생성기만 단독 노출 |
+| 이름 궁합 테스트 | `match.html` | `/match` | **한국어 전용**(한글 획수 궁합). 랜딩에 진입 배너 |
 | 시음·브랜드 설문 | `survey.html` | `/survey`, `/survey/ko` `/survey/en` `/survey/ja` `/survey/zh` | 외국인 대상, 기본 en, 언어별 QR |
 
 - 언어 결정 우선순위: **URL 경로(/en) > `?lang=` > localStorage > 기본값**.
@@ -34,6 +35,7 @@
    - 03 막꾸 (클릭 토글 → 키링 사진 `makku.jpg` 카드 표시)
    - 04 Korean Alphabet Name (클릭 → 생성기로 이동)
 10. **KOREAN NAME GENERATOR** — 띠배너 + 가운데 폼 → 결과를 **인스타 스토리 카드(1080×1920) 모달**로 (이미지 저장 / 공유)
+10-1. **NAME MATCH 배너** — `/match`(이름 궁합 테스트)로 가는 다크 진입 배너 (4개 언어 노출, 페이지는 한국어 전용)
 11. **VISIT** — 기간·장소·운영시간·입장 + 기프트 안내 배너
 12. **APPLY (SNS 인증 기프트 뽑기)** — 아래 4번
 13. **FOOTER** — 인스타 + 개인정보처리방침 (스토어 링크 없음)
@@ -57,6 +59,13 @@
 - 데이터 → 구글시트 `gifts` 시트.
 - **중국어(zh) 변형**: 중국은 Instagram 불가 → zh 버전만 **小红书(RED)** 흐름. **계정: 小红书号 `Tipsyrice` / 닉네임 `Makgeolli lover`.** 팔로우=关注(在小红书搜索「Tipsyrice」), 스토리 대신 **笔记(피드 포스트)** 발행 + 멘션 `@Makgeolli lover` + 태그 `#韩国旅游 #韩国旅行 #韩国米酒 #首尔美食 #首尔必吃` + **DOOTA 地点(위치)**. 팔로우 버튼 + **푸터 SNS**(`footer-insta`, zh는 "小红书 Tipsyrice")는 `lang==='zh'`일 때 `CONFIG.XHS_URL = search_result?keyword=Tipsyrice`(검색 딥링크; 小红书 웹→앱 불안정해 ID 검색 유도). 다른 언어는 Instagram 유지. **검색/팔로우/푸터에 닉네임 대신 유일 ID(`Tipsyrice`)를 쓰는 이유**: 小红书 닉네임은 중복 가능(동명이인·사칭)이라 닉네임 검색은 엉뚱한 계정이 뜰 수 있음. @멘션만 닉네임 불가피.
 
+### 4-4. 이름 궁합 테스트 (match.html, 한국어 전용)
+- 커플/친구 **두 사람 한글 이름** 입력 → **한글 획수 궁합** 점수. 알고리즘: 각 글자를 초/중/종성 분해 후 자소 획수 합산 → 두 이름 획수를 교차 배열 → 인접 합 mod 10 반복 → 최종 2자리(점수). 전통 "이름 궁합" 방식.
+- **양방향**: 이름 순서를 바꿔 계산(`getScore(A,B)` / `getScore(B,A)`)해 "각자 기준 점수"를 보여줌(순서 의존). 헤드라인 = 두 점수 평균. 높은 쪽이 "더 많이 좋아하는" 사람.
+- **키치 연출**: 글자별 획수 카운트업(촤르륵) → 게이지 채움 + 점수 카운트업 → 점수대별 이모지·막걸리 테마 멘트(천생연분~상극의 짜릿함 6단계)·태그.
+- **인스타 스토리 카드(1080×1920 Canvas)**: `A ♥ B` + 점수% + 이모지 + 멘트 + 양방향 + 슬로건/핸들. 저장/공유(Web Share). 랜딩에 진입 배너(`match.h/d/cta`, 4개 언어 노출).
+- ⚠️ 획수 궁합은 **한글 전용**(외국 이름은 획수 산출 불가) → KO UI·한글 입력만. 데이터 → `namegen` 시트(event=`match_*`).
+
 ### 4-3. 시음·브랜드 설문 (survey.html, 외국인 대상)
 - 문항: ① 기본(국적 입력·성별) ② 전체적인 맛 만족도(필수, 1 별로~5 아주좋아요) ③ 디자인 호감도(1~5)·가격 적정성(1 비싸다~5 저렴하다) ④ 재구매 의향(1~5) ⑤ 자유 의견.
 - 4개 언어, 기본 en. 데이터 → 구글시트 `survey` 시트.
@@ -64,7 +73,7 @@
 ## 5. 데이터 모델 (구글시트, Apps Script)
 - `gifts`: timestamp · instagram · gift · followed · story · code · language
 - `survey`: timestamp · language · nationality · gender · overall · design · price · repurchase · comment
-- `namegen`: timestamp · event(generate/share/save) · name(입력원본) · chosung · language · page(index/name) — 생성기 사용 로깅(횟수·입력 이름).
+- `namegen`: timestamp · event · name · chosung · language · page — 초성 생성기(event=generate/share/save, page=index/name) **+ 이름 궁합**(event=`match_generate/share/save`, page=`match`, name=`A × B`, chosung=점수) 공용 적재.
 - `responses` (레거시, 현재 프론트 미사용): 과거 응모폼·쿠폰용. 코드엔 남아있으나 사이트에서 호출 안 함.
 - **분석 2단**: ①구글시트 `namegen`(원본 이름+횟수) ②Vercel Web Analytics 커스텀 이벤트 `name_generate/share/save`(이름 없이 횟수·언어·페이지). 생성기 하단 "통계 수집" 안내문 표기(4개 언어).
 - 한 개의 웹앱이 `type` 으로 분기: `gift` / `survey` / `namegen` / (default=레거시 응모).
@@ -73,6 +82,7 @@
 ## 6. 전환(Conversion) 목표
 - 1차: SNS 팔로우 + 스토리 인증(UGC 확산) → 기프트.
 - 2차: 초성 생성기 카드 공유(바이럴).
+- 2-1차: **이름 궁합 카드 공유**(커플/친구 단위 바이럴 — 캡처해 인스타 스토리 업로드 유도).
 - 3차(외국인): 설문 데이터 수집(맛·디자인·가격·재구매).
 
 ## 7. 확정된 결정사항

@@ -8,6 +8,7 @@
 ```
 index.html            # 랜딩 (HERO·ABOUT·MEANING·TASTE·MADE WITH·GALLERY·PROGRAM·생성기·VISIT·기프트뽑기)
 name.html             # Korean Alphabet Name 생성기 단독 페이지
+match.html            # 이름 궁합 테스트 (한글 획수 궁합, 한국어 전용, 스토리 카드)
 survey.html           # 시음·브랜드 설문 (외국인 대상, 4개 언어)
 assets/chosung.js     # 초성 변환 엔진(공유) — 언어별 분기(ko/en/ja/zh), toChosung(name,lang)
 apps-script/Code.gs   # 구글시트 백엔드 (gift / survey 분기)
@@ -20,6 +21,7 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 |---|---|
 | 랜딩(언어별) | `/ko` `/en` `/ja` `/zh` |
 | 생성기 단독 | `/name` |
+| 이름 궁합 | `/match` (한국어 전용) |
 | 설문(언어별) | `/survey/ko` `/survey/en` `/survey/ja` `/survey/zh` |
 
 → **언어별로 QR을 따로** 만들면 됩니다. 언어 토글은 **국기 아이콘**(🇰🇷/🇺🇸/🇯🇵/🇨🇳, flagcdn). 운영시간 **14:00–24:00 (MON–SUN)**.
@@ -34,7 +36,8 @@ assets/               # 웹 최적화 이미지   /  _originals/ = 원본(gitign
 ## 데이터(구글시트)
 - `gifts`: timestamp · instagram(빈값) · gift · followed · story · code · language
 - `survey`: timestamp · language · nationality · gender · overall · design · price · repurchase · comment
-- `namegen`: timestamp · event(generate/share/save) · name · chosung · language · page
+- `namegen`: timestamp · event(generate/share/save, 궁합은 match_*) · name · chosung(궁합은 점수) · language · page(name/match)
+  - 이름 궁합(match)도 같은 `namegen` 시트에 적재: event=`match_generate/share/save`, name=`A × B`, chosung=점수
 - `Dashboard`: 시트 메뉴 **[📊 ZR > 대시보드 갱신]** 으로 KPI 요약 자동 생성 (`buildDashboard()`)
 - 분석: 구글시트(내용·전환) + Vercel Analytics(방문수·이벤트, Enable됨)
 

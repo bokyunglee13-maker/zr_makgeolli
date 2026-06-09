@@ -95,7 +95,7 @@
       <button class="btn btn--invert" id="card-save" data-k="save">이미지 저장</button>
       <button class="btn btn--dark" id="card-close" data-k="close">닫기</button>
     </div>
-    <p class="card-hint" data-k="hint">캡처해서 인스타 스토리에 올려보세요!</p>
+    <p class="card-hint" data-k="hint">인스타 스토리에 올려보세요!</p>
   </div>
 </div>
 
@@ -106,7 +106,7 @@
 
 /* ===== 다국어 (생성기 전용) ===== */
 const I18N = {
-  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: 김민지)",btn:"만들기",label:"나의 이름",slogan:"DRINK HAPPY NOT HEAVY",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"캡처해서 인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!",track:"입력한 이름은 통계 목적으로 수집될 수 있어요."},
+  ko:{title:"내 이름, ㅈㄹ로 만들기 | ㅈㄹ막걸리",h:"내 이름, ㅈㄹ로 만들기",desc:"이름을 입력하면 한글 초성으로 바꿔드려요. 한글·영문 OK!\n예) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"이름 입력 (예: 김민지)",btn:"만들기",label:"나의 이름",slogan:"DRINK HAPPY NOT HEAVY",share:"인스타 공유",save:"이미지 저장",close:"닫기",hint:"인스타 스토리에 올려보세요!",fb:"이미지를 저장했어요. 인스타 스토리에 올려보세요!",track:"입력한 이름은 통계 목적으로 수집될 수 있어요."},
   en:{title:"Make Your Name ㅈㄹ | ZR Makgeolli",h:"Make Your Name ㅈㄹ",desc:"Type your name → Korean alphabet. Korean & English OK!\ne.g. JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"Enter your name (e.g. EMMA)",btn:"Generate",label:"MY NAME",slogan:"DRINK HAPPY NOT HEAVY",share:"Share",save:"Save image",close:"Close",hint:"Post it to your IG story!",fb:"Saved! Post it to your Instagram story.",track:"Entered names may be collected for statistics."},
   ja:{title:"あなたの名前を ㅈㄹ に | ㅈㄹマッコリ",h:"あなたの名前を ㅈㄹ に",desc:"名前をローマ字で入力するとハングルの頭文字に！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"ローマ字で入力（例：HIMARI）",btn:"作成",label:"私の名前",slogan:"DRINK HAPPY NOT HEAVY",share:"インスタで共有",save:"画像を保存",close:"閉じる",hint:"ストーリーに載せてね！",fb:"画像を保存しました。ストーリーに載せてね！",track:"入力された名前は統計目的で収集される場合があります。"},
   zh:{title:"把你的名字变成 ㅈㄹ | ㅈㄹ马格利酒",h:"把你的名字变成 ㅈㄹ",desc:"用拼音或英文输入即可变韩文首字母！\n例) JANG WON YOUNG → ㅈ ㅇ ㅇ,\nJUNGKOOK → ㅈ ㄱ,\nRihanna → ㄹ ㅎ ㄴ",ph:"用拼音或英文输入（例：XINYI）",btn:"生成",label:"我的名字",slogan:"DRINK HAPPY NOT HEAVY",share:"分享到IG",save:"保存图片",close:"关闭",hint:"发到你的IG快拍吧！",fb:"已保存图片，发到IG快拍吧！",track:"输入的名字可能用于统计收集。"}
@@ -160,8 +160,10 @@ document.getElementById('card-save').addEventListener('click',()=>{ logName('sav
 document.getElementById('card-share').addEventListener('click',async()=>{
   logName('share',lastGen.name,lastGen.cho);
   const b=await blob(); const f=new File([b],'zr-name.png',{type:'image/png'});
-  if(navigator.canShare&&navigator.canShare({files:[f]})){ try{ await navigator.share({files:[f],text:'내 ㅈㄹ 이름 🍶 @zr.makgeolli'});}catch(e){} }
-  else { await dl(); alert(I18N[LANG].fb); }
+  if(navigator.canShare&&navigator.canShare({files:[f]})){
+    try{ await navigator.share({files:[f],text:'내 ㅈㄹ 이름 🍶 @zr.makgeolli'}); return; }catch(e){ if(e&&e.name==='AbortError') return; }
+  }
+  await dl(); try{ window.open('https://www.instagram.com/','_blank'); }catch(e){} alert(I18N[LANG].fb);
 });
 applyLang(LANG);
 </script>
