@@ -42,7 +42,7 @@
   .field{ flex:1; }
   .field label{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:12px; font-weight:700; text-transform:uppercase; margin-bottom:8px; }
   .field .tag{ opacity:.45; }
-  .field input{ width:100%; border:2px solid var(--black); background:#fff; padding:15px; font-family:var(--display); font-size:20px; text-align:center; }
+  .field input{ width:100%; border:2px solid var(--black); background:#fff; padding:14px 8px; font-family:var(--display); font-size:clamp(15px,4.4vw,18px); text-align:center; }
   .field input:focus{ outline:none; background:var(--pink-soft); }
   .swap{ width:50px; height:50px; flex:0 0 auto; margin-bottom:2px; border:2px solid var(--black); background:#fff; border-radius:999px; font-size:20px; cursor:pointer; transition:transform .25s; }
   .swap:hover{ transform:rotate(180deg); background:var(--pink-soft); }
@@ -57,7 +57,8 @@
   #result{ display:none; margin-top:26px; background:var(--white); border:3px solid var(--black); padding:24px 22px 28px; }
   #result.show{ display:block; animation:pop .35s ease; }
   @keyframes pop{ from{ transform:scale(.96); opacity:0; } to{ transform:scale(1); opacity:1; } }
-  .chips{ display:flex; flex-wrap:wrap; gap:7px; justify-content:center; margin-bottom:18px; min-height:54px; }
+  .chips{ display:flex; flex-direction:column; align-items:center; gap:9px; margin-bottom:18px; min-height:54px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:7px; justify-content:center; }
   .chip{ border:2px solid var(--black); border-radius:10px; padding:5px 9px; text-align:center; line-height:1.1; opacity:0; transform:translateY(8px); transition:.25s; }
   .chip.in{ opacity:1; transform:none; }
   .chip b{ font-family:var(--display); font-size:18px; display:block; }
@@ -220,9 +221,10 @@ async function run(){
 
   // 2) 획수 칩 촤르륵
   const chips=$('chips'); chips.innerHTML='';
-  const all=[...strokesOf(a), ...strokesOf(b)];
-  all.forEach(([c,n])=>{ const d=document.createElement('div'); d.className='chip'; d.innerHTML=`<b>${c}</b><span>획수 <span class="num">0</span></span>`; chips.appendChild(d); });
-  const chipEls=[...chips.children];
+  const g1=strokesOf(a), g2=strokesOf(b); const all=[...g1,...g2];
+  function buildRow(arr){ const row=document.createElement('div'); row.className='chip-row'; arr.forEach(([c,n])=>{ const d=document.createElement('div'); d.className='chip'; d.innerHTML=`<b>${c}</b><span>획수 <span class="num">0</span></span>`; row.appendChild(d); }); chips.appendChild(row); }
+  buildRow(g1); buildRow(g2);
+  const chipEls=[...chips.querySelectorAll('.chip')];
   for(let i=0;i<chipEls.length;i++){
     chipEls[i].classList.add('in');
     await sleep(160);
@@ -231,14 +233,12 @@ async function run(){
   }
   await sleep(180);
 
-  // 3) 게이지 + 점수 카운트업
+  // 3) 게이지 + 점수 카운트업(타이머·논블로킹) + 이모지
   $('gbar').style.width=score+'%'; $('gnum').textContent=score+' / 100';
-  await sleep(120);
-  const dur=900, t0=performance.now();
-  await new Promise(res=>{ (function step(t){ const p=Math.min(1,(t-t0)/dur); $('score').textContent=Math.round(score*(1-Math.pow(1-p,3))); if(p<1) requestAnimationFrame(step); else res(); })(t0); });
   $('emoji').textContent=bd.emoji;
+  (function(){ const steps=22; let i=0; const id=setInterval(()=>{ i++; $('score').textContent = i>=steps ? score : Math.round(score*(1-Math.pow(1-i/steps,3))); if(i>=steps) clearInterval(id); }, 34); })();
 
-  // 4) 메시지/태그/양방향
+  // 4) 메시지/태그/양방향 (즉시 표시 — 카운트업과 무관)
   const gap=Math.abs(sMe-sYou);
   const tagList=[bd.tag, gap>=20?'감정 편차형':'밸런스형', '양방향 계산 완료'];
   $('tags').innerHTML=tagList.map(t=>`<span class="pill">${t}</span>`).join('');
